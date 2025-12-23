@@ -140,19 +140,18 @@ hr.sep{
   margin-bottom: 20px;
 }
 
-.photo.hero img{.photo.hero{
-  max-height: 220px;
-  overflow: hidden;
+.photo.hero{
   border-radius: 16px;
   margin-bottom: 22px;
+  overflow: hidden;
 }
 
 .photo.hero img{
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  object-position: center 35%;
+  height: auto;
+  display: block;
 }
+
 
 .title{
   background: linear-gradient(
