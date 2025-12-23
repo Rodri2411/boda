@@ -133,4 +133,17 @@ hr.sep{
   color: var(--muted);
   font-size: 13px;
 }
+.photo.hero{
+  max-height: 360px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.photo.hero img{
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
 
