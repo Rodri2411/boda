@@ -1,53 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
-<div class="photo">
-  <img src="20250201_125621.jpg" alt="Agustina y Rodrigo">
-</div>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nuestra Boda</title>
-  <link rel="stylesheet" href="style.css?v=2">
+  <title>Agustina & Rodrigo — Invitación</title>
+  <meta name="description" content="Invitación a nuestra boda — Agustina & Rodrigo" />
+  <link rel="stylesheet" href="style.css?v=1">
 </head>
+
 <body>
-  <div class="container">
-    <div class="card">
-      <header class="header">
-        <div class="badge">Invitación</div>
-        <h1 class="title">Agustina & Rodrigo</h1>
-        <p class="subtitle">Nos casamos 💍</p>
-      </header>
+  <main class="container">
+    <article class="card">
+
+      <!-- HERO -->
+      <section class="hero">
+        <!-- Por ahora usamos tu foto principal -->
+        <img class="hero-img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
+        <div class="hero-overlay">
+          <div class="badge">Invitación</div>
+          <h1 class="title">Agustina & Rodrigo</h1>
+          <p class="subtitle">Nos casamos 💍</p>
+
+          <!-- COUNTDOWN -->
+          <div class="countdown" aria-label="Cuenta regresiva">
+            <div class="cd-box">
+              <span id="d" class="cd-num">--</span>
+              <small class="cd-label">días</small>
+            </div>
+            <div class="cd-box">
+              <span id="h" class="cd-num">--</span>
+              <small class="cd-label">hs</small>
+            </div>
+            <div class="cd-box">
+              <span id="m" class="cd-num">--</span>
+              <small class="cd-label">min</small>
+            </div>
+            <div class="cd-box">
+              <span id="s" class="cd-num">--</span>
+              <small class="cd-label">seg</small>
+            </div>
+          </div>
+
+          <p class="hint">Guardá este link. Más cerca de la fecha agregamos mapa, horarios y RSVP.</p>
+        </div>
+      </section>
 
       <hr class="sep" />
 
-      <div class="grid">
-        <section class="section">
+      <!-- INFO PRINCIPAL -->
+      <section class="grid">
+        <div class="section">
           <h2>📅 Fecha</h2>
-          <p>3 de octubre de 2026</p>
-        </section>
+          <p><strong>3 de octubre de 2026</strong></p>
+          <p class="muted">Horario a confirmar</p>
+        </div>
 
-        <section class="section">
+        <div class="section">
           <h2>📍 Lugar</h2>
-          <p>Mendoza</p>
-        </section>
+          <p><strong>Mendoza</strong></p>
+          <p class="muted">Dirección a confirmar</p>
+        </div>
 
-        <section class="section">
+        <div class="section">
           <h2>👔 Dress code</h2>
-          <p>Elegante</p>
-        </section>
+          <p><strong>Elegante</strong></p>
+          <p class="muted">Sin estrés: vení cómodo/a y prolijo/a.</p>
+        </div>
 
-        <section class="section">
-          <h2>📩 Confirmación</h2>
-          <p>Próximamente</p>
-        </section>
-      </div>
+        <div class="section">
+          <h2>✅ Confirmación</h2>
+          <p><strong>Próximamente</strong></p>
+          <p class="muted">Publicaremos el formulario de asistencia.</p>
+        </div>
+      </section>
 
       <hr class="sep" />
+
+      <!-- CEREMONIA / FIESTA -->
+      <section class="grid">
+        <div class="section">
+          <h2>⛪ Ceremonia</h2>
+          <p class="muted">Detalle y ubicación a confirmar.</p>
+          <a class="btn disabled" href="#" onclick="return false;">Llegar a la ceremonia</a>
+        </div>
+
+        <div class="section">
+          <h2>🎉 Fiesta</h2>
+          <p class="muted">Detalle y ubicación a confirmar.</p>
+          <a class="btn disabled" href="#" onclick="return false;">Llegar a la fiesta</a>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <!-- REGALOS -->
+      <section class="section">
+        <h2>🎁 Regalos</h2>
+        <p class="muted">
+          El mejor regalo es tu presencia. Si querés colaborar con nuestra Luna de Miel, dejamos los datos acá:
+        </p>
+
+        <details class="details">
+          <summary>Ver datos bancarios</summary>
+          <div class="details-body">
+            <p><strong>Titular:</strong> A completar</p>
+            <p><strong>Banco:</strong> A completar</p>
+            <p><strong>CBU:</strong> A completar</p>
+            <p><strong>Alias:</strong> A completar</p>
+          </div>
+        </details>
+      </section>
+
+      <hr class="sep" />
+
+      <!-- RSVP -->
+      <section class="section center">
+        <h2>📝 RSVP</h2>
+        <p class="muted">En breve habilitamos el link de confirmación.</p>
+        <a class="btn disabled" href="#" onclick="return false;">Confirmar asistencia</a>
+      </section>
 
       <p class="footer">
-        Guardá este link — más cerca de la fecha agregamos mapa, horarios y RSVP.
+        Hecho con amor y un poquito de CSS (lo justo, como Dios manda).
       </p>
-    </div>
-  </div>
+    </article>
+  </main>
+
+  <!-- Countdown JS inline (sin archivo extra) -->
+  <script>
+    // Ajustá la hora cuando la tengas. Mendoza (UTC-3).
+    const target = new Date("2026-10-03T19:00:00-03:00").getTime();
+
+    function tick(){
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      const pad = (n) => String(n).padStart(2, "0");
+      document.getElementById("d").textContent = d;
+      document.getElementById("h").textContent = pad(h);
+      document.getElementById("m").textContent = pad(m);
+      document.getElementById("s").textContent = pad(s);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
 </body>
 </html>
