@@ -140,10 +140,32 @@ hr.sep{
   margin-bottom: 20px;
 }
 
+.photo.hero img{.photo.hero{
+  max-height: 220px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 22px;
+}
+
 .photo.hero img{
   width: 100%;
-  height: 360px;
+  height: 220px;
   object-fit: cover;
+  object-position: center 35%;
+}
+
+.title{
+  background: linear-gradient(
+    90deg,
+    #f5e7b2 0%,
+    #e6c87a 25%,
+    #d8b36a 50%,
+    #e6c87a 75%,
+    #f5e7b2 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 12px rgba(216,179,106,.25);
 }
 
 
