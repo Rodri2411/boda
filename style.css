@@ -1,7 +1,7 @@
 :root{
-  --blue: #0e1626;          /* fondo azul elegante */
+  --blue: #0e1626;
   --blue2:#0b1220;
-  --gold: #d8b36a;          /* dorado */
+  --gold: #d8b36a;
   --gold2:#f5e7b2;
   --text: #ffffff;
   --muted: rgba(255,255,255,.78);
@@ -19,14 +19,16 @@ body{
 }
 
 /* =========================
-   HERO (100% pantalla real)
+   HERO FIJO (fondo)
    ========================= */
 .hero{
-  position: relative;
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100vh;   /* fallback */
-  height: 100svh;  /* clave: mobile sin recorte por barra navegador */
+  height: 100svh;  /* mobile correcto */
   overflow: hidden;
+  z-index: 0;
 }
 
 .hero__img{
@@ -34,18 +36,17 @@ body{
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* no deforma */
-  object-position: center;
-  transform: scale(1.02); /* micro zoom para evitar bordes */
+  object-fit: cover;       /* siempre llena */
+  object-position: center; /* centrada */
+  transform: scale(1.02);
 }
 
 .hero__overlay{
   position: absolute;
   inset: 0;
-  background: radial-gradient(800px 500px at 50% 50%, rgba(0,0,0,.12), rgba(0,0,0,.55));
+  background: radial-gradient(900px 600px at 50% 50%, rgba(0,0,0,.12), rgba(0,0,0,.58));
 }
 
-/* Sticky content para que se sienta tipo “tapa” */
 .hero__content{
   position: relative;
   height: 100%;
@@ -57,28 +58,26 @@ body{
 .hero__text{
   text-align: center;
   will-change: transform, opacity;
-  transition: opacity .05s linear;
 }
 
-/* tipografía como ejemplo (simple, fina y elegante) */
 .hero__kicker{
   text-transform: uppercase;
-  letter-spacing: 2.2px;
-  font-size: 13px;
+  letter-spacing: 2.4px;
+  font-size: 12px;
   opacity: .9;
   margin-bottom: 10px;
 }
 
 .hero__headline{
-  font-size: clamp(28px, 5vw, 48px);
-  font-weight: 500;
+  font-size: clamp(28px, 5.5vw, 50px);
+  font-weight: 600;
   margin-bottom: 16px;
 }
 
 .hero__names{
-  font-size: clamp(40px, 8vw, 74px);
+  font-size: clamp(42px, 10vw, 80px);
   line-height: 1.05;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .hero__amp{
@@ -88,14 +87,13 @@ body{
   margin: 6px 0;
 }
 
-/* flechita abajo */
 .hero__hint{
   position: absolute;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
-  opacity: .8;
+  opacity: .85;
   animation: bob 1.2s ease-in-out infinite;
 }
 @keyframes bob{
@@ -104,18 +102,22 @@ body{
 }
 
 /* =========================
-   MAIN
+   SHEET: arranca debajo del hero
+   y cuando scrolleás lo “tapa”
    ========================= */
-.main{
-  background: var(--blue2);
+.sheet{
+  position: relative;
+  z-index: 2;
+  margin-top: 100vh;  /* fallback */
+  margin-top: 100svh; /* clave mobile */
 }
 
-/* COUNTDOWN: lo primero al scrollear */
+/* COUNTDOWN full width, azul + dorado */
 .count{
   width: 100%;
   background: linear-gradient(180deg, rgba(255,255,255,.03), transparent 55%), var(--blue);
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding: 42px 16px 52px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  padding: 46px 16px 54px;
 }
 
 .count__wrap{
@@ -127,7 +129,7 @@ body{
 .count__title{
   margin: 0 0 22px;
   font-size: 16px;
-  color: rgba(255,255,255,.85);
+  color: rgba(255,255,255,.86);
 }
 
 .count__grid{
@@ -137,18 +139,17 @@ body{
 }
 
 .count__box{
-  border: 1px solid rgba(216,179,106,.18);
+  border: 1px solid rgba(216,179,106,.22);
   background: rgba(216,179,106,.06);
   border-radius: 16px;
   padding: 14px 10px;
 }
 
 .count__num{
-  font-size: clamp(26px, 4vw, 42px);
-  font-weight: 800;
+  font-size: clamp(26px, 5vw, 46px);
+  font-weight: 900;
   letter-spacing: 1px;
 
-  /* dorado */
   background: linear-gradient(90deg, var(--gold2), var(--gold), var(--gold2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -158,7 +159,6 @@ body{
   margin-top: 6px;
   font-size: 13px;
   color: rgba(255,255,255,.75);
-  text-transform: lowercase;
 }
 
 .count__date{
@@ -166,17 +166,23 @@ body{
   width: fit-content;
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(216,179,106,.28);
+  border: 1px solid rgba(216,179,106,.30);
   background: rgba(0,0,0,.18);
   color: rgba(255,255,255,.92);
   letter-spacing: 1.2px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
-/* Sección siguiente (placeholder) */
+.count__note{
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.70);
+  font-size: 13px;
+}
+
+/* Placeholder siguiente */
 .next{
-  padding: 30px 16px 60px;
   background: #0f1115;
+  padding: 30px 16px 70px;
 }
 
 .next__wrap{
@@ -199,7 +205,7 @@ body{
   color: rgba(255,255,255,.75);
 }
 
-/* MOBILE: que no se “aplane” el grid */
+/* MOBILE: para que quede lindo */
 @media (max-width: 520px){
   .count__grid{
     grid-template-columns: repeat(2, 1fr);
