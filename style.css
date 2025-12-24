@@ -1,100 +1,207 @@
-/* RESET BÁSICO */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root{
+  --blue: #0e1626;          /* fondo azul elegante */
+  --blue2:#0b1220;
+  --gold: #d8b36a;          /* dorado */
+  --gold2:#f5e7b2;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.78);
+  --border: rgba(255,255,255,.12);
+
+  --max: 980px;
 }
 
-html, body {
-  height: 100%;
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; }
+body{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0f1115;
+  color: var(--text);
 }
 
-/* HERO FULLSCREEN */
-.hero {
+/* =========================
+   HERO (100% pantalla real)
+   ========================= */
+.hero{
   position: relative;
   width: 100%;
-  height: 100vh;           /* siempre pantalla completa */
+  height: 100vh;   /* fallback */
+  height: 100svh;  /* clave: mobile sin recorte por barra navegador */
   overflow: hidden;
 }
 
-/* FOTO */
-.hero-img {
+.hero__img{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* clave: responsive sin deformar */
+  object-fit: cover;     /* no deforma */
   object-position: center;
+  transform: scale(1.02); /* micro zoom para evitar bordes */
 }
 
-/* OVERLAY SUAVE PARA LEGIBILIDAD */
-.hero-overlay {
+.hero__overlay{
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,0.15) 0%,
-    rgba(0,0,0,0.45) 100%
-  );
+  background: radial-gradient(800px 500px at 50% 50%, rgba(0,0,0,.12), rgba(0,0,0,.55));
 }
 
-/* TEXTO */
-.hero-text {
-  color: #ffffff;
+/* Sticky content para que se sienta tipo “tapa” */
+.hero__content{
+  position: relative;
+  height: 100%;
+  display: grid;
+  place-items: center;
   padding: 20px;
 }
 
-/* “Guarda la fecha” */
-.hero-small {
-  display: block;
-  font-size: 14px;
-  letter-spacing: 2px;
+.hero__text{
+  text-align: center;
+  will-change: transform, opacity;
+  transition: opacity .05s linear;
+}
+
+/* tipografía como ejemplo (simple, fina y elegante) */
+.hero__kicker{
   text-transform: uppercase;
-  opacity: 0.9;
-  margin-bottom: 12px;
+  letter-spacing: 2.2px;
+  font-size: 13px;
+  opacity: .9;
+  margin-bottom: 10px;
 }
 
-/* ¡Nos casamos! */
-.hero-main {
-  font-size: clamp(32px, 6vw, 52px);
-  font-weight: 600;
-  margin-bottom: 18px;
+.hero__headline{
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 500;
+  margin-bottom: 16px;
 }
 
-/* NOMBRES */
-.hero-names {
-  font-size: clamp(36px, 7vw, 64px);
+.hero__names{
+  font-size: clamp(40px, 8vw, 74px);
+  line-height: 1.05;
   font-weight: 400;
-  line-height: 1.1;
 }
 
-/* Ampersand */
-.hero-names .amp {
+.hero__amp{
   display: block;
-  font-size: 32px;
+  font-size: 30px;
+  opacity: .85;
   margin: 6px 0;
-  font-weight: 300;
-  opacity: 0.85;
 }
 
-/* MOBILE AJUSTES FINOS */
-@media (max-width: 480px) {
-  .hero-small {
-    font-size: 12px;
-    letter-spacing: 1.5px;
-  }
+/* flechita abajo */
+.hero__hint{
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  opacity: .8;
+  animation: bob 1.2s ease-in-out infinite;
+}
+@keyframes bob{
+  0%,100%{ transform: translateX(-50%) translateY(0); }
+  50%{ transform: translateX(-50%) translateY(6px); }
+}
 
-  .hero-main {
-    font-size: 28px;
-  }
+/* =========================
+   MAIN
+   ========================= */
+.main{
+  background: var(--blue2);
+}
 
-  .hero-names {
-    font-size: 40px;
+/* COUNTDOWN: lo primero al scrollear */
+.count{
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), transparent 55%), var(--blue);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 42px 16px 52px;
+}
+
+.count__wrap{
+  max-width: var(--max);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.count__title{
+  margin: 0 0 22px;
+  font-size: 16px;
+  color: rgba(255,255,255,.85);
+}
+
+.count__grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.count__box{
+  border: 1px solid rgba(216,179,106,.18);
+  background: rgba(216,179,106,.06);
+  border-radius: 16px;
+  padding: 14px 10px;
+}
+
+.count__num{
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  /* dorado */
+  background: linear-gradient(90deg, var(--gold2), var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.count__label{
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  text-transform: lowercase;
+}
+
+.count__date{
+  margin: 18px auto 0;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(216,179,106,.28);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.92);
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+
+/* Sección siguiente (placeholder) */
+.next{
+  padding: 30px 16px 60px;
+  background: #0f1115;
+}
+
+.next__wrap{
+  max-width: var(--max);
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background: rgba(255,255,255,.02);
+  padding: 20px 16px;
+}
+
+.next__wrap h2{
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.next__wrap p{
+  margin: 0;
+  color: rgba(255,255,255,.75);
+}
+
+/* MOBILE: que no se “aplane” el grid */
+@media (max-width: 520px){
+  .count__grid{
+    grid-template-columns: repeat(2, 1fr);
   }
 }
