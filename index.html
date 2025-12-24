@@ -4,35 +4,115 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agustina & Rodrigo — Save the date</title>
-  <link rel="stylesheet" href="style.css?v=1">
+  <link rel="stylesheet" href="style.css?v=40">
 </head>
 
 <body>
+  <!-- HERO (foto full screen + texto) -->
+  <header class="hero" id="top">
+    <img class="hero__img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
 
-  <!-- HERO FULLSCREEN -->
-  <section class="hero">
-    <img
-      src="20250201_125621.jpg"
-      alt="Agustina y Rodrigo"
-      class="hero-img"
-    />
+    <div class="hero__overlay"></div>
 
-    <div class="hero-overlay">
-      <div class="hero-text">
-        <span class="hero-small">Guarda la fecha</span>
-        <h1 class="hero-main">¡Nos casamos!</h1>
-
-        <div class="hero-names">
+    <!-- El texto se anima con scroll (sticky) -->
+    <div class="hero__content">
+      <div class="hero__text" id="heroText">
+        <div class="hero__kicker">Guarda la fecha</div>
+        <div class="hero__headline">¡Nos casamos!</div>
+        <div class="hero__names">
           <span>Agustina</span>
-          <span class="amp">&</span>
+          <span class="hero__amp">&</span>
           <span>Rodrigo</span>
         </div>
       </div>
+
+      <div class="hero__hint" aria-hidden="true">⌄</div>
     </div>
-  </section>
+  </header>
 
-  <!-- CONTENIDO FUTURO (vacío por ahora) -->
-  <div style="height: 100vh;"></div>
+  <!-- SECCIÓN 1: Countdown (lo primero que aparece al scrollear) -->
+  <main class="main">
+    <section class="count" id="count">
+      <div class="count__wrap">
+        <p class="count__title">Bienvenidos a nuestra boda</p>
 
+        <div class="count__grid" aria-label="Cuenta regresiva">
+          <div class="count__box">
+            <div class="count__num" id="d">--</div>
+            <div class="count__label">días</div>
+          </div>
+          <div class="count__box">
+            <div class="count__num" id="h">--</div>
+            <div class="count__label">hs</div>
+          </div>
+          <div class="count__box">
+            <div class="count__num" id="m">--</div>
+            <div class="count__label">min</div>
+          </div>
+          <div class="count__box">
+            <div class="count__num" id="s">--</div>
+            <div class="count__label">seg</div>
+          </div>
+        </div>
+
+        <div class="count__date">📅 03 · 10 · 2026</div>
+      </div>
+    </section>
+
+    <!-- Placeholder de futuras tarjetas (por ahora mínimo) -->
+    <section class="next">
+      <div class="next__wrap">
+        <h2>Pronto agregamos más información</h2>
+        <p>Ceremonia, fiesta, mapa y confirmación más cerca de la fecha.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ===== Countdown =====
+    const target = new Date("2026-10-03T19:00:00-03:00").getTime();
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function tick(){
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("d").textContent = d;
+      document.getElementById("h").textContent = pad(h);
+      document.getElementById("m").textContent = pad(m);
+      document.getElementById("s").textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // ===== Scroll effect: el texto del hero sube y se desvanece =====
+    const hero = document.querySelector(".hero");
+    const heroText = document.getElementById("heroText");
+
+    function onScroll(){
+      const rect = hero.getBoundingClientRect();
+
+      // cuando estás arriba, rect.top = 0
+      // cuando scrolleás un hero de 100vh, rect.top va a negativo hasta -height
+      const h = hero.offsetHeight;
+      const progress = Math.min(1, Math.max(0, (-rect.top) / h)); // 0..1
+
+      // Subir y desvanecer
+      const translateY = -progress * 80;           // px
+      const opacity = 1 - progress * 1.1;          // se va
+      const scale = 1 - progress * 0.05;           // apenas achica
+
+      heroText.style.transform = `translateY(${translateY}px) scale(${scale})`;
+      heroText.style.opacity = Math.max(0, opacity).toFixed(3);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  </script>
 </body>
 </html>
