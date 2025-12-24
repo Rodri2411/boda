@@ -5,78 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agustina & Rodrigo — Save the date</title>
   <meta name="description" content="Save the date — 3 de octubre de 2026" />
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=30">
 </head>
 
 <body>
 
-  <!-- HERO: ocupa la pantalla y queda atrás -->
-  <header class="hero">
+  <!-- HERO: queda fijo y nítido atrás -->
+  <header class="hero" aria-label="Portada">
     <img class="hero-img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
     <div class="hero-overlay">
-      <div class="badge">Save the date</div>
-      <h1 class="hero-title">Agustina & Rodrigo</h1>
-      <p class="hero-subtitle">Nos casamos 💍</p>
-      <div class="hero-fade"></div>
+      <div class="hero-inner">
+        <div class="badge">Save the date</div>
+        <h1 class="hero-title">Agustina & Rodrigo</h1>
+        <p class="hero-subtitle">Nos casamos 💍</p>
+      </div>
     </div>
   </header>
 
-  <!-- SHEET: sube y “tapa” el hero -->
+  <!-- SHEET: “cortina” full width que sube y tapa la foto -->
   <main class="sheet">
     <section class="panel">
-      <h2 class="panel-title">Bienvenidos a nuestra boda</h2>
+      <div class="wrap">
+        <h2 class="panel-title">Bienvenidos a nuestra boda</h2>
 
-      <p class="panel-text">
-        Guardá la fecha: <strong>3 de octubre de 2026</strong>.<br>
-        Pronto publicamos ceremonia, fiesta, mapa y confirmación.
-      </p>
+        <p class="panel-text">
+          Guardá la fecha: <strong>3 de octubre de 2026</strong>.<br>
+          Pronto publicamos ceremonia, fiesta, mapa y confirmación.
+        </p>
 
-      <div class="date-pill">📅 03 · 10 · 2026</div>
+        <div class="date-pill">📅 03 · 10 · 2026</div>
 
-      <div class="countdown" aria-label="Cuenta regresiva">
-        <div class="cd-box"><span id="d" class="cd-num">--</span><small class="cd-label">días</small></div>
-        <div class="cd-box"><span id="h" class="cd-num">--</span><small class="cd-label">hs</small></div>
-        <div class="cd-box"><span id="m" class="cd-num">--</span><small class="cd-label">min</small></div>
-        <div class="cd-box"><span id="s" class="cd-num">--</span><small class="cd-label">seg</small></div>
-      </div>
-
-      <hr class="sep" />
-
-      <div class="grid">
-        <div class="card-mini">
-          <h3>⛪ Ceremonia</h3>
-          <p>Información a confirmar.</p>
-          <span class="tag">Se publica más cerca</span>
+        <div class="countdown" aria-label="Cuenta regresiva">
+          <div class="cd-box">
+            <span id="d" class="cd-num">--</span>
+            <small class="cd-label">días</small>
+          </div>
+          <div class="cd-box">
+            <span id="h" class="cd-num">--</span>
+            <small class="cd-label">hs</small>
+          </div>
+          <div class="cd-box">
+            <span id="m" class="cd-num">--</span>
+            <small class="cd-label">min</small>
+          </div>
+          <div class="cd-box">
+            <span id="s" class="cd-num">--</span>
+            <small class="cd-label">seg</small>
+          </div>
         </div>
 
-        <div class="card-mini">
-          <h3>🎉 Fiesta</h3>
-          <p>Información a confirmar.</p>
-          <span class="tag">Se publica más cerca</span>
-        </div>
-      </div>
+        <hr class="sep" />
 
-      <p class="footer">
-        Hecho con amor. El resto se publica más cerca de la fecha.
-      </p>
+        <div class="grid">
+          <div class="card-mini">
+            <h3>⛪ Ceremonia</h3>
+            <p>Información a confirmar.</p>
+            <span class="tag">Se publica más cerca</span>
+          </div>
+
+          <div class="card-mini">
+            <h3>🎉 Fiesta</h3>
+            <p>Información a confirmar.</p>
+            <span class="tag">Se publica más cerca</span>
+          </div>
+        </div>
+
+        <p class="footer">
+          Hecho con amor. El resto se publica más cerca de la fecha.
+        </p>
+      </div>
     </section>
   </main>
 
+  <!-- Countdown inline -->
   <script>
+    // Ajustá la hora cuando la tengas. Mendoza (UTC-3).
     const target = new Date("2026-10-03T19:00:00-03:00").getTime();
+
     function tick(){
       const now = Date.now();
       const diff = Math.max(0, target - now);
+
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff / (1000*60*60)) % 24);
       const m = Math.floor((diff / (1000*60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
+
       const pad = (n) => String(n).padStart(2, "0");
       document.getElementById("d").textContent = d;
       document.getElementById("h").textContent = pad(h);
       document.getElementById("m").textContent = pad(m);
       document.getElementById("s").textContent = pad(s);
     }
+
     tick();
     setInterval(tick, 1000);
   </script>
