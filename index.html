@@ -4,20 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agustina & Rodrigo — Save the date</title>
-  <link rel="stylesheet" href="style.css?v=40">
+  <link rel="stylesheet" href="style.css?v=50">
 </head>
 
 <body>
-  <!-- HERO (foto full screen + texto) -->
-  <header class="hero" id="top">
+  <!-- HERO fijo (fondo) -->
+  <header class="hero" id="hero">
     <img class="hero__img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
-
     <div class="hero__overlay"></div>
 
-    <!-- El texto se anima con scroll (sticky) -->
+    <!-- Texto centrado que se desvanece cuando sube el contenido -->
     <div class="hero__content">
       <div class="hero__text" id="heroText">
-        <div class="hero__kicker">Guarda la fecha</div>
+        <div class="hero__kicker">GUARDA LA FECHA</div>
         <div class="hero__headline">¡Nos casamos!</div>
         <div class="hero__names">
           <span>Agustina</span>
@@ -30,8 +29,8 @@
     </div>
   </header>
 
-  <!-- SECCIÓN 1: Countdown (lo primero que aparece al scrollear) -->
-  <main class="main">
+  <!-- CONTENIDO que sube y tapa la foto -->
+  <main class="sheet" id="sheet">
     <section class="count" id="count">
       <div class="count__wrap">
         <p class="count__title">Bienvenidos a nuestra boda</p>
@@ -56,14 +55,15 @@
         </div>
 
         <div class="count__date">📅 03 · 10 · 2026</div>
+        <p class="count__note">El resto se publica más cerca de la fecha.</p>
       </div>
     </section>
 
-    <!-- Placeholder de futuras tarjetas (por ahora mínimo) -->
+    <!-- Placeholder -->
     <section class="next">
       <div class="next__wrap">
-        <h2>Pronto agregamos más información</h2>
-        <p>Ceremonia, fiesta, mapa y confirmación más cerca de la fecha.</p>
+        <h2>Pronto agregamos más info</h2>
+        <p>Ceremonia, fiesta, mapa y confirmación.</p>
       </div>
     </section>
   </main>
@@ -90,22 +90,19 @@
     tick();
     setInterval(tick, 1000);
 
-    // ===== Scroll effect: el texto del hero sube y se desvanece =====
-    const hero = document.querySelector(".hero");
+    // ===== Efecto “tapa la foto” + texto sube/se apaga =====
     const heroText = document.getElementById("heroText");
 
     function onScroll(){
-      const rect = hero.getBoundingClientRect();
+      // cuánto scrolleaste respecto de la primera pantalla
+      const h = window.innerHeight;
+      const y = window.scrollY;
+      const p = Math.min(1, Math.max(0, y / h)); // 0..1
 
-      // cuando estás arriba, rect.top = 0
-      // cuando scrolleás un hero de 100vh, rect.top va a negativo hasta -height
-      const h = hero.offsetHeight;
-      const progress = Math.min(1, Math.max(0, (-rect.top) / h)); // 0..1
-
-      // Subir y desvanecer
-      const translateY = -progress * 80;           // px
-      const opacity = 1 - progress * 1.1;          // se va
-      const scale = 1 - progress * 0.05;           // apenas achica
+      // el texto se mueve y desaparece mientras el contenido sube encima
+      const translateY = -p * 90;       // sube
+      const opacity = 1 - p * 1.2;      // se apaga
+      const scale = 1 - p * 0.06;       // micro
 
       heroText.style.transform = `translateY(${translateY}px) scale(${scale})`;
       heroText.style.opacity = Math.max(0, opacity).toFixed(3);
