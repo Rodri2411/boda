@@ -1,30 +1,21 @@
-/* =========================
-   Wedding Invite - Premium Lite
-   Clean, elegant, responsive
-   ========================= */
-
 :root{
   --bg: #0f1115;
   --card: #151922;
   --text: #e8eaf0;
   --muted: #aab0c0;
-  --accent: #d8b36a; /* dorado sobrio */
+  --accent: #d8b36a;
   --border: rgba(255,255,255,.08);
-
-  --max: 920px;
   --radius: 18px;
   --shadow: 0 14px 40px rgba(0,0,0,.40);
 }
 
 *{ box-sizing: border-box; }
 
-html, body{
-  height: 100%;
-}
+html, body{ height: 100%; }
 
 body{
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans";
   line-height: 1.55;
   color: var(--text);
   background:
@@ -33,42 +24,56 @@ body{
     var(--bg);
 }
 
-a{ color: var(--accent); text-decoration: none; }
-a:hover{ text-decoration: underline; }
+/* HERO sticky que se “tapa” con el contenido */
+.hero-sticky{
+  position: sticky;
+  top: 0;
+  height: 62vh;
+  min-height: 380px;
+  overflow: hidden;
+  z-index: 0;
+}
 
-.container{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 26px 16px 60px;
+.hero-sticky-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* acá sí: es fondo/hero */
+  object-position: center 35%;
+  display: block;
+  transform: scale(1.02);
+}
+
+.hero-sticky-overlay{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  padding: 26px 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.78) 100%);
+}
+
+/* Sheet que sube y tapa la foto */
+.sheet{
+  position: relative;
+  z-index: 1;
+  margin-top: -42px; /* hace el efecto “se come” la foto */
+  padding: 0 16px 60px;
 }
 
 .card{
+  max-width: 920px;
+  margin: 0 auto;
   background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 60%), var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-/* HERO */
-.hero{
-  position: relative;
-}
-
-.hero-img{
-  width: 100%;
-  height: auto;        /* NO recorta */
-  display: block;
-}
-
-.hero-overlay{
-  padding: 18px 18px 16px;
-  background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.30));
-  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 22px 18px 18px;
 }
 
 .badge{
   display: inline-block;
+  justify-self: center;
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 6px 12px;
@@ -78,80 +83,47 @@ a:hover{ text-decoration: underline; }
 }
 
 .title{
-  margin: 10px 0 4px;
-  font-size: clamp(30px, 5vw, 52px);
+  margin: 0;
+  font-size: clamp(30px, 5vw, 56px);
   letter-spacing: .4px;
+  text-align: center;
 
-  /* Dorado elegante */
-  background: linear-gradient(
-    90deg,
-    #f5e7b2 0%,
-    #e6c87a 25%,
-    #d8b36a 50%,
-    #e6c87a 75%,
-    #f5e7b2 100%
-  );
+  background: linear-gradient(90deg,#f5e7b2 0%,#e6c87a 25%,#d8b36a 50%,#e6c87a 75%,#f5e7b2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 12px rgba(216,179,106,.18);
 }
 
 .subtitle{
-  margin: 0;
-  font-size: 15px;
+  margin: 0 0 6px;
+  text-align: center;
   color: rgba(232,234,240,.86);
+  font-size: 15px;
 }
 
-.hint{
-  margin: 10px 0 0;
-  font-size: 12px;
-  color: var(--muted);
+.section-title{
+  margin: 4px 0 10px;
+  text-align: center;
+  font-size: 22px;
 }
 
-/* Separador */
-.sep{
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0;
-}
+.center{ text-align: center; }
+.muted{ color: var(--muted); }
 
-/* Secciones */
-.grid{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  padding: 18px;
-}
-
-@media (max-width: 720px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-.section{
-  padding: 12px 12px;
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 14px;
-  background: rgba(255,255,255,.02);
-}
-
-.section h2{
-  margin: 0 0 8px;
-  font-size: 18px;
-  letter-spacing: .2px;
-}
-
-.section p{
-  margin: 0;
-  color: var(--text);
-}
-
-.muted{
-  color: var(--muted);
+.date-pill{
+  margin: 14px auto 10px;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(216,179,106,.35);
+  background: rgba(216,179,106,.10);
+  font-weight: 800;
+  letter-spacing: 1.2px;
 }
 
 /* Countdown */
 .countdown{
-  margin-top: 14px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -172,68 +144,52 @@ a:hover{ text-decoration: underline; }
   letter-spacing: .5px;
 }
 
-.cd-label{
-  color: var(--muted);
+.cd-label{ color: var(--muted); }
+
+.sep{
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
 }
 
-/* Botones */
-.btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 12px;
-  padding: 12px 14px;
-  border: 1px solid rgba(216,179,106,.35);
-  background: rgba(216,179,106,.12);
-  color: var(--text);
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
+/* Dos tarjetas */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.btn:hover{
-  background: rgba(216,179,106,.18);
+@media (max-width: 720px){
+  .grid{ grid-template-columns: 1fr; }
+  .hero-sticky{ height: 52vh; min-height: 320px; }
 }
 
-.btn:active{
-  transform: translateY(1px);
-}
-
-.btn.disabled{
-  opacity: .55;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* Details (regalos) */
-.details{
-  margin-top: 10px;
-  border: 1px solid var(--border);
+.section{
+  padding: 14px 12px;
+  border: 1px solid rgba(255,255,255,.06);
   border-radius: 14px;
-  padding: 10px 12px;
   background: rgba(255,255,255,.02);
 }
 
-.details summary{
-  cursor: pointer;
-  font-weight: 800;
+.section h3{
+  margin: 0 0 8px;
+  font-size: 18px;
 }
 
-.details-body{
-  margin-top: 10px;
+.tag{
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
   color: var(--muted);
-}
-
-.center{
-  text-align: center;
-  padding: 18px;
+  font-size: 12px;
+  background: rgba(255,255,255,.02);
 }
 
 .footer{
   text-align: center;
-  margin: 16px 0 20px;
+  margin: 16px 0 6px;
   color: var(--muted);
   font-size: 12px;
-  padding: 0 16px;
 }
