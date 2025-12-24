@@ -3,132 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agustina & Rodrigo — Invitación</title>
-  <meta name="description" content="Invitación a nuestra boda — Agustina & Rodrigo" />
-  <link rel="stylesheet" href="style.css?v=1">
+  <title>Agustina & Rodrigo — Save the date</title>
+  <meta name="description" content="Save the date — 3 de octubre de 2026" />
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 
 <body>
-  <main class="container">
-    <article class="card">
 
-      <!-- HERO -->
-      <section class="hero">
-        <!-- Por ahora usamos tu foto principal -->
-        <img class="hero-img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
-        <div class="hero-overlay">
-          <div class="badge">Invitación</div>
-          <h1 class="title">Agustina & Rodrigo</h1>
-          <p class="subtitle">Nos casamos 💍</p>
+  <!-- HERO “pegado” que se va tapando -->
+  <header class="hero-sticky">
+    <img class="hero-sticky-img" src="20250201_125621.jpg" alt="Agustina y Rodrigo">
+    <div class="hero-sticky-overlay">
+      <div class="badge">Save the date</div>
+      <h1 class="title">Agustina & Rodrigo</h1>
+      <p class="subtitle">Nos casamos 💍</p>
+    </div>
+  </header>
 
-          <!-- COUNTDOWN -->
-          <div class="countdown" aria-label="Cuenta regresiva">
-            <div class="cd-box">
-              <span id="d" class="cd-num">--</span>
-              <small class="cd-label">días</small>
-            </div>
-            <div class="cd-box">
-              <span id="h" class="cd-num">--</span>
-              <small class="cd-label">hs</small>
-            </div>
-            <div class="cd-box">
-              <span id="m" class="cd-num">--</span>
-              <small class="cd-label">min</small>
-            </div>
-            <div class="cd-box">
-              <span id="s" class="cd-num">--</span>
-              <small class="cd-label">seg</small>
-            </div>
-          </div>
+  <!-- Contenido que sube y tapa la foto -->
+  <main class="sheet">
+    <section class="card">
+      <h2 class="section-title">Bienvenidos a nuestra boda</h2>
+      <p class="muted center">
+        Guardá la fecha: <strong>3 de octubre de 2026</strong>. <br>
+        Pronto publicamos ceremonia, fiesta, mapa y confirmación.
+      </p>
 
-          <p class="hint">Guardá este link. Más cerca de la fecha agregamos mapa, horarios y RSVP.</p>
+      <div class="date-pill">📅 03 · 10 · 2026</div>
+
+      <div class="countdown" aria-label="Cuenta regresiva">
+        <div class="cd-box">
+          <span id="d" class="cd-num">--</span>
+          <small class="cd-label">días</small>
         </div>
-      </section>
+        <div class="cd-box">
+          <span id="h" class="cd-num">--</span>
+          <small class="cd-label">hs</small>
+        </div>
+        <div class="cd-box">
+          <span id="m" class="cd-num">--</span>
+          <small class="cd-label">min</small>
+        </div>
+        <div class="cd-box">
+          <span id="s" class="cd-num">--</span>
+          <small class="cd-label">seg</small>
+        </div>
+      </div>
 
       <hr class="sep" />
 
-      <!-- INFO PRINCIPAL -->
-      <section class="grid">
+      <!-- Secciones “placeholder” (sin datos finos todavía) -->
+      <div class="grid">
         <div class="section">
-          <h2>📅 Fecha</h2>
-          <p><strong>3 de octubre de 2026</strong></p>
-          <p class="muted">Horario a confirmar</p>
+          <h3>⛪ Ceremonia</h3>
+          <p class="muted">Información a confirmar.</p>
+          <span class="tag">Se publica más cerca</span>
         </div>
 
         <div class="section">
-          <h2>📍 Lugar</h2>
-          <p><strong>Mendoza</strong></p>
-          <p class="muted">Dirección a confirmar</p>
+          <h3>🎉 Fiesta</h3>
+          <p class="muted">Información a confirmar.</p>
+          <span class="tag">Se publica más cerca</span>
         </div>
-
-        <div class="section">
-          <h2>👔 Dress code</h2>
-          <p><strong>Elegante</strong></p>
-          <p class="muted">Sin estrés: vení cómodo/a y prolijo/a.</p>
-        </div>
-
-        <div class="section">
-          <h2>✅ Confirmación</h2>
-          <p><strong>Próximamente</strong></p>
-          <p class="muted">Publicaremos el formulario de asistencia.</p>
-        </div>
-      </section>
-
-      <hr class="sep" />
-
-      <!-- CEREMONIA / FIESTA -->
-      <section class="grid">
-        <div class="section">
-          <h2>⛪ Ceremonia</h2>
-          <p class="muted">Detalle y ubicación a confirmar.</p>
-          <a class="btn disabled" href="#" onclick="return false;">Llegar a la ceremonia</a>
-        </div>
-
-        <div class="section">
-          <h2>🎉 Fiesta</h2>
-          <p class="muted">Detalle y ubicación a confirmar.</p>
-          <a class="btn disabled" href="#" onclick="return false;">Llegar a la fiesta</a>
-        </div>
-      </section>
-
-      <hr class="sep" />
-
-      <!-- REGALOS -->
-      <section class="section">
-        <h2>🎁 Regalos</h2>
-        <p class="muted">
-          El mejor regalo es tu presencia. Si querés colaborar con nuestra Luna de Miel, dejamos los datos acá:
-        </p>
-
-        <details class="details">
-          <summary>Ver datos bancarios</summary>
-          <div class="details-body">
-            <p><strong>Titular:</strong> A completar</p>
-            <p><strong>Banco:</strong> A completar</p>
-            <p><strong>CBU:</strong> A completar</p>
-            <p><strong>Alias:</strong> A completar</p>
-          </div>
-        </details>
-      </section>
-
-      <hr class="sep" />
-
-      <!-- RSVP -->
-      <section class="section center">
-        <h2>📝 RSVP</h2>
-        <p class="muted">En breve habilitamos el link de confirmación.</p>
-        <a class="btn disabled" href="#" onclick="return false;">Confirmar asistencia</a>
-      </section>
+      </div>
 
       <p class="footer">
-        Hecho con amor y un poquito de CSS (lo justo, como Dios manda).
+        Hecho con amor. Y con CSS del bueno (el que no miente).
       </p>
-    </article>
+    </section>
   </main>
 
-  <!-- Countdown JS inline (sin archivo extra) -->
+  <!-- Countdown inline -->
   <script>
-    // Ajustá la hora cuando la tengas. Mendoza (UTC-3).
     const target = new Date("2026-10-03T19:00:00-03:00").getTime();
 
     function tick(){
@@ -150,5 +96,6 @@
     tick();
     setInterval(tick, 1000);
   </script>
+
 </body>
 </html>
