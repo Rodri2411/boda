@@ -2,17 +2,15 @@
   --gold: #d8b36a;
   --gold2:#f5e7b2;
 
-  --blue: #223042;   /* fondo countdown */
+  --blue: #223042;
   --blue2:#1a2433;
 
   --text: #ffffff;
   --muted: rgba(255,255,255,.78);
 
-  /* IMPORTANTE:
-     cover = ocupa toda la pantalla (pero recorta laterales en mobile, ES NORMAL)
-     contain = no recorta, pero deja barras
-  */
-  --hero-fit: cover;
+  /* cover = llena la pantalla (recorta un poco en mobile, normal)
+     contain = no recorta (pero deja barras) */
+  --fit: cover;
 }
 
 *{ box-sizing:border-box; }
@@ -20,35 +18,47 @@
 html, body{
   margin:0;
   padding:0;
-  height:100%;
+  min-height:100%;
+}
+
+body{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
   color: var(--text);
-  background: #000;
+  overflow-x: hidden;     /* OK */
+  /* NO pongas overflow-y hidden */
 }
 
-/* ===== PARALLAX MIRROR ===== */
-.parallax-mirror{
+/* ===== Fondo fijo ===== */
+.bg{
   position: fixed;
-  top:0; left:0;
-  width:100vw;
-  height:100vh;
-  overflow:hidden;
-  z-index:-10;
+  inset: 0;
+  z-index: 0;            /* OJO: ya no es negativo */
+  overflow: hidden;
 }
 
-.parallax-slider{
+.bg img{
+  width: 100%;
+  height: 100%;
+  object-fit: var(--fit);
+  transform: scale(1.02);
+}
+
+.bg-overlay{
   position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  object-fit: var(--hero-fit);
-  transform: translate3d(0px, 0px, 0px) scale(1.06);
-  will-change: transform;
+  inset:0;
+  background:
+    radial-gradient(900px 500px at 50% 20%, rgba(0,0,0,.10), rgba(0,0,0,.55)),
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.55));
+}
+
+/* Todo el contenido por encima del fondo */
+.hero, .countdown{
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== HERO ===== */
 .hero{
-  position: relative;
   height: 100vh;
   display:flex;
   align-items:center;
@@ -57,20 +67,9 @@ html, body{
   padding: 24px 18px;
 }
 
-/* oscurece un poco para que el texto se lea, SIN blur */
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(900px 500px at 50% 20%, rgba(0,0,0,.10), rgba(0,0,0,.55)),
-    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.55));
-}
-
 .hero-content{
-  position:relative;
   max-width: 900px;
   width: 100%;
-  z-index:1;
 }
 
 .hero-kicker{
@@ -91,7 +90,6 @@ html, body{
   flex-direction: column;
   gap: 10px;
   align-items:center;
-  justify-content:center;
 }
 
 .hero-names .name{
@@ -106,7 +104,6 @@ html, body{
   margin: -4px 0;
 }
 
-/* flechita */
 .scroll-cue{
   margin-top: 22px;
   font-size: 28px;
@@ -118,9 +115,8 @@ html, body{
   50%{ transform: translateY(6px); }
 }
 
-/* ===== COUNTDOWN (la sección que “tapa” la foto al scrollear) ===== */
+/* ===== COUNTDOWN ===== */
 .countdown{
-  position: relative;
   background: linear-gradient(180deg, var(--blue), var(--blue2));
   padding: 58px 18px 64px;
 }
@@ -164,12 +160,11 @@ html, body{
   letter-spacing: .12em;
 }
 
-/* cajas de tiempo */
 .time-grid{
   display:grid;
   grid-template-columns: repeat(4, minmax(0,1fr));
   gap: 14px;
-  margin: 0 auto 22px;
+  margin: 0 auto 10px;
   max-width: 900px;
 }
 
@@ -194,65 +189,20 @@ html, body{
   letter-spacing: .08em;
 }
 
-/* dos tarjetas abajo */
-.two-cards{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 14px;
-  max-width: 900px;
-  margin: 14px auto 0;
-  text-align:left;
-}
-
-.mini-card{
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.14);
-  padding: 18px 16px;
-}
-
-.mini-card h3{
-  margin:0 0 8px;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--gold2);
-}
-
-.mini-card p{
-  margin:0;
-  color: rgba(255,255,255,.78);
-  line-height:1.45;
-}
-.mini-card p span{
-  display:inline-block;
-  margin-top: 10px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.7);
-  font-size: 12px;
-}
-
 .foot{
   margin: 20px 0 0;
   color: rgba(255,255,255,.65);
   font-size: 12px;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 760px){
-  .time-grid{
-    grid-template-columns: repeat(2, minmax(0,1fr));
-  }
-  .two-cards{
-    grid-template-columns: 1fr;
-  }
+  .time-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
-/* Si querés que en mobile NO recorte (pero con barras), descomentá:
+/* Si querés que en mobile NO recorte nada (pero con barras),
+   descomentá esto:
 @media (max-width: 600px){
-  :root{ --hero-fit: contain; }
+  :root{ --fit: contain; }
   body{ background:#000; }
 }
 */
