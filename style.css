@@ -219,7 +219,7 @@ body{
   }
 
   .hero__img{
-    object-position: 72% 18%; /* <-- AJUSTE 1: mové el foco horizontal/vertical */
+    object-position: 50% 18%; /* <-- AJUSTE 1: mové el foco horizontal/vertical */
     transform: scale(1.06);   /* un poquito más para que no corte raro */
   }
 
