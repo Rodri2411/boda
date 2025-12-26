@@ -1,39 +1,54 @@
-// efecto scroll hero
-(function () {
-  const hero = document.getElementById('hero');
-  const heroText = document.getElementById('heroText');
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 1) Efecto: texto del hero sube un poco mientras scrolleás (y se desvanece suave)
+  const heroText = document.getElementById("heroText");
 
   function onScroll() {
-    const vh = window.innerHeight;
-    const rect = hero.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, (-rect.top) / vh));
+    const y = window.scrollY;
+    const vh = window.innerHeight || 1;
 
-    heroText.style.transform = `translateY(${-progress * 120}px)`;
-    heroText.style.opacity = (1 - progress * 0.35).toFixed(2);
+    // progreso 0..1 durante el primer viewport de scroll
+    const progress = Math.min(1, Math.max(0, y / vh));
+
+    const translate = -progress * 140;     // sube hasta 140px
+    const opacity = 1 - progress * 0.35;   // baja un poco la opacidad
+
+    heroText.style.transform = `translateY(${translate}px)`;
+    heroText.style.opacity = opacity.toFixed(3);
   }
 
-  window.addEventListener('scroll', onScroll);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
   onScroll();
-})();
 
-// countdown
-const targetDate = new Date("2026-10-03T00:00:00").getTime();
 
-function updateCountdown() {
-  const now = Date.now();
-  const diff = targetDate - now;
-  if (diff <= 0) return;
+  // 2) Countdown (SIEMPRE asigna números)
+  const targetDate = new Date("2026-10-03T00:00:00").getTime();
 
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor(diff / (1000 * 60 * 60) % 24);
-  const m = Math.floor(diff / (1000 * 60) % 60);
-  const s = Math.floor(diff / 1000 % 60);
+  const elD = document.getElementById("d");
+  const elH = document.getElementById("h");
+  const elM = document.getElementById("m");
+  const elS = document.getElementById("s");
 
-  d && (document.getElementById("d").textContent = d);
-  document.getElementById("h").textContent = String(h).padStart(2, "0");
-  document.getElementById("m").textContent = String(m).padStart(2, "0");
-  document.getElementById("s").textContent = String(s).padStart(2, "0");
-}
+  function pad2(n) { return String(n).padStart(2, "0"); }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = targetDate - now;
+
+    if (diff < 0) diff = 0;
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    elD.textContent = d;
+    elH.textContent = pad2(h);
+    elM.textContent = pad2(m);
+    elS.textContent = pad2(s);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+});
