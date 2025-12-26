@@ -14,7 +14,7 @@
 
 <body>
 
-  <!-- HERO -->
+  <!-- HERO fijo (fondo) -->
   <section class="hero" id="hero">
     <img src="20250201_125621.jpg" alt="Agustina y Rodrigo">
 
@@ -31,25 +31,34 @@
     <div class="scroll-indicator">⌄</div>
   </section>
 
-  <!-- COUNTDOWN -->
-  <section class="countdown-section" id="countdown">
-    <p class="countdown-intro">Bienvenidos a nuestra boda</p>
+  <!-- CONTENIDO que pasa por arriba del hero -->
+  <main class="content">
 
-    <div class="countdown-line">
-      <span><strong id="d">--</strong> días</span>
-      <span>:</span>
-      <span><strong id="h">--</strong> hs</span>
-      <span>:</span>
-      <span><strong id="m">--</strong> min</span>
-      <span>:</span>
-      <span><strong id="s">--</strong> seg</span>
-    </div>
+    <section class="countdown-section" id="countdown">
+      <p class="countdown-intro">Bienvenidos a nuestra boda</p>
 
-    <p class="countdown-foot">
-      Guardá la fecha: <strong>3 de octubre de 2026</strong><br>
-      Más cerca del día publicamos toda la información.
-    </p>
-  </section>
+      <div class="countdown-line" aria-label="Cuenta regresiva">
+        <span><strong id="d">--</strong> días</span>
+        <span class="sep">:</span>
+        <span><strong id="h">--</strong> hs</span>
+        <span class="sep">:</span>
+        <span><strong id="m">--</strong> min</span>
+        <span class="sep">:</span>
+        <span><strong id="s">--</strong> seg</span>
+      </div>
+
+      <p class="countdown-foot">
+        Guardá la fecha: <strong>3 de octubre de 2026</strong><br>
+        Más cerca del día publicamos toda la información.
+      </p>
+    </section>
+
+    <!-- Paso 3 irá acá -->
+    <section class="next-placeholder">
+      <p>Acá va la sección 3 (Ceremonia / Fiesta). La armamos ahora.</p>
+    </section>
+
+  </main>
 
   <script src="script.js"></script>
 </body>
