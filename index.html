@@ -2,70 +2,151 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Save the Date — Agustina & Rodrigo</title>
-  <link rel="stylesheet" href="style.css?v=30" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agustina & Rodrigo</title>
+
+  <!-- Fuente simple por ahora -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       HERO (FOTO + TEXTO)
+       ========================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;           /* 🔑 Mobile opción A */
+      object-position: center;     /* luego ajustamos foco */
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35); /* contraste suave */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .hero-content .save {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(26px, 6vw, 48px);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-content .names {
+      font-size: clamp(36px, 8vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .hero-content .amp {
+      font-size: 28px;
+      margin: 8px 0;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 24px;
+      font-size: 20px;
+      opacity: 0.8;
+    }
+
+    /* =========================
+       SECCIÓN 2 (placeholder)
+       Esta sección ES la que
+       tapa la foto al scrollear
+       ========================= */
+    .next-section {
+      min-height: 100vh;
+      background: #0f243a; /* azul base */
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .next-section p {
+      font-size: 18px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+  </style>
 </head>
 
 <body>
 
-  <!-- Fondo fijo (foto) -->
-  <div class="bg" aria-hidden="true">
-    <img src="20250201_125621.jpg" alt="">
-    <div class="bg-overlay"></div>
-  </div>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="foto.jpg" alt="Agustina y Rodrigo">
 
-  <!-- HERO (pantalla completa) -->
-  <section class="hero" id="top">
     <div class="hero-content">
-      <div class="hero-kicker">GUARDA LA FECHA</div>
-      <div class="hero-title">¡Nos casamos!</div>
+      <div class="save">Guarda la fecha</div>
+      <h1>¡Nos casamos!</h1>
 
-      <div class="hero-names">
-        <div class="name">Agustina</div>
+      <div class="names">
+        Agustina
         <div class="amp">&</div>
-        <div class="name">Rodrigo</div>
+        Rodrigo
       </div>
-
-      <div class="scroll-cue">⌄</div>
     </div>
+
+    <div class="scroll-indicator">⌄</div>
   </section>
 
-  <!-- Lo primero que tapa la foto al scrollear -->
-  <section class="countdown" id="countdown">
-    <div class="wrap">
-      <h2 class="count-title">Bienvenidos a nuestra boda</h2>
-
-      <p class="count-sub">
-        Guardá la fecha: <strong>3 de octubre de 2026</strong>.<br>
-        Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
-      </p>
-
-      <div class="date-pill">📅 03 · 10 · 2026</div>
-
-      <div class="time-grid">
-        <div class="time-box">
-          <div class="time-num" id="dd">--</div>
-          <div class="time-lbl">días</div>
-        </div>
-        <div class="time-box">
-          <div class="time-num" id="hh">--</div>
-          <div class="time-lbl">hs</div>
-        </div>
-        <div class="time-box">
-          <div class="time-num" id="mm">--</div>
-          <div class="time-lbl">min</div>
-        </div>
-        <div class="time-box">
-          <div class="time-num" id="ss">--</div>
-          <div class="time-lbl">seg</div>
-        </div>
-      </div>
-
-      <p class="foot">Hecho con amor. El resto se publica más cerca de la fecha.</p>
-    </div>
+  <!-- SECCIÓN QUE TAPA LA FOTO -->
+  <section class="next-section">
+    <p>
+      Bienvenidos a nuestra boda.<br><br>
+      Acá va a venir el countdown (pantalla completa, sin cajas).
+    </p>
   </section>
 
-  <script src="script.js?v=30"></script>
 </body>
 </html>
