@@ -1,22 +1,3 @@
-// ====== 1) PARALLAX tipo "parallax-mirror" ======
-const slider = document.querySelector(".parallax-slider");
-
-// intensidad: a mayor valor, más se mueve
-const PARALLAX_STRENGTH = 0.18;
-
-function onScroll(){
-  const y = window.scrollY || 0;
-  // mueve la imagen un poco hacia arriba al bajar (estilo translate3d)
-  const offset = Math.round(y * PARALLAX_STRENGTH);
-  if (slider) {
-    slider.style.transform = `translate3d(0px, ${-offset}px, 0px) scale(1.06)`;
-  }
-}
-window.addEventListener("scroll", onScroll, { passive: true });
-onScroll();
-
-
-// ====== 2) COUNTDOWN ======
 const target = new Date("2026-10-03T00:00:00-03:00").getTime();
 
 const dd = document.getElementById("dd");
