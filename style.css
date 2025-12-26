@@ -1,5 +1,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; font-family: 'Montserrat', sans-serif; }
+html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background:#000; }
 
 /* HERO fijo a pantalla completa */
@@ -142,17 +143,103 @@ body { overflow-x: hidden; background:#000; }
   line-height: 1.6;
 }
 
-/* placeholder sección 3 */
-.next-placeholder{
+/* Sección 3: Ceremonia / Fiesta (blanco + azul) */
+.details-section{
   width: 100%;
-  min-height: 60vh;
-  background: #fff;
+  background: #ffffff;
   color: #0f243a;
+  padding: 90px 20px;
+}
+
+.details-wrap{
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.details-head{
+  text-align: center;
+  margin-bottom: 46px;
+}
+
+.details-head h2{
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.details-head p{
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.details-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  align-items: stretch;
+}
+
+.detail-card{
+  border: 1px solid rgba(15,36,58,0.12);
+  border-radius: 18px;
+  padding: 26px 22px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+
+.detail-icon{
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px auto;
   display: grid;
   place-items: center;
-  padding: 80px 20px;
-  text-align: center;
+  border-radius: 14px;
+  background: rgba(15,36,58,0.06);
+  font-size: 24px;
 }
+
+.detail-card h3{
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.detail-muted{
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.82;
+  margin-bottom: 18px;
+}
+
+.detail-btn{
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,36,58,0.25);
+  color: #0f243a;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.detail-btn:hover{
+  background: rgba(15,36,58,0.06);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 780px){
+  .details-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
