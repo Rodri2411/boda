@@ -3,119 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agustina & Rodrigo — Save the Date</title>
-  <link rel="stylesheet" href="style.css?v=12" />
+  <title>Save the Date — Agustina & Rodrigo</title>
+  <link rel="stylesheet" href="style.css?v=20" />
 </head>
 
 <body>
 
-  <!-- HERO fijo (fondo) -->
-  <header class="hero" id="hero">
-    <img class="hero__img" src="20250201_125621.jpg" alt="Agustina y Rodrigo" />
-    <div class="hero__overlay"></div>
+  <!-- Fondo parallax tipo "parallax-mirror" -->
+  <div class="parallax-mirror" aria-hidden="true">
+    <img class="parallax-slider" src="20250201_125621.jpg" alt="">
+  </div>
 
-    <div class="hero__content">
-      <div class="hero__text" id="heroText">
-        <p class="kicker">GUARDÁ LA FECHA</p>
-        <h1 class="h1">¡Nos casamos!</h1>
+  <!-- HERO (pantalla completa) -->
+  <section class="hero" id="top">
+    <div class="hero-overlay"></div>
 
-        <div class="names" aria-label="Agustina y Rodrigo">
-          Agustina
-          <span class="amp">&amp;</span>
-          Rodrigo
+    <div class="hero-content">
+      <div class="hero-kicker">GUARDA LA FECHA</div>
+      <div class="hero-title">¡Nos casamos!</div>
+
+      <div class="hero-names">
+        <span class="name">Agustina</span>
+        <span class="amp">&</span>
+        <span class="name">Rodrigo</span>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">⌄</div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: COUNTDOWN (esto es lo primero que “tapa” la foto al scrollear) -->
+  <section class="countdown" id="countdown">
+    <div class="wrap">
+      <h2 class="count-title">Bienvenidos a nuestra boda</h2>
+      <p class="count-sub">
+        Guardá la fecha: <strong>3 de octubre de 2026</strong>.<br/>
+        Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
+      </p>
+
+      <div class="date-pill">📅 03 · 10 · 2026</div>
+
+      <div class="time-grid">
+        <div class="time-box">
+          <div class="time-num" id="dd">--</div>
+          <div class="time-lbl">días</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="hh">--</div>
+          <div class="time-lbl">hs</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="mm">--</div>
+          <div class="time-lbl">min</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="ss">--</div>
+          <div class="time-lbl">seg</div>
         </div>
       </div>
 
-      <a class="hero__arrow" href="#info" aria-label="Bajar"></a>
-    </div>
-  </header>
-
-  <!-- SHEET que sube y tapa -->
-  <main class="sheet" id="info">
-    <div class="sheet__wrap">
-      <div class="card">
-        <h2>Bienvenidos a nuestra boda</h2>
-        <p>
-          Guardá la fecha: <strong>3 de octubre de 2026</strong>.<br />
-          Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
-        </p>
-
-        <div class="countdown" aria-label="Cuenta regresiva">
-          <div class="box">
-            <div class="num" id="cd_days">--</div>
-            <div class="lbl">días</div>
-          </div>
-          <div class="box">
-            <div class="num" id="cd_hours">--</div>
-            <div class="lbl">hs</div>
-          </div>
-          <div class="box">
-            <div class="num" id="cd_mins">--</div>
-            <div class="lbl">min</div>
-          </div>
-          <div class="box">
-            <div class="num" id="cd_secs">--</div>
-            <div class="lbl">seg</div>
-          </div>
+      <!-- (por ahora placeholders, como querés) -->
+      <div class="two-cards">
+        <div class="mini-card">
+          <h3>🏛️ Ceremonia</h3>
+          <p>Información a confirmar.<br><span>Se publica más cerca</span></p>
         </div>
-
-        <p style="margin-top:18px; text-align:center; color: rgba(243,244,247,.70); font-size: 13px;">
-          Hecho con amor. El resto se publica más cerca de la fecha.
-        </p>
+        <div class="mini-card">
+          <h3>🎉 Fiesta</h3>
+          <p>Información a confirmar.<br><span>Se publica más cerca</span></p>
+        </div>
       </div>
+
+      <p class="foot">Hecho con amor. El resto se publica más cerca de la fecha.</p>
     </div>
-  </main>
+  </section>
 
-  <script>
-    // ===== COUNTDOWN =====
-    // 3 Oct 2026 00:00 (hora local del dispositivo)
-    const target = new Date(2026, 9, 3, 0, 0, 0);
-
-    const elDays  = document.getElementById("cd_days");
-    const elHours = document.getElementById("cd_hours");
-    const elMins  = document.getElementById("cd_mins");
-    const elSecs  = document.getElementById("cd_secs");
-
-    function pad2(n){ return String(n).padStart(2, "0"); }
-
-    function tick(){
-      const now = new Date();
-      let diff = target - now;
-      if (diff < 0) diff = 0;
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days  = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const mins  = Math.floor((totalSeconds % 3600) / 60);
-      const secs  = totalSeconds % 60;
-
-      elDays.textContent  = days;
-      elHours.textContent = pad2(hours);
-      elMins.textContent  = pad2(mins);
-      elSecs.textContent  = pad2(secs);
-    }
-    tick();
-    setInterval(tick, 1000);
-
-    // ===== EFECTO: el texto del HERO sube y se apaga al scrollear =====
-    const heroText = document.getElementById("heroText");
-
-    function onScroll(){
-      const h = window.innerHeight;
-      const y = window.scrollY;
-      const p = Math.min(1, Math.max(0, y / h)); // 0..1 en la primera pantalla
-
-      const translateY = -p * 90;     // sube
-      const opacity = 1 - p * 1.15;   // se apaga
-      const scale = 1 - p * 0.05;     // micro
-
-      heroText.style.transform = `translateY(${translateY}px) scale(${scale})`;
-      heroText.style.opacity = Math.max(0, opacity).toFixed(3);
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  </script>
-
+  <script src="script.js?v=20"></script>
 </body>
 </html>
