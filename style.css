@@ -54,96 +54,134 @@ body { overflow-x: hidden; background:#000; }
   will-change: transform, opacity;
 }
 
-/*Acá emíeza el texto de Guarda la Fecha*/
+/* ===== Guardá la fecha ===== */
 .save{
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-size: 13px;
+  font-size: 15px;              /* MÁS GRANDE */
   font-weight: 300;
   letter-spacing: 5px;
   text-transform: uppercase;
   opacity: .95;
-  /* lo hace “especial” */
-  padding: 9px 16px;
+
+  padding: 10px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.30);
-  background: rgba(0,0,0,.12);
+  border: 1px solid rgba(255,255,255,.32);
+  background: rgba(0,0,0,.10);
   backdrop-filter: blur(6px);
-  transform: translateY(-10px); /* lo sube */
+
+  transform: translateY(-18px);  /* MÁS ARRIBA */
 }
 
 .save::before,
 .save::after{
   content:"";
-  width: 42px;
+  width: 46px;
   height: 1px;
   background: rgba(255,255,255,.55);
   display: inline-block;
 }
-/*Acá termina el texto de Guarda la Fecha*/
 
-.title{
-  font-size: clamp(26px, 7vw, 52px);
-  font-weight: 600;
-  line-height: 1.05;
-}
-
+/* ===== Nombres ===== */
 .names{
-  font-size: clamp(36px, 9vw, 72px);
-  font-weight: 400;
+  font-size: clamp(40px, 8vw, 74px);
+  font-weight: 200;
+  letter-spacing: 1px;
   line-height: 1.05;
 }
 
 .amp{
   font-size: 28px;
+  font-weight: 300;
   opacity: .95;
+  margin: 2px 0;
 }
 
+/* ===== Scroll indicator (NO desaparece y queda centrado) ===== */
 .scroll-indicator{
   position: absolute;
   left: 50%;
   bottom: 26px;
-  transform: translateX(-50%);
   z-index: 3;
-
-  font-size: 34px;                 /* más grande */
-  color: rgba(255,255,255,0.85);
 
   width: 48px;
   height: 48px;
   display: grid;
   place-items: center;
 
+  font-size: 34px;
+  color: rgba(255,255,255,0.9);
+
   border: 1px solid rgba(255,255,255,0.35);
   border-radius: 50%;
 
   cursor: pointer;
-  animation: bob 1.6s ease-in-out infinite;
+  user-select: none;
+
+  transform: translate(-50%, 0);
+  animation: bob2 1.6s ease-in-out infinite;
   transition: transform .25s ease, background .25s ease;
 }
 
 .scroll-indicator:hover{
-  transform: translateX(-50%) scale(1.15);
+  transform: translate(-50%, 0) scale(1.12);
   background: rgba(255,255,255,0.12);
 }
 
-@keyframes bob{
-  0%,100% { transform: translateY(0); opacity: .9; }
-  50%     { transform: translateY(8px); opacity: .65; }
+@keyframes bob2{
+  0%,100% { transform: translate(-50%, 0); opacity: .92; }
+  50%     { transform: translate(-50%, 8px); opacity: .68; }
+}
+
+/* ===== CÍRCULO + TEXTO ARRIBA ===== */
+.ring{
+  width: min(520px, 92vw);     /* radio más grande */
+  margin: 0 auto;
+  pointer-events: none;
+  transform: translateY(-8px); /* MÁS CERCA de los nombres */
+}
+
+.ring svg{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ring-stroke{
+  stroke: rgba(255,255,255,0.32);  /* que se vea */
+  stroke-width: 1.2;
+}
+
+.ring-text{
+  fill: rgba(255,255,255,0.95);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  letter-spacing: 10px;
+  font-size: 20px;               /* MÁS GRANDE el “NOS CASAMOS” */
+  text-transform: uppercase;
+}
+
+/* mete los nombres dentro del círculo */
+.names-block{
+  margin-top: -250px;  /* clave: centra nombres dentro del círculo grande */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 /* CONTENIDO por encima del hero */
 .content{
   position: relative;
   z-index: 5;
-  margin-top: 100vh;     /* arranca después del hero, y al scrollear lo “tapa” */
+  margin-top: 100vh;
 }
 
-/* COUNTDOWN (sección 2) */
+/* ===== COUNTDOWN ===== */
 .countdown-section{
   width: 100%;
-  background: #0f243a; /* azul */
+  background: #0f243a;
   color: #fff;
   padding: 90px 20px;
   text-align: center;
@@ -171,9 +209,7 @@ body { overflow-x: hidden; background:#000; }
   font-size: clamp(28px, 6vw, 48px);
 }
 
-.sep{
-  opacity: .7;
-}
+.sep{ opacity: .7; }
 
 .countdown-foot{
   margin-top: 28px;
@@ -182,7 +218,7 @@ body { overflow-x: hidden; background:#000; }
   line-height: 1.6;
 }
 
-/* Sección 3: Ceremonia / Fiesta (blanco + azul) */
+/* ===== Sección 3 ===== */
 .details-section{
   width: 100%;
   background: #ffffff;
@@ -274,73 +310,17 @@ body { overflow-x: hidden; background:#000; }
 }
 
 @media (max-width: 780px){
-  .details-grid{
-    grid-template-columns: 1fr;
-  }
+  .details-grid{ grid-template-columns: 1fr; }
 }
 
+/* Mobile ajustes finos */
+@media (max-width: 420px){
+  .ring{ width: min(420px, 92vw); }
+  .ring-text{ font-size: 16px; letter-spacing: 7px; }
+  .names-block{ margin-top: -205px; }
+}
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
-
-/* === CÍRCULO SUPERIOR === */
-.ring{
-  width: min(420px, 92vw);   /* más grande */
-  margin: 0 auto;
-  opacity: 1;
-  pointer-events: none;
-  transform: translateY(18px); /* baja el círculo hacia los nombres */
-}
-
-.ring svg{
-  width: 100%;
-  height: auto;
-}
-
-/* línea del círculo */
-.ring-stroke{
-  stroke: rgba(255,255,255,0.35); /* ahora se ve */
-  stroke-width: 1.2;
-}
-
-/* texto circular */
-.ring-text{
-  fill: rgba(255,255,255,0.95);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 300;
-  letter-spacing: 8px;
-  font-size: 15px;          /* MÁS GRANDE */
-  text-transform: uppercase;
-}
-
-/* centra el bloque de nombres dentro del círculo */
-.names-block{
-  margin-top: -120px;         /* “mete” los nombres dentro del círculo */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-@media (max-width: 420px){
-  .ring{ width: min(320px, 92vw); }
-  .names-block{ margin-top: -200px; }
-  .ring-text{ font-size: 11px; letter-spacing: 5px; }
-}
-
-.title{ display:none; } /* ya no usamos ¡Nos casamos! en línea recta */
-
-/* Ajuste fino de los nombres con Raleway */
-.names{
-  font-weight: 200;
-  letter-spacing: 1px;
-}
-
-.amp{
-  font-weight: 300;
-  opacity: .95;
-  margin: 0;
-}
-
