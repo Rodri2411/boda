@@ -50,7 +50,7 @@ setInterval(updateCountdown, 1000);
     heroText.style.opacity = textOpacity.toFixed(3);
 
     // Foto: sube suave (parallax sutil)
-    const imageY = progress * -60;
+    const imageY = progress * -80;
     heroImage.style.transform = `translateY(${imageY}px)`;
   }
 
