@@ -23,29 +23,19 @@
   <div class="save">Guardá la fecha</div>
 
 <div class="ring" aria-label="¡Nos casamos!">
-  <svg viewBox="0 0 220 220" role="img" aria-hidden="true">
+  <svg viewBox="0 0 260 260" role="img" aria-hidden="true">
     <defs>
-      <!-- círculo “arriba” -->
       <path id="circleTop"
-            d="M110,110 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" />
-      <!-- círculo “abajo” (mismo, pero recorrido al revés) -->
-      <path id="circleBottom"
-            d="M110,110 m88,0 a88,88 0 1,0 -176,0 a88,88 0 1,0 176,0" />
+        d="M130,130 m-104,0 a104,104 0 1,1 208,0 a104,104 0 1,1 -208,0" />
     </defs>
 
-    <circle class="ring-stroke" cx="110" cy="110" r="88" fill="none"/>
+    <!-- línea visible del círculo -->
+    <circle class="ring-stroke" cx="130" cy="130" r="104" fill="none"/>
 
+    <!-- texto circular SOLO ARRIBA -->
     <text class="ring-text">
-      <!-- Arriba (0°) -->
-      <textPath href="#circleTop" startOffset="25%" text-anchor="middle">
-        ¡NOS CASAMOS!
-      </textPath>
-    </text>
-
-    <text class="ring-text">
-      <!-- Abajo (180°) -->
-      <textPath href="#circleBottom" startOffset="25%" text-anchor="middle">
-        ¡NOS CASAMOS!
+      <textPath href="#circleTop" startOffset="50%" text-anchor="middle">
+        ¡ NOS&nbsp;&nbsp;CASAMOS !
       </textPath>
     </text>
   </svg>
