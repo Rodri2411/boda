@@ -83,11 +83,10 @@ body { overflow-x: hidden; background:#000; }
   display: inline-block;
 }
 
-/* ===== Marca circular (estable) ===== */
 .hero-mark{
   position: relative;
-  width: min(520px, 92vw);   /* grande */
-  margin: 10px auto 0 auto;
+  width: min(357px, 92vw); /* 420 * 0.85 = 357 */
+  margin: 6px auto 0 auto;
 }
 
 /* Círculo */
@@ -342,4 +341,9 @@ body { overflow-x: hidden; background:#000; }
 
 .ring-text { dominant-baseline: middle; }
 
+/* Forzar que los signos se rendericen siempre */
+.punct{
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+}
 
