@@ -23,31 +23,30 @@
 
         <div class="save">Guardá la fecha</div>
 
-        <!-- Círculo + texto arriba (arco superior) -->
-        <div class="ring" aria-label="¡Nos casamos!">
-          <svg viewBox="0 0 300 300" aria-hidden="true">
-            <!-- círculo visible -->
-            <circle class="ring-stroke" cx="150" cy="150" r="128" fill="none"></circle>
+       <div class="hero-mark">
+  <div class="ring" aria-label="¡Nos casamos!">
+    <svg viewBox="0 0 300 300" aria-hidden="true">
+      <circle class="ring-stroke" cx="150" cy="150" r="122" fill="none"></circle>
 
-            <!-- arco superior para el texto (solo arriba) -->
-            <defs>
-              <path id="arcTop" d="M22,150 A128,128 0 0,0 278,150" />
-            </defs>
+      <defs>
+        <!-- ARCO SUPERIOR (importante el sweep=0) -->
+        <path id="arcTop" d="M28,150 A122,122 0 0,0 272,150" />
+      </defs>
 
-            <text class="ring-text">
-              <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-                ¡ NOS&nbsp;&nbsp;CASAMOS !
-              </textPath>
-            </text>
-          </svg>
-        </div>
+      <text class="ring-text">
+        <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+          ¡ NOS&nbsp;&nbsp;CASAMOS !
+        </textPath>
+      </text>
+    </svg>
+  </div>
 
-        <!-- Nombres dentro del círculo -->
-        <div class="names-block">
-          <div class="names">Agustina</div>
-          <div class="amp">&</div>
-          <div class="names">Rodrigo</div>
-        </div>
+  <div class="names-block">
+    <div class="names">Agustina</div>
+    <div class="amp">&</div>
+    <div class="names">Rodrigo</div>
+  </div>
+</div>
 
       </div>
     </div>
