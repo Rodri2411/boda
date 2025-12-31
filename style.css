@@ -89,9 +89,10 @@ body { overflow-x: hidden; background:#000; }
   margin: 6px auto 0 auto;
 }
 
-/* Círculo */
+/* Ring: SIN línea visible */
 .ring{
-  width: 100%;
+  width: min(520px, 92vw);
+  margin: 6px auto 0 auto;
   pointer-events: none;
 }
 
@@ -101,19 +102,16 @@ body { overflow-x: hidden; background:#000; }
   display: block;
 }
 
-/* línea visible */
-.ring-stroke{
-  stroke: rgba(255,255,255,0.40);
-  stroke-width: 1.4;
-}
+/* SIN stroke (no se dibuja nada) */
+.ring-stroke{ display:none; }
 
-/* texto circular SOLO arriba */
+/* Texto del arco */
 .ring-text{
   fill: rgba(255,255,255,0.95);
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
-  letter-spacing: 12px;
-  font-size: 26px;              /* MÁS GRANDE */
+  letter-spacing: 10px;
+  font-size: 22px;
   text-transform: uppercase;
 }
 
