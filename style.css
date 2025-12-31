@@ -22,7 +22,10 @@ body { overflow-x: hidden; background:#000; }
   object-fit: cover;         /* mobile A: recorta un poco pero full screen prolijo */
   object-position: center;
   display: block;
-  transform: translateZ(0);
+  will-change: transform;
+  transform: translateY(0);
+}
+
 }
 
 /* oscurece para legibilidad */
