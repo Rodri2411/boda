@@ -19,11 +19,11 @@ body { overflow-x: hidden; background:#000; }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;         /* mobile A: recorta pero full screen prolijo */
   object-position: center;
   display: block;
   will-change: transform;
-  transform: translateY(0);
+  transform: translate3d(0,0,0);
 }
 
 /* oscurece para legibilidad */
@@ -54,12 +54,12 @@ body { overflow-x: hidden; background:#000; }
   will-change: transform, opacity;
 }
 
-/* ===== Guardá la fecha ===== */
+/* ===== Guardá la fecha (elegante) ===== */
 .save{
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-size: 15px;              /* MÁS GRANDE */
+  font-size: 15px;
   font-weight: 300;
   letter-spacing: 5px;
   text-transform: uppercase;
@@ -71,7 +71,7 @@ body { overflow-x: hidden; background:#000; }
   background: rgba(0,0,0,.10);
   backdrop-filter: blur(6px);
 
-  transform: translateY(-18px);  /* MÁS ARRIBA */
+  transform: translateY(-18px);
 }
 
 .save::before,
@@ -83,7 +83,56 @@ body { overflow-x: hidden; background:#000; }
   display: inline-block;
 }
 
-/* ===== Nombres ===== */
+/* ===== Marca circular (estable) ===== */
+.hero-mark{
+  position: relative;
+  width: min(520px, 92vw);   /* grande */
+  margin: 10px auto 0 auto;
+}
+
+/* Círculo */
+.ring{
+  width: 100%;
+  pointer-events: none;
+}
+
+.ring svg{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* línea visible */
+.ring-stroke{
+  stroke: rgba(255,255,255,0.40);
+  stroke-width: 1.4;
+}
+
+/* texto circular SOLO arriba */
+.ring-text{
+  fill: rgba(255,255,255,0.95);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  letter-spacing: 12px;
+  font-size: 26px;              /* MÁS GRANDE */
+  text-transform: uppercase;
+}
+
+/* Nombres centrados dentro del círculo */
+.names-block{
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .names{
   font-size: clamp(40px, 8vw, 74px);
   font-weight: 200;
@@ -98,22 +147,22 @@ body { overflow-x: hidden; background:#000; }
   margin: 2px 0;
 }
 
-/* ===== Scroll indicator (NO desaparece y queda centrado) ===== */
+/* ===== Scroll indicator (no desaparece) ===== */
 .scroll-indicator{
   position: absolute;
   left: 50%;
   bottom: 26px;
   z-index: 3;
 
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: grid;
   place-items: center;
 
-  font-size: 34px;
-  color: rgba(255,255,255,0.9);
+  font-size: 36px;
+  color: rgba(255,255,255,0.92);
 
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.38);
   border-radius: 50%;
 
   cursor: pointer;
@@ -134,51 +183,14 @@ body { overflow-x: hidden; background:#000; }
   50%     { transform: translate(-50%, 8px); opacity: .68; }
 }
 
-/* ===== CÍRCULO + TEXTO ARRIBA ===== */
-.ring{
-  width: min(520px, 92vw);     /* radio más grande */
-  margin: 0 auto;
-  pointer-events: none;
-  transform: translateY(-8px); /* MÁS CERCA de los nombres */
-}
-
-.ring svg{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.ring-stroke{
-  stroke: rgba(255,255,255,0.32);  /* que se vea */
-  stroke-width: 1.2;
-}
-
-.ring-text{
-  fill: rgba(255,255,255,0.95);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 300;
-  letter-spacing: 10px;
-  font-size: 20px;               /* MÁS GRANDE el “NOS CASAMOS” */
-  text-transform: uppercase;
-}
-
-/* mete los nombres dentro del círculo */
-.names-block{
-  margin-top: -250px;  /* clave: centra nombres dentro del círculo grande */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
 /* CONTENIDO por encima del hero */
 .content{
   position: relative;
   z-index: 5;
-  margin-top: 100vh;
+  margin-top: 100vh; /* arranca después del hero */
 }
 
-/* ===== COUNTDOWN ===== */
+/* ===== COUNTDOWN (sección 2) ===== */
 .countdown-section{
   width: 100%;
   background: #0f243a;
@@ -309,71 +321,18 @@ body { overflow-x: hidden; background:#000; }
   transform: translateY(-1px);
 }
 
+/* Responsive */
 @media (max-width: 780px){
   .details-grid{ grid-template-columns: 1fr; }
 }
 
-/* Mobile ajustes finos */
 @media (max-width: 420px){
-  .ring{ width: min(420px, 92vw); }
-  .ring-text{ font-size: 16px; letter-spacing: 7px; }
-  .names-block{ margin-top: -205px; }
+  .hero-mark{ width: min(440px, 92vw); }
+  .ring-text{ font-size: 20px; letter-spacing: 9px; }
+  .names-block{ top: 58%; }
 }
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
-/* ===== FIX CÍRCULO + NOMBRES (estable, sin margin-top negativo) ===== */
-.hero-mark{
-  position: relative;
-  width: min(420px, 92vw);
-  margin: 6px auto 0 auto;
-}
-
-.ring{
-  width: 100%;
-  pointer-events: none;
-  opacity: 1;
-}
-
-.ring svg{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.ring-stroke{
-  stroke: rgba(255,255,255,0.35);
-  stroke-width: 1.2;
-}
-
-.ring-text{
-  fill: rgba(255,255,255,0.95);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 300;
-  letter-spacing: 10px;
-  font-size: 22px;         /* más grande */
-  text-transform: uppercase;
-}
-
-/* nombres centrados dentro del círculo */
-.names-block{
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* ajuste fino mobile */
-@media (max-width: 420px){
-  .hero-mark{ width: min(340px, 92vw); }
-  .ring-text{ font-size: 18px; letter-spacing: 8px; }
-}
-
