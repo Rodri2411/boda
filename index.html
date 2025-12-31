@@ -26,24 +26,21 @@
 
         <!-- Marca principal (círculo + texto arriba + nombres centrados) -->
         <div class="hero-mark" aria-label="¡Nos casamos! Agustina y Rodrigo">
-          <div class="ring" aria-hidden="true">
-            <svg viewBox="0 0 300 300">
-              <!-- círculo visible -->
-              <circle class="ring-stroke" cx="150" cy="150" r="122" fill="none"></circle>
+         <div class="ring" aria-hidden="true">
+  <svg viewBox="0 0 300 300">
+    <defs>
+      <!-- ARCO SUPERIOR REAL: de izquierda a derecha por arriba -->
+      <path id="arcTop" d="M28,150 A122,122 0 0,1 272,150" />
+    </defs>
 
-              <defs>
-                <!-- ARCO SUPERIOR (solo arriba) -->
-                <path id="arcTop" d="M28,150 A122,122 0 0,0 272,150" />
-              </defs>
+    <text class="ring-text">
+      <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+        ¡ NOS&nbsp;&nbsp;CASAMOS !
+      </textPath>
+    </text>
+  </svg>
+</div>
 
-              <!-- texto circular SOLO arriba -->
-              <text class="ring-text">
-                <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-                  ¡ NOS&nbsp;&nbsp;CASAMOS !
-                </textPath>
-              </text>
-            </svg>
-          </div>
 
           <!-- Nombres quedan dentro del círculo -->
           <div class="names-block">
