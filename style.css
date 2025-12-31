@@ -336,3 +336,10 @@ body { overflow-x: hidden; background:#000; }
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
+
+/* No mostrar ninguna línea de círculo */
+.ring-stroke { display: none !important; }
+
+.ring-text { dominant-baseline: middle; }
+
+
