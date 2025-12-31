@@ -59,24 +59,24 @@ body { overflow-x: hidden; background:#000; }
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 300;
   letter-spacing: 5px;
   text-transform: uppercase;
   opacity: .95;
-
   /* lo hace “especial” */
-  padding: 8px 14px;
+  padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.30);
   background: rgba(0,0,0,.12);
   backdrop-filter: blur(6px);
+  transform: translateY(-10px); /* lo sube */
 }
 
 .save::before,
 .save::after{
   content:"";
-  width: 36px;
+  width: 42px;
   height: 1px;
   background: rgba(255,255,255,.55);
   display: inline-block;
@@ -269,41 +269,43 @@ body { overflow-x: hidden; background:#000; }
   .scroll-indicator{ animation: none; }
 }
 
-/* círculo */
 .ring{
-  width: min(220px, 70vw);
+  width: min(340px, 86vw);   /* grande para encerrar nombres */
   height: auto;
-  margin-top: 6px;
-  margin-bottom: 2px;
+  margin: 8px 0 6px;
   opacity: .95;
+  pointer-events: none;
 }
 
-.ring svg{
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
+.ring svg{ width: 100%; height: auto; }
 
-.ring circle{
-  stroke: rgba(255,255,255,.25);
+.ring-stroke{
+  stroke: rgba(255,255,255,.20);
   stroke-width: 1;
 }
 
-.ring text{
-  fill: rgba(255,255,255,.95);
+.ring-text{
+  fill: rgba(255,255,255,.92);
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
-  letter-spacing: 5px;
+  letter-spacing: 6px;
   text-transform: uppercase;
   font-size: 12px;
 }
 
-/* bloque de nombres (para que se vea bien con el círculo) */
+/* centra el bloque de nombres dentro del círculo */
 .names-block{
+  margin-top: -210px;         /* “mete” los nombres dentro del círculo */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+}
+
+@media (max-width: 420px){
+  .ring{ width: min(320px, 92vw); }
+  .names-block{ margin-top: -200px; }
+  .ring-text{ font-size: 11px; letter-spacing: 5px; }
 }
 
 .title{ display:none; } /* ya no usamos ¡Nos casamos! en línea recta */
