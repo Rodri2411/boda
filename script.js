@@ -40,8 +40,8 @@ setInterval(updateCountdown, 1000);
     const vh = window.innerHeight || 1;
     const rect = hero.getBoundingClientRect();
 
-    // progreso 0..1 mientras el hero se va yendo hacia arriba
-    const progress = Math.min(1, Math.max(0, (-rect.top) / vh));
+// Como el hero es FIXED, usamos el scroll real de la página
+const progress = Math.min(1, Math.max(0, (window.scrollY / vh)));
 
     // Texto: sube y baja un poquito la opacidad
     const textY = progress * -120;
