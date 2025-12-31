@@ -22,33 +22,41 @@
       <div class="stack" id="heroText">
   <div class="save">Guardá la fecha</div>
 
-  <!-- Texto circular -->
-  <div class="ring" aria-label="¡Nos casamos!">
-    <svg viewBox="0 0 200 200" role="img" aria-hidden="true">
-      <defs>
-        <path id="circlePath" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" />
-      </defs>
+<div class="ring" aria-label="¡Nos casamos!">
+  <svg viewBox="0 0 220 220" role="img" aria-hidden="true">
+    <defs>
+      <!-- círculo “arriba” -->
+      <path id="circleTop"
+            d="M110,110 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" />
+      <!-- círculo “abajo” (mismo, pero recorrido al revés) -->
+      <path id="circleBottom"
+            d="M110,110 m88,0 a88,88 0 1,0 -176,0 a88,88 0 1,0 176,0" />
+    </defs>
 
-      <!-- Opcional: circulito finito, muy sutil -->
-      <circle cx="100" cy="100" r="72" fill="none" />
+    <circle class="ring-stroke" cx="110" cy="110" r="88" fill="none"/>
 
-      <!-- Texto arriba del círculo -->
-      <text>
-        <textPath href="#circlePath" startOffset="12%">
-          ¡NOS CASAMOS! • ¡NOS CASAMOS! •
-        </textPath>
-      </text>
-    </svg>
-  </div>
+    <text class="ring-text">
+      <!-- Arriba (0°) -->
+      <textPath href="#circleTop" startOffset="25%" text-anchor="middle">
+        ¡NOS CASAMOS!
+      </textPath>
+    </text>
 
-  <!-- Nombres -->
-  <div class="names-block">
-    <div class="names">Agustina</div>
-    <div class="amp">&</div>
-    <div class="names">Rodrigo</div>
-  </div>
+    <text class="ring-text">
+      <!-- Abajo (180°) -->
+      <textPath href="#circleBottom" startOffset="25%" text-anchor="middle">
+        ¡NOS CASAMOS!
+      </textPath>
+    </text>
+  </svg>
 </div>
-    </div>
+
+<!-- Nombres quedan dentro del círculo -->
+<div class="names-block">
+  <div class="names">Agustina</div>
+  <div class="amp">&</div>
+  <div class="names">Rodrigo</div>
+</div>
 
     <div class="scroll-indicator">⌄</div>
   </section>
