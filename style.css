@@ -1,7 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-  font-family: "Raleway", sans-serif;
-}
+html, body { height: 100%; font-family: 'Montserrat', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background:#000; }
 
@@ -243,24 +241,8 @@ body { overflow-x: hidden; background:#000; }
   }
 }
 
+
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
-
-/* Ajustes finos para Cormorant Garamond */
-.hero .title {
-  font-weight: 600; /* mantiene presencia */
-  letter-spacing: 1px;
-}
-
-.hero .names {
-  font-weight: 400; /* más elegante */
-  letter-spacing: .2px;
-}
-
-.countdown-section,
-.details-section {
-  font-family: "Cormorant Garamond", serif;
-}
-
