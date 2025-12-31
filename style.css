@@ -102,14 +102,30 @@ body { overflow-x: hidden; background:#000; }
 
 .scroll-indicator{
   position: absolute;
-  left: 0; right: 0;
-  bottom: 22px;
-  z-index: 2;
-  text-align: center;
-  color: rgba(255,255,255,.9);
-  font-size: 22px;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 3;
+
+  font-size: 34px;                 /* más grande */
+  color: rgba(255,255,255,0.85);
+
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 50%;
+
+  cursor: pointer;
   animation: bob 1.6s ease-in-out infinite;
-  user-select: none;
+  transition: transform .25s ease, background .25s ease;
+}
+
+.scroll-indicator:hover{
+  transform: translateX(-50%) scale(1.15);
+  background: rgba(255,255,255,0.12);
 }
 
 @keyframes bob{
@@ -269,33 +285,39 @@ body { overflow-x: hidden; background:#000; }
   .scroll-indicator{ animation: none; }
 }
 
+/* === CÍRCULO SUPERIOR === */
 .ring{
-  width: min(340px, 86vw);   /* grande para encerrar nombres */
-  height: auto;
-  margin: 8px 0 6px;
-  opacity: .95;
+  width: min(420px, 92vw);   /* más grande */
+  margin: 0 auto;
+  opacity: 1;
   pointer-events: none;
+  transform: translateY(18px); /* baja el círculo hacia los nombres */
 }
 
-.ring svg{ width: 100%; height: auto; }
+.ring svg{
+  width: 100%;
+  height: auto;
+}
 
+/* línea del círculo */
 .ring-stroke{
-  stroke: rgba(255,255,255,.20);
-  stroke-width: 1;
+  stroke: rgba(255,255,255,0.35); /* ahora se ve */
+  stroke-width: 1.2;
 }
 
+/* texto circular */
 .ring-text{
-  fill: rgba(255,255,255,.92);
+  fill: rgba(255,255,255,0.95);
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
+  font-size: 15px;          /* MÁS GRANDE */
   text-transform: uppercase;
-  font-size: 12px;
 }
 
 /* centra el bloque de nombres dentro del círculo */
 .names-block{
-  margin-top: -210px;         /* “mete” los nombres dentro del círculo */
+  margin-top: -120px;         /* “mete” los nombres dentro del círculo */
   display: flex;
   flex-direction: column;
   align-items: center;
