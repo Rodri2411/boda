@@ -20,35 +20,40 @@
 
     <div class="hero-content">
       <div class="stack" id="heroText">
-  <div class="save">Guardá la fecha</div>
 
-<div class="ring" aria-label="¡Nos casamos!">
-  <svg viewBox="0 0 260 260" role="img" aria-hidden="true">
-    <defs>
-      <path id="circleTop"
-        d="M130,130 m-104,0 a104,104 0 1,1 208,0 a104,104 0 1,1 -208,0" />
-    </defs>
+        <div class="save">Guardá la fecha</div>
 
-    <!-- línea visible del círculo -->
-    <circle class="ring-stroke" cx="130" cy="130" r="104" fill="none"/>
+        <!-- Círculo + texto arriba (arco superior) -->
+        <div class="ring" aria-label="¡Nos casamos!">
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <!-- círculo visible -->
+            <circle class="ring-stroke" cx="150" cy="150" r="128" fill="none"></circle>
 
-    <!-- texto circular SOLO ARRIBA -->
-    <text class="ring-text">
-      <textPath href="#circleTop" startOffset="50%" text-anchor="middle">
-        ¡ NOS&nbsp;&nbsp;CASAMOS !
-      </textPath>
-    </text>
-  </svg>
-</div>
+            <!-- arco superior para el texto (solo arriba) -->
+            <defs>
+              <path id="arcTop" d="M22,150 A128,128 0 0,0 278,150" />
+            </defs>
 
-<!-- Nombres quedan dentro del círculo -->
-<div class="names-block">
-  <div class="names">Agustina</div>
-  <div class="amp">&</div>
-  <div class="names">Rodrigo</div>
-</div>
+            <text class="ring-text">
+              <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                ¡ NOS&nbsp;&nbsp;CASAMOS !
+              </textPath>
+            </text>
+          </svg>
+        </div>
 
-    <div class="scroll-indicator">⌄</div>
+        <!-- Nombres dentro del círculo -->
+        <div class="names-block">
+          <div class="names">Agustina</div>
+          <div class="amp">&</div>
+          <div class="names">Rodrigo</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- indicador SI o SI fuera del stack -->
+    <div class="scroll-indicator" id="scrollIndicator" title="Bajar">⌄</div>
   </section>
 
   <!-- CONTENIDO que pasa por arriba del hero -->
@@ -73,40 +78,38 @@
       </p>
     </section>
 
-    <!-- Paso 3 irá acá -->
-<section class="details-section" id="details">
-  <div class="details-wrap">
-    <div class="details-head">
-      <h2>Información del evento</h2>
-      <p>
-        Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
-      </p>
-    </div>
+    <section class="details-section" id="details">
+      <div class="details-wrap">
+        <div class="details-head">
+          <h2>Información del evento</h2>
+          <p>
+            Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
+          </p>
+        </div>
 
-    <div class="details-grid">
-      <article class="detail-card">
-        <div class="detail-icon" aria-hidden="true">⛪</div>
-        <h3>Ceremonia</h3>
-        <p class="detail-muted">
-          Información a confirmar.<br>
-          La compartimos más cerca de la fecha.
-        </p>
-        <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-      </article>
+        <div class="details-grid">
+          <article class="detail-card">
+            <div class="detail-icon" aria-hidden="true">⛪</div>
+            <h3>Ceremonia</h3>
+            <p class="detail-muted">
+              Información a confirmar.<br>
+              La compartimos más cerca de la fecha.
+            </p>
+            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
+          </article>
 
-      <article class="detail-card">
-        <div class="detail-icon" aria-hidden="true">🥂</div>
-        <h3>Fiesta</h3>
-        <p class="detail-muted">
-          Información a confirmar.<br>
-          La compartimos más cerca de la fecha.
-        </p>
-        <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-      </article>
-    </div>
-  </div>
-</section>
-
+          <article class="detail-card">
+            <div class="detail-icon" aria-hidden="true">🥂</div>
+            <h3>Fiesta</h3>
+            <p class="detail-muted">
+              Información a confirmar.<br>
+              La compartimos más cerca de la fecha.
+            </p>
+            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
   </main>
 
