@@ -108,7 +108,7 @@ body { overflow-x: hidden; background: #000; }
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
   letter-spacing: 10px;
-  font-size: 22px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 
@@ -322,7 +322,7 @@ body { overflow-x: hidden; background: #000; }
 /* Mobile fino */
 @media (max-width: 420px){
   .hero-mark{ width: min(360px, 92vw); }
-  .ring-text{ font-size: 18px; letter-spacing: 8px; }
+  .ring-text{ font-size: 16px; letter-spacing: 8px; }
   .names-block{ top: 60%; }
 }
 
