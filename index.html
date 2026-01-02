@@ -7,89 +7,99 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <section class="hero" id="hero">
-    <img src="20250201_125621.jpg" alt="Agustina y Rodrigo" id="heroImage" loading="eager" decoding="async">
+<section class="hero" id="hero">
+  <img src="20250201_125621.jpg" alt="Agustina y Rodrigo" id="heroImage">
 
-    <div class="hero-content">
-      <div class="stack" id="heroText">
-        <div class="save">Guardá la fecha</div>
+  <div class="hero-content">
+    <div class="stack" id="heroText">
 
-        <div class="hero-mark">
-         <div class="ring" aria-label="¡Nos casamos!">
-  <svg viewBox="0 -100 300 280" aria-hidden="true">
-    <defs>
-      <path id="arcTop" d="M -50 125 C 60 60 240 60 350 125" />
-    </defs>
-    <text class="ring-text">
-      <textPath href="#arcTop" startOffset="50%" text-anchor="middle" dy="-40">
-        ¡NOS CASAMOS!
-      </textPath>
-    </text>
-  </svg>
-</div>
+      <div class="save">Guardá la fecha</div>
 
-          <div class="names-block">
-            <div class="names">Agustina</div>
-            <div class="amp">&</div>
-            <div class="names">Rodrigo</div>
-          </div>
+      <div class="hero-mark">
+        <div class="ring">
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <defs>
+              <!-- arco superior, plano y alto -->
+              <path id="arcTop" d="M -50 125 C 60 60 240 60 350 125" />
+            </defs>
+            <text class="ring-text">
+              <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                ¡NOS CASAMOS!
+              </textPath>
+            </text>
+          </svg>
+        </div>
+
+        <div class="names-block">
+          <div class="names">Agustina</div>
+          <div class="amp">&</div>
+          <div class="names">Rodrigo</div>
         </div>
       </div>
+
+    </div>
+  </div>
+
+  <div class="scroll-indicator" id="scrollIndicator">⌄</div>
+</section>
+
+<main class="content">
+
+<section class="countdown-section" id="countdown">
+  <p class="countdown-intro">Bienvenidos a nuestra boda</p>
+
+  <div class="countdown-line">
+    <span><strong id="d">--</strong> días</span>
+    <span class="sep">:</span>
+    <span><strong id="h">--</strong> hs</span>
+    <span class="sep">:</span>
+    <span><strong id="m">--</strong> min</span>
+    <span class="sep">:</span>
+    <span><strong id="s">--</strong> seg</span>
+  </div>
+
+  <p class="countdown-foot">
+    Guardá la fecha: <strong>3 de octubre de 2026</strong><br>
+    Más cerca del día publicamos toda la información.
+  </p>
+</section>
+
+<!-- ====== SECCIÓN 3 SIN TARJETAS ====== -->
+<section class="details-section" id="details">
+  <div class="details-wrap">
+
+    <div class="detail-item">
+      <img src="icono-ceremonia.svg" alt="Ceremonia" class="detail-icon">
+      <h3>CEREMONIA</h3>
+      <p>
+        Información a confirmar.<br>
+        La compartimos más cerca de la fecha.
+      </p>
+      <a href="#countdown" class="detail-link">Llegar a la ceremonia</a>
     </div>
 
-    <div class="scroll-indicator" id="scrollIndicator" title="Bajar">⌄</div>
-  </section>
-
-  <main class="content">
-    <section class="countdown-section" id="countdown">
-      <p class="countdown-intro">Bienvenidos a nuestra boda</p>
-      <div class="countdown-line" aria-label="Cuenta regresiva">
-        <span><strong id="d">--</strong> días</span>
-        <span class="sep">:</span>
-        <span><strong id="h">--</strong> hs</span>
-        <span class="sep">:</span>
-        <span><strong id="m">--</strong> min</span>
-        <span class="sep">:</span>
-        <span><strong id="s">--</strong> seg</span>
-      </div>
-      <p class="countdown-foot">
-        Guardá la fecha: <strong>3 de octubre de 2026</strong><br>
-        Más cerca del día publicamos toda la información.
+    <div class="detail-item">
+      <img src="icono-fiesta.svg" alt="Fiesta" class="detail-icon">
+      <h3>FIESTA</h3>
+      <p>
+        Información a confirmar.<br>
+        La compartimos más cerca de la fecha.
       </p>
-    </section>
+      <a href="#countdown" class="detail-link">Llegar a la fiesta</a>
+    </div>
 
-    <section class="details-section" id="details">
-      <div class="details-wrap">
-        <div class="details-head">
-          <h2>Información del evento</h2>
-          <p>Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.</p>
-        </div>
+  </div>
+</section>
 
-        <div class="details-grid">
-          <article class="detail-card">
-            <img class="detail-icon" src="icono-ceremonia.svg" alt="Ícono ceremonia">
-            <h3>Ceremonia</h3>
-            <p class="detail-muted">Información a confirmar.<br>La compartimos más cerca de la fecha.</p>
-            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-          </article>
+</main>
 
-          <article class="detail-card">
-            <img class="detail-icon" src="icono-fiesta.svg" alt="Ícono fiesta">
-            <h3>Fiesta</h3>
-            <p class="detail-muted">Información a confirmar.<br>La compartimos más cerca de la fecha.</p>
-            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
