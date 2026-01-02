@@ -230,11 +230,28 @@ body { overflow-x: hidden; background: #000; }
   background: #ffffff;
   color: #0f243a;
   padding: 90px 20px;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.details-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(0,0,0,0.045), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(0,0,0,0.035), transparent 45%),
+    radial-gradient(circle at 40% 90%, rgba(0,0,0,0.04), transparent 45%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.018) 0px, rgba(0,0,0,0.018) 1px, transparent 2px, transparent 6px);
 }
 
 .details-wrap{
-  max-width: 980px;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .details-head{
@@ -272,14 +289,20 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .detail-icon{
-  width: 54px;
-  height: 54px;
+  width: 64px;
+  height: 64px;
   margin: 0 auto 14px auto;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: rgba(15,36,58,0.06);
-  font-size: 24px;
+  display: block;
+
+  /* sin caja */
+  background: none;
+  border-radius: 0;
+
+  /* para SVG en <img> */
+  object-fit: contain;
+
+  /* un poquito más suave como en la referencia */
+  opacity: 0.9;
 }
 
 .detail-card h3{
