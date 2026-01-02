@@ -99,7 +99,7 @@ body { overflow-x: hidden; background: #000; color: #fff; }
 .names-block {
   position: absolute;
   left: 50%;
-  top: 65%; /* Ajustado según el nuevo arco */
+  top: 65%; /* Mantenemos este valor para dar espacio al texto de arriba */
   transform: translate(-50%, -50%);
   width: 100%;
 }
