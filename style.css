@@ -224,36 +224,38 @@ body { overflow-x: hidden; background: #000; }
   line-height: 1.6;
 }
 
-/* ===== SECCIÓN 3 – PAPEL + SIN TARJETAS ===== */
+/* ===== SECCIÓN 3 – PAPEL LINDO + SIN TARJETAS (SIN MOSAICO) ===== */
 .details-section{
   padding: 105px 20px;
-  background: #f6f2ea;      /* tono cálido (más “papel”) */
+  background: #f6f2ea;     /* base cálida */
   position: relative;
   overflow: hidden;
 }
 
-/* Papel REAL: repeat + opacidad mayor (tu textura se va a ver sí o sí) */
+/* Textura papel: UNA sola, grande, suave, sin tiles */
 .details-section::before{
   content:"";
   position:absolute;
   inset:0;
   background-image: url("paper-texture.png");
-  background-repeat: repeat;
-  background-size: 520px auto;  /* clave: no cover, para que se note */
-  opacity: 0.55;                /* antes 0.25, por eso no se veía */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;           /* suave para que no “ensucie” */
   pointer-events:none;
   z-index: 0;
 }
 
-/* “grain” suave arriba para darle vida incluso si paper-texture es sutil */
+/* Grano ultra sutil (sin cuadrícula evidente) */
 .details-section::after{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-20%;              /* agrando para evitar bordes raros */
   background-image:
-    radial-gradient(rgba(0,0,0,0.05) 1px, rgba(0,0,0,0) 1px);
-  background-size: 3px 3px;
-  opacity: 0.18;
+    radial-gradient(rgba(0,0,0,0.035) 1px, rgba(0,0,0,0) 1.8px);
+  background-size: 6px 6px;
+  opacity: 0.10;
+  transform: rotate(-2deg);
   pointer-events:none;
   z-index: 0;
 }
@@ -263,16 +265,16 @@ body { overflow-x: hidden; background: #000; }
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 120px;              /* más aire, como tu referencia */
+  gap: 120px;
   text-align: center;
   position: relative;
-  z-index: 1;              /* arriba del papel */
+  z-index: 1;
 }
 
 .detail-icon{
-  width: 92px;             /* MÁS GRANDE */
-  height: 92px;
-  margin-bottom: 22px;
+  width: 120px;             /* MÁS GRANDE */
+  height: 120px;
+  margin-bottom: 26px;
   opacity: 0.95;
 }
 
