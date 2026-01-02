@@ -236,12 +236,15 @@ body { overflow-x: hidden; background: #000; }
 .details-section::before{
   content:"";
   position:absolute;
-  inset:0;
+  top:-5%;
+  left:-5%;
+  width:110%;
+  height:110%;
   background-image: url("paper-texture.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.22;           /* suave para que no “ensucie” */
+  opacity: 0.15;           /* menos opacidad */
   pointer-events:none;
   z-index: 0;
 }
@@ -272,9 +275,9 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .detail-icon{
-  width: 120px;             /* MÁS GRANDE */
-  height: 120px;
-  margin-bottom: 26px;
+  width: 1420px;             /* MÁS GRANDE */
+  height: 1420px;
+  margin-bottom: 30px;
   opacity: 0.95;
 }
 
