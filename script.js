@@ -2,7 +2,7 @@
 const targetDate = new Date("2026-10-03T00:00:00").getTime();
 
 function updateCountdown() {
-  const now = Date.now();
+  const now = new Date().getTime();
   const diff = targetDate - now;
 
   if (diff <= 0) return;
@@ -32,38 +32,38 @@ setInterval(updateCountdown, 1000);
 (function () {
   const heroText = document.getElementById("heroText");
   const heroImage = document.getElementById("heroImage");
+  const scrollIndicator = document.getElementById("scrollIndicator");
 
   function onScroll() {
     const vh = window.innerHeight || 1;
+
+    // Como el hero es FIXED, usamos scrollY real
     const progress = Math.min(1, Math.max(0, window.scrollY / vh));
 
     // Texto: sube + baja opacidad
-    const textY = progress * -120;
-    const textOpacity = 1 - progress * 0.35;
     if (heroText) {
+      const textY = progress * -120;
+      const textOpacity = 1 - progress * 0.35;
       heroText.style.transform = `translateY(${textY}px)`;
       heroText.style.opacity = textOpacity.toFixed(3);
     }
 
     // Foto: parallax sutil
-    const imageY = progress * -80;
     if (heroImage) {
-      heroImage.style.transform = `translate3d(0, ${imageY}px, 0)`;
+      const imageY = progress * -80;
+      heroImage.style.transform = `translateY(${imageY}px)`;
     }
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   onScroll();
-})();
 
-// ====== Click en indicador para bajar a la sección 2 ======
-(function () {
-  const btn = document.getElementById("scrollIndicator");
-  const target = document.getElementById("countdown");
-  if (!btn || !target) return;
-
-  btn.addEventListener("click", () => {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  // Click en el indicador -> baja al countdown
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener("click", () => {
+      const el = document.getElementById("countdown");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    });
+  }
 })();
