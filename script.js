@@ -18,6 +18,18 @@ function updateCountdown() {
   elH.textContent = String(h).padStart(2, "0");
   elM.textContent = String(m).padStart(2, "0");
   elS.textContent = String(s).padStart(2, "0");
+
+    // Click en "Guardá la fecha" -> baja al countdown (suave)
+  const saveBtn = document.querySelector(".save");
+  if (saveBtn) {
+    saveBtn.addEventListener("click", (e) => {
+      const el = document.getElementById("countdown");
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
 }
 
 updateCountdown();
