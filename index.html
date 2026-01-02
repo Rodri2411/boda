@@ -21,42 +21,26 @@
     <div class="hero-content">
       <div class="stack" id="heroText">
 
-        <!-- Guardá la fecha -->
         <div class="save">Guardá la fecha</div>
 
-<div class="ring" aria-label="¡Nos casamos!">
-  <svg viewBox="-30 -30 360 360" aria-hidden="true">
-    <defs>
-      <!-- Arco superior: de izquierda a derecha por arriba -->
-      <path id="arcTop" d="M28,150 A122,122 0 0,0 272,150" />
-    </defs>
+        <!-- Marca central: arco + nombres -->
+        <div class="hero-mark" aria-label="¡Nos casamos!">
+          <svg class="ring" viewBox="-30 -30 360 360" aria-hidden="true">
+            <defs>
+              <!-- Arco superior (semicírculo de izquierda a derecha por arriba) -->
+              <path id="arcTop" d="M28,150 A122,122 0 0,0 272,150"></path>
+            </defs>
 
-    <!-- Escalamos TODO el ring al 85% (radio ~15% menos) sin que el CSS lo pise -->
-    <g transform="translate(150 150) scale(0.85) translate(-150 -150)">
-      <text class="ring-text">
-        <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-          ¡&nbsp;NOS&nbsp;&nbsp;CASAMOS&nbsp;!
-        </textPath>
-      </text>
-    </g>
-  </svg>
-</div>
+            <!-- Escalamos el conjunto al 85% (radio ~15% menor) -->
+            <g transform="translate(150 150) scale(0.85) translate(-150 -150)">
+              <text class="ring-text">
+                <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                  ¡&nbsp;NOS&nbsp;&nbsp;CASAMOS&nbsp;!
+                </textPath>
+              </text>
+            </g>
+          </svg>
 
-    <defs>
-      <!-- ARCO SUPERIOR REAL: de izquierda a derecha por arriba -->
-      <path id="arcTop" d="M28,150 A122,122 0 0,1 272,150" />
-    </defs>
-
-    <text class="ring-text">
-<textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-  <tspan class="punct">¡</tspan>&nbsp;NOS&nbsp;&nbsp;CASAMOS&nbsp;<tspan class="punct">!</tspan>
-</textPath>
-    </text>
-  </svg>
-</div>
-
-
-          <!-- Nombres quedan dentro del círculo -->
           <div class="names-block">
             <div class="names">Agustina</div>
             <div class="amp">&</div>
@@ -67,8 +51,8 @@
       </div>
     </div>
 
-    <!-- indicador SI o SI fuera del stack -->
-    <div class="scroll-indicator" id="scrollIndicator" title="Bajar" aria-label="Bajar">⌄</div>
+    <!-- indicador -->
+    <div class="scroll-indicator" id="scrollIndicator" title="Bajar">⌄</div>
   </section>
 
   <!-- CONTENIDO que pasa por arriba del hero -->
@@ -97,9 +81,7 @@
       <div class="details-wrap">
         <div class="details-head">
           <h2>Información del evento</h2>
-          <p>
-            Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.
-          </p>
+          <p>Más cerca de la fecha publicamos ceremonia, fiesta, mapa y confirmación.</p>
         </div>
 
         <div class="details-grid">
