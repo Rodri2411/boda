@@ -22,6 +22,7 @@ body { overflow-x: hidden; background: #000; }
   object-fit: cover;
   object-position: center;
   display: block;
+  transform-origin: center center;
   will-change: transform;
   transform: translateY(0);
 }
