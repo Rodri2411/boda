@@ -1,64 +1,95 @@
 // ====== COUNTDOWN ======
-const targetDate = new Date("2026-10-03T00:00:00").getTime();
 
+const targetDate = new Date("2026-10-03T00:00:00").getTime();
 function updateCountdown() {
   const now = new Date().getTime();
   const diff = targetDate - now;
-
+  if (diff <= 0) return;
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
   const elD = document.getElementById("d");
   const elH = document.getElementById("h");
   const elM = document.getElementById("m");
   const elS = document.getElementById("s");
-
-  if (!elD) return;
-
-  if (diff <= 0) {
-    document.querySelector(".countdown-line").innerHTML = "<strong>¡LLEGÓ EL DÍA!</strong>";
-    return;
-  }
-
-  elD.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-  elH.textContent = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
-  elM.textContent = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
-  elS.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+  if (!elD || !elH || !elM || !elS) return;
+  elD.textContent = d;
+  elH.textContent = String(h).padStart(2, "0");
+  elM.textContent = String(m).padStart(2, "0");
+  elS.textContent = String(s).padStart(2, "0");
 }
 
-setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ====== HERO PARALLAX AGRESIVO ======
+setInterval(updateCountdown, 1000);
+
+
+
+// ====== HERO SCROLL (texto + foto) ======
+
 (function () {
+
   const heroText = document.getElementById("heroText");
+
   const heroImage = document.getElementById("heroImage");
+
   const scrollIndicator = document.getElementById("scrollIndicator");
 
-  function onScroll() {
-    const scrollY = window.scrollY;
-    const vh = window.innerHeight;
-    
-    if (scrollY > vh * 1.5) return; // Un poco más de margen para el cálculo
 
-    const progress = scrollY / vh;
+
+  function onScroll() {
+
+    const vh = window.innerHeight || 1;
+
+    const progress = Math.min(1, Math.max(0, window.scrollY / vh));
+
+
 
     if (heroText) {
-      // Multiplicamos por -400 (antes -100) para que suba volando
-      heroText.style.transform = `translateY(${progress * -400}px)`;
-      // Opacidad cae mucho más rápido (multiplicado por 3)
-      heroText.style.opacity = (1 - progress * 3).toFixed(2);
+
+      const textY = progress * -120;
+
+      const textOpacity = 1 - progress * 0.35;
+
+      heroText.style.transform = `translateY(${textY}px)`;
+
+      heroText.style.opacity = textOpacity.toFixed(3);
+
     }
+
+
 
     if (heroImage) {
-      // La imagen sube más rápido y el zoom es más notorio
-      heroImage.style.transform = `scale(${1 + progress * 0.2}) translateY(${progress * -150}px)`;
+
+      const imageY = progress * -80;
+
+      heroImage.style.transform = `translateY(${imageY}px)`;
+
     }
+
   }
 
+
+
   window.addEventListener("scroll", onScroll, { passive: true });
-  
-    if (scrollIndicator) {
+
+  window.addEventListener("resize", onScroll);
+
+  onScroll();
+
+
+
+  if (scrollIndicator) {
+
     scrollIndicator.addEventListener("click", () => {
-      document.getElementById("countdown").scrollIntoView({ behavior: "smooth" });
+
+      const el = document.getElementById("countdown");
+
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+
     });
 
-})();
+  }
 
+})();
