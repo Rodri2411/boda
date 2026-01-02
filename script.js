@@ -36,11 +36,8 @@ setInterval(updateCountdown, 1000);
 
   function onScroll() {
     const vh = window.innerHeight || 1;
-
-    // Como el hero es FIXED, usamos scrollY real
     const progress = Math.min(1, Math.max(0, window.scrollY / vh));
 
-    // Texto: sube + baja opacidad
     if (heroText) {
       const textY = progress * -120;
       const textOpacity = 1 - progress * 0.35;
@@ -48,7 +45,6 @@ setInterval(updateCountdown, 1000);
       heroText.style.opacity = textOpacity.toFixed(3);
     }
 
-    // Foto: parallax sutil
     if (heroImage) {
       const imageY = progress * -80;
       heroImage.style.transform = `translateY(${imageY}px)`;
@@ -59,7 +55,6 @@ setInterval(updateCountdown, 1000);
   window.addEventListener("resize", onScroll);
   onScroll();
 
-  // Click en el indicador -> baja al countdown
   if (scrollIndicator) {
     scrollIndicator.addEventListener("click", () => {
       const el = document.getElementById("countdown");
