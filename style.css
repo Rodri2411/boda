@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
-body { overflow-x: hidden; background:#000; }
+body { overflow-x: hidden; background: #000; }
 
 /* HERO fijo a pantalla completa */
 .hero{
@@ -19,11 +19,11 @@ body { overflow-x: hidden; background:#000; }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;         /* mobile A: recorta pero full screen prolijo */
+  object-fit: cover;
   object-position: center;
   display: block;
   will-change: transform;
-  transform: translate3d(0,0,0);
+  transform: translateY(0);
 }
 
 /* oscurece para legibilidad */
@@ -50,11 +50,11 @@ body { overflow-x: hidden; background:#000; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   will-change: transform, opacity;
 }
 
-/* ===== Guardá la fecha (elegante) ===== */
+/* ===== Guardá la fecha (pill) ===== */
 .save{
   display: inline-flex;
   align-items: center;
@@ -83,29 +83,25 @@ body { overflow-x: hidden; background:#000; }
   display: inline-block;
 }
 
+/* ===== Marca (arco + nombres) ===== */
 .hero-mark{
   position: relative;
-  width: min(357px, 92vw); /* 420 * 0.85 = 357 */
-  margin: 6px auto 0 auto;
-}
-
-/* Ring: SIN línea visible */
-.ring{
   width: min(520px, 92vw);
-  margin: 6px auto 0 auto;
-  pointer-events: none;
+  /* separa un poquito del pill, pero sin que baje mucho */
+  margin-top: -4px;
 }
 
-.ring svg{
+/* SVG del arco: queda arriba y NO invade nombres */
+.ring{
   width: 100%;
   height: auto;
   display: block;
+  pointer-events: none;
+  /* lo acercamos a los nombres */
+  transform: translateY(10px);
 }
 
-/* SIN stroke (no se dibuja nada) */
-.ring-stroke{ display:none; }
-
-/* Texto del arco */
+/* Texto del arco (solo arriba) */
 .ring-text{
   fill: rgba(255,255,255,0.95);
   font-family: 'Raleway', sans-serif;
@@ -115,11 +111,11 @@ body { overflow-x: hidden; background:#000; }
   text-transform: uppercase;
 }
 
-/* Nombres centrados dentro del círculo */
+/* Nombres centrados, sin inventos raros */
 .names-block{
   position: absolute;
   left: 50%;
-  top: 56%;
+  top: 58%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
@@ -151,15 +147,15 @@ body { overflow-x: hidden; background:#000; }
   bottom: 26px;
   z-index: 3;
 
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
 
-  font-size: 36px;
-  color: rgba(255,255,255,0.92);
+  font-size: 34px;
+  color: rgba(255,255,255,0.9);
 
-  border: 1px solid rgba(255,255,255,0.38);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 50%;
 
   cursor: pointer;
@@ -184,10 +180,10 @@ body { overflow-x: hidden; background:#000; }
 .content{
   position: relative;
   z-index: 5;
-  margin-top: 100vh; /* arranca después del hero */
+  margin-top: 100vh;
 }
 
-/* ===== COUNTDOWN (sección 2) ===== */
+/* ===== COUNTDOWN ===== */
 .countdown-section{
   width: 100%;
   background: #0f243a;
@@ -318,30 +314,18 @@ body { overflow-x: hidden; background:#000; }
   transform: translateY(-1px);
 }
 
-/* Responsive */
 @media (max-width: 780px){
   .details-grid{ grid-template-columns: 1fr; }
 }
 
+/* Mobile fino */
 @media (max-width: 420px){
-  .hero-mark{ width: min(440px, 92vw); }
-  .ring-text{ font-size: 20px; letter-spacing: 9px; }
-  .names-block{ top: 58%; }
+  .hero-mark{ width: min(360px, 92vw); }
+  .ring-text{ font-size: 18px; letter-spacing: 8px; }
+  .names-block{ top: 60%; }
 }
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
-
-/* No mostrar ninguna línea de círculo */
-.ring-stroke { display: none !important; }
-
-.ring-text { dominant-baseline: middle; }
-
-/* Forzar que los signos se rendericen siempre */
-.punct{
-  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  font-weight: 400;
-}
-
