@@ -91,17 +91,18 @@ body { overflow-x: hidden; background: #000; }
   margin-top: -4px;
 }
 
-/* SVG del arco: queda arriba y NO invade nombres */
 .ring{
+  width: min(520px, 92vw);
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.ring svg{
   width: 100%;
   height: auto;
   display: block;
-  pointer-events: none;
-  /* lo acercamos a los nombres */
-  transform: translateY(10px);
 }
 
-/* Texto del arco (solo arriba) */
 .ring-text{
   fill: rgba(255,255,255,0.95);
   font-family: 'Raleway', sans-serif;
@@ -111,13 +112,11 @@ body { overflow-x: hidden; background: #000; }
   text-transform: uppercase;
 }
 
-/* Nombres centrados, sin inventos raros */
 .names-block{
   position: absolute;
   left: 50%;
   top: 58%;
   transform: translate(-50%, -50%);
-  width: 100%;
   text-align: center;
 
   display: flex;
@@ -125,6 +124,7 @@ body { overflow-x: hidden; background: #000; }
   align-items: center;
   gap: 8px;
 }
+
 
 .names{
   font-size: clamp(40px, 8vw, 74px);
