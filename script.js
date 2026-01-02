@@ -26,7 +26,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ====== HERO PARALLAX OPTIMIZADO ======
+// ====== HERO PARALLAX AGRESIVO ======
 (function () {
   const heroText = document.getElementById("heroText");
   const heroImage = document.getElementById("heroImage");
@@ -36,26 +36,29 @@ updateCountdown();
     const scrollY = window.scrollY;
     const vh = window.innerHeight;
     
-    // Solo ejecutar si el Hero es visible
-    if (scrollY > vh) return;
+    if (scrollY > vh * 1.5) return; // Un poco más de margen para el cálculo
 
     const progress = scrollY / vh;
 
     if (heroText) {
-      heroText.style.transform = `translateY(${progress * -100}px)`;
-      heroText.style.opacity = (1 - progress * 1.2).toFixed(2);
+      // Multiplicamos por -400 (antes -100) para que suba volando
+      heroText.style.transform = `translateY(${progress * -400}px)`;
+      // Opacidad cae mucho más rápido (multiplicado por 3)
+      heroText.style.opacity = (1 - progress * 3).toFixed(2);
     }
 
     if (heroImage) {
-      heroImage.style.transform = `scale(${1 + progress * 0.1}) translateY(${progress * 50}px)`;
+      // La imagen sube más rápido y el zoom es más notorio
+      heroImage.style.transform = `scale(${1 + progress * 0.2}) translateY(${progress * -150}px)`;
     }
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-
-  if (scrollIndicator) {
+  
+    if (scrollIndicator) {
     scrollIndicator.addEventListener("click", () => {
       document.getElementById("countdown").scrollIntoView({ behavior: "smooth" });
     });
-  }
+
 })();
+
