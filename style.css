@@ -211,15 +211,22 @@ body { overflow-x: hidden; background: #000; }
 
 /* Opción B */
 .date-pill{
+  display: inline-flex;          /* clave */
+  align-items: center;
+  justify-content: center;
+
   font-size: clamp(18px, 3.2vw, 24px);
   font-weight: 500;
   letter-spacing: 4px;
   text-transform: uppercase;
-  padding: 14px 22px;
+
+  padding: 12px 26px;            /* un poco más aire lateral */
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.35);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(6px);
+
+  margin-bottom: 26px; /* separación limpia con el countdown */
 }
 
 .date-elegant::after{
@@ -247,6 +254,7 @@ body { overflow-x: hidden; background: #000; }
   gap: 10px;
   font-size: clamp(18px, 4vw, 32px);
   font-weight: 300;
+  margin-bottom: 18px; /* antes era más grande */
 }
 
 .countdown-line strong{
@@ -257,7 +265,7 @@ body { overflow-x: hidden; background: #000; }
 .sep{ opacity: .7; }
 
 .countdown-foot{
-  margin-top: 28px;
+  margin-top: 8px;
   font-size: 14px;
   opacity: .85;
   line-height: 1.6;
