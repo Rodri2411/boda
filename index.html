@@ -11,36 +11,27 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- HERO fijo (fondo)  -->
   <section class="hero" id="hero">
-    <img src="20250201_125621.jpg" alt="Agustina y Rodrigo" id="heroImage">
+    <img src="20250201_125621.jpg" alt="Agustina y Rodrigo" id="heroImage" loading="eager" decoding="async">
 
     <div class="hero-content">
       <div class="stack" id="heroText">
-
         <div class="save">Guardá la fecha</div>
 
         <div class="hero-mark">
           <div class="ring" aria-label="¡Nos casamos!">
-           <svg viewBox="0 0 300 300" aria-hidden="true">
-  <defs>
-    <!-- Arco superior, plano, un poco más alto -->
-    <path id="arcTop" d="M -50 125 C 60 60 240 60 350 125" />
-  </defs>
-
-  <text class="ring-text">
-    <textPath
-      href="#arcTop"
-      startOffset="50%"
-      text-anchor="middle"
-      dy="-100">
-      ¡NOS CASAMOS!
-    </textPath>
-  </text>
-</svg>
+            <svg viewBox="0 0 300 180" aria-hidden="true">
+              <defs>
+                <path id="arcTop" d="M -50 125 C 60 60 240 60 350 125" />
+              </defs>
+              <text class="ring-text">
+                <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                  ¡NOS CASAMOS!
+                </textPath>
+              </text>
+            </svg>
           </div>
 
           <div class="names-block">
@@ -49,20 +40,15 @@
             <div class="names">Rodrigo</div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- indicador -->
     <div class="scroll-indicator" id="scrollIndicator" title="Bajar">⌄</div>
   </section>
 
-  <!-- CONTENIDO que pasa por arriba del hero -->
   <main class="content">
-
     <section class="countdown-section" id="countdown">
       <p class="countdown-intro">Bienvenidos a nuestra boda</p>
-
       <div class="countdown-line" aria-label="Cuenta regresiva">
         <span><strong id="d">--</strong> días</span>
         <span class="sep">:</span>
@@ -72,7 +58,6 @@
         <span class="sep">:</span>
         <span><strong id="s">--</strong> seg</span>
       </div>
-
       <p class="countdown-foot">
         Guardá la fecha: <strong>3 de octubre de 2026</strong><br>
         Más cerca del día publicamos toda la información.
@@ -87,30 +72,22 @@
         </div>
 
         <div class="details-grid">
-<article class="detail-card">
-  <img class="detail-icon" src="icono-ceremonia.svg" alt="Ícono ceremonia">
-  <h3>Ceremonia</h3>
-  <p class="detail-muted">
-    Información a confirmar.<br>
-    La compartimos más cerca de la fecha.
-  </p>
-  <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-</article>
+          <article class="detail-card">
+            <img class="detail-icon" src="icono-ceremonia.svg" alt="Ícono ceremonia">
+            <h3>Ceremonia</h3>
+            <p class="detail-muted">Información a confirmar.<br>La compartimos más cerca de la fecha.</p>
+            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
+          </article>
 
-<article class="detail-card">
-  <img class="detail-icon" src="icono-fiesta.svg" alt="Ícono fiesta">
-  <h3>Fiesta</h3>
-  <p class="detail-muted">
-    Información a confirmar.<br>
-    La compartimos más cerca de la fecha.
-  </p>
-  <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
-</article>
-
+          <article class="detail-card">
+            <img class="detail-icon" src="icono-fiesta.svg" alt="Ícono fiesta">
+            <h3>Fiesta</h3>
+            <p class="detail-muted">Información a confirmar.<br>La compartimos más cerca de la fecha.</p>
+            <a class="detail-btn" href="#countdown">Ver cuenta regresiva</a>
+          </article>
         </div>
       </div>
     </section>
-
   </main>
 
   <script src="script.js"></script>
