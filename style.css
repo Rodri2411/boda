@@ -59,29 +59,54 @@ body { overflow-x: hidden; background: #000; }
 .save{
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  font-size: 15px;
-  font-weight: 300;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  opacity: .95;
+  gap: clamp(10px, 2.2vw, 14px);
 
-  padding: 10px 18px;
+  font-size: clamp(12px, 3.2vw, 15px);
+  font-weight: 300;
+  letter-spacing: clamp(3px, 1.2vw, 5px);
+  text-transform: uppercase;
+  opacity: .96;
+
+  padding: clamp(8px, 2.6vw, 10px) clamp(14px, 4.2vw, 18px);
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.32);
-  background: rgba(0,0,0,.10);
+  background: rgba(0,0,0,.12);
   backdrop-filter: blur(6px);
 
   transform: translateY(-18px);
+  text-decoration: none;
+  color: #fff;
+
+  transition: transform .18s ease, background .18s ease, opacity .18s ease;
+}
+
+.save:hover{
+  background: rgba(255,255,255,.12);
+  transform: translateY(-18px) scale(1.03);
+}
+
+.save:active{
+  transform: translateY(-18px) scale(0.99);
 }
 
 .save::before,
 .save::after{
   content:"";
-  width: 46px;
+  width: clamp(26px, 7vw, 46px);
   height: 1px;
   background: rgba(255,255,255,.55);
   display: inline-block;
+}
+
+/* En teléfonos muy chicos: menos letras y menos líneas laterales */
+@media (max-width: 380px){
+  .save{
+    letter-spacing: 2px;
+  }
+  .save::before,
+  .save::after{
+    width: 22px;
+  }
 }
 
 /* ===== Marca (arco + nombres) ===== */
@@ -146,7 +171,7 @@ body { overflow-x: hidden; background: #000; }
 .scroll-indicator{
   position: absolute;
   left: 50%;
-  bottom: 26px;
+  bottom: 110px;
   z-index: 3;
 
   width: 48px;
