@@ -87,14 +87,19 @@ body { overflow-x: hidden; background: #000; }
 .hero-mark{
   position: relative;
   width: min(520px, 92vw);
-  /* separa un poquito del pill, pero sin que baje mucho */
-  margin-top: -4px;
+  margin: 6px auto 0 auto;
 }
 
 .ring{
-  width: min(520px, 92vw);   /* radio grande */
+  width: 100%;
   margin: 0 auto;
   pointer-events: none;
+}
+
+.ring svg{
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .ring-text{
@@ -111,6 +116,7 @@ body { overflow-x: hidden; background: #000; }
   left: 50%;
   top: 58%;
   transform: translate(-50%, -50%);
+  width: 100%;
   text-align: center;
 
   display: flex;
@@ -118,7 +124,6 @@ body { overflow-x: hidden; background: #000; }
   align-items: center;
   gap: 8px;
 }
-
 
 .names{
   font-size: clamp(40px, 8vw, 74px);
