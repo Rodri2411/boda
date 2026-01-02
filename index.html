@@ -26,18 +26,22 @@
 <div class="ring" aria-label="¡Nos casamos!">
   <svg viewBox="0 0 300 300" aria-hidden="true">
     <defs>
-      <!-- Arco superior PERFECTO y centrado -->
-      <path id="arcTop" d="M28,150 A122,122 0 0,0 272,150" />
+      <!-- ARCO SUPERIOR, PERFECTO Y CENTRADO -->
+      <path
+        id="arcTop"
+        d="M28,150 A122,122 0 0,0 272,150" />
     </defs>
 
-    <!-- SOLO texto, sin círculo visible -->
-    <g transform="translate(0, 65)">
-      <text class="ring-text">
-        <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-          ¡ NOS&nbsp;&nbsp;CASAMOS !
-        </textPath>
-      </text>
-    </g>
+    <text class="ring-text">
+      <textPath
+        href="#arcTop"
+        startOffset="50%"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        dy="22">
+        ¡ NOS&nbsp;&nbsp;CASAMOS !
+      </textPath>
+    </text>
   </svg>
             <div class="names-block">
             <div class="names">Agustina</div>
