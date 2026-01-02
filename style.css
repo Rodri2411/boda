@@ -92,15 +92,9 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .ring{
-  width: min(520px, 92vw);
+  width: min(520px, 92vw);   /* radio grande */
   margin: 0 auto;
   pointer-events: none;
-}
-
-.ring svg{
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 .ring-text{
