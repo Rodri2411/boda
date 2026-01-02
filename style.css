@@ -200,6 +200,41 @@ body { overflow-x: hidden; background: #000; }
   margin-bottom: 28px;
 }
 
+/* ===== FECHA ENFATIZADA (SECCIÓN 2) ===== */
+.date-hero{
+  margin: 10px auto 34px auto;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Opción A: Elegante clásica (TOP) */
+.date-elegant{
+  font-size: clamp(26px, 4.6vw, 44px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.date-elegant::after{
+  content:"";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 140px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.55);
+}
+
+/* Ajuste fino para que no se encime nada en mobile */
+@media (max-width: 420px){
+  .date-elegant{ letter-spacing: 1px; }
+  .date-pill{ letter-spacing: 3px; }
+}
+
 .countdown-line{
   display: flex;
   justify-content: center;
