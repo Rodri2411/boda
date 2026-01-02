@@ -275,8 +275,8 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .detail-icon{
-  width: 1420px;             /* MÁS GRANDE */
-  height: 1420px;
+  width: 140px;             /* MÁS GRANDE */
+  height: 140px;
   margin-bottom: 30px;
   opacity: 0.95;
 }
