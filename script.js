@@ -48,7 +48,7 @@ setInterval(updateCountdown, 1000);
     const progress = clamp(window.scrollY / vh, 0, 1);
 
     // Ajustes finos (sentimiento "premium")
-    const textY = -120 * progress;
+    const textY = -260 * progress;
     const textOpacity = 1 - 0.35 * progress;
 
     const imageY = -90 * progress;   // un toque más que antes
