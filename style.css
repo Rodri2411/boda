@@ -422,3 +422,19 @@ body { overflow-x: hidden; background: #000; }
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
+
+/* ===== ICONOS MÁS GRANDES EN MOBILE (SECCIÓN 3) ===== */
+@media (max-width: 768px){
+  .detail-icon{
+    width: 88px;
+    height: 88px;
+  }
+}
+
+@media (max-width: 420px){
+  .detail-icon{
+    width: 96px;
+    height: 96px;
+  }
+}
+
