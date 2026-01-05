@@ -3,7 +3,33 @@ html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background: #000; }
 
-/* HERO fijo a pantalla completa */
+/* ===== Botón música ===== */
+.music-toggle{
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 50;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(15, 36, 58, 0.85);
+  color: #fff;
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+  user-select: none;
+  backdrop-filter: blur(6px);
+  transition: transform .18s ease, filter .18s ease, background .18s ease;
+}
+.music-toggle:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+.music-toggle:active{ transform: translateY(0); }
+
+/* ===== HERO fijo ===== */
 .hero{
   position: fixed;
   inset: 0;
@@ -27,20 +53,21 @@ body { overflow-x: hidden; background: #000; }
   transform: translateY(0);
 }
 
-/* oscurece para legibilidad */
+/* Más oscuro y más parejo (se nota en mobile) */
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   z-index:1;
-
   background:
-    radial-gradient(
-      circle at center,
-      rgba(0,0,0,0.25) 0%,
-      rgba(0,0,0,0.45) 70%,
-      rgba(0,0,0,0.55) 100%
-    );
+    linear-gradient(to bottom,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.40) 45%,
+      rgba(0,0,0,0.55) 100%),
+    radial-gradient(circle at center,
+      rgba(0,0,0,0.18) 0%,
+      rgba(0,0,0,0.40) 70%,
+      rgba(0,0,0,0.55) 100%);
 }
 
 .hero-content{
@@ -54,73 +81,61 @@ body { overflow-x: hidden; background: #000; }
   padding: 0 18px;
 }
 
+/* Subimos un poquito el conjunto para que respire mejor en mobile */
 .stack{
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
   will-change: transform, opacity;
+  transform: translateY(-18px);
 }
 
-/* ===== Guardá la fecha (pill) ===== */
+/* ===== Guardá la fecha (pill/botón) ===== */
 .save{
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 
   font-size: clamp(13px, 3.6vw, 15px);
   text-decoration: none;
-  font-weight: 600;                 /* negrita */
+  font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
 
-  color: #ffffff;                   /* letras blancas */
+  color: #ffffff;
 
   padding: 12px 22px;
   border-radius: 999px;
 
-  background: #0f243a;              /* MISMO azul que countdown */
+  background: #0f243a;
   border: 1px solid rgba(255,255,255,0.25);
 
   cursor: pointer;
   transition: transform .2s ease, background .2s ease;
 }
-
 .save:hover{
-  background: #153556;              /* azul un poco más claro */
+  background: #153556;
   transform: translateY(-1px);
 }
-
 .save:active{
-  transform: translateY(-60px) scale(0.99);
+  transform: translateY(0) scale(0.99);
 }
 
-.save::before,
-.save::after{
-  content:"";
-  width: clamp(26px, 7vw, 46px);
-  height: 1px;
-  background: rgba(255,255,255,.55);
-  display: none;
-}
-
-/* En teléfonos muy chicos: menos letras y menos líneas laterales */
+/* Mobile muy chico */
 @media (max-width: 380px){
   .save{
-    font-size: 17px;
-    letter-spacing: 2.5px;
-    padding: 10px 20px;
-  }
-  .save::before,
-  .save::after{
-    width: 22px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 10px 18px;
   }
 }
 
 /* ===== Marca (arco + nombres) ===== */
 .hero-mark{
   position: relative;
-  width: min(580px, 94vw);
-  margin: 6px auto 0 auto;
+  width: min(620px, 94vw);
+  margin: 4px auto 0 auto;
 }
 
 .ring{
@@ -135,51 +150,55 @@ body { overflow-x: hidden; background: #000; }
   display: block;
 }
 
-/* Texto en arco */
+/* Texto en arco: responsive + sin cortes */
 .ring-text{
   fill: rgba(255,255,255,0.95);
   font-family: 'Raleway', sans-serif;
-  font-weight: bold;
-  letter-spacing: 10px;
-  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: clamp(6px, 1.9vw, 12px);
+  font-size: clamp(18px, 4.2vw, 28px);
   text-transform: uppercase;
 }
 
-/* Nombres centrados */
-.names-block{
+/* Nombres: una sola línea y centrado */
+.names-line{
   position: absolute;
   left: 50%;
-  top: 52%;
+  top: 54%;
   transform: translate(-50%, -50%);
   width: 100%;
-  text-align: center;
 
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 14px;
+
+  padding: 0 10px;
+  text-align: center;
+  white-space: nowrap;      /* clave: no se parten en 2 líneas */
 }
 
 .names{
   font-family: 'Shadows Into Light', cursive;
-  font-size: clamp(36px, 7vw, 64px);
-  font-weight: 200;
-  letter-spacing: 2.5px;
-  line-height: 1.05;
+  font-size: clamp(34px, 7.2vw, 64px);
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1;
 }
 
 .amp{
-  font-size: clamp(24px, 4vw, 32px);
-  font-weight: 300;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: clamp(22px, 4.8vw, 34px);
+  font-weight: 400;
   opacity: .95;
-  margin: 4px 0;
+  transform: translateY(2px);
 }
 
-/* ===== Scroll indicator (no desaparece) ===== */
+/* ===== Scroll indicator ===== */
 .scroll-indicator{
   position: absolute;
   left: 50%;
-  bottom: 110px;
+  bottom: 78px; /* más cerca del nombre */
   z-index: 3;
 
   width: 48px;
@@ -200,25 +219,23 @@ body { overflow-x: hidden; background: #000; }
   animation: bob2 1.6s ease-in-out infinite;
   transition: transform .25s ease, background .25s ease;
 }
-
 .scroll-indicator:hover{
   transform: translate(-50%, 0) scale(1.12);
   background: rgba(255,255,255,0.12);
 }
-
 @keyframes bob2{
   0%,100% { transform: translate(-50%, 0); opacity: .92; }
   50%     { transform: translate(-50%, 8px); opacity: .68; }
 }
 
-/* CONTENIDO por encima del hero */
+/* ===== CONTENIDO por encima del hero ===== */
 .content{
   position: relative;
   z-index: 5;
   margin-top: 100vh;
 }
 
-/* ===== COUNTDOWN ===== */
+/* ===== SECCIÓN 2 (COUNTDOWN) ===== */
 .countdown-section{
   width: 100%;
   background: #0f243a;
@@ -231,20 +248,12 @@ body { overflow-x: hidden; background: #000; }
   font-size: 16px;
   letter-spacing: 1px;
   opacity: .92;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
-/* ===== FECHA ENFATIZADA (SECCIÓN 2) ===== */
-.date-hero{
-  margin: 10px auto 34px auto;
-  display: inline-block;
-  text-align: center;
-  line-height: 1;
-}
-
-/* Opción B */
+/* Fecha pill: ajustada al texto (no ocupa todo el ancho) */
 .date-pill{
-  display: inline-flex;          /* clave */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
@@ -253,30 +262,13 @@ body { overflow-x: hidden; background: #000; }
   letter-spacing: 4px;
   text-transform: uppercase;
 
-  padding: 12px 26px;            /* un poco más aire lateral */
+  padding: 12px 26px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.35);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(6px);
 
-  margin-bottom: 26px; /* separación limpia con el countdown */
-}
-
-.date-elegant::after{
-  content:"";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 140px;
-  height: 1px;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.55);
-}
-
-/* Ajuste fino para que no se encime nada en mobile */
-@media (max-width: 420px){
-  .date-elegant{ letter-spacing: 1px; }
-  .date-pill{ letter-spacing: 3px; }
+  margin: 0 auto 34px auto; /* más aire con el countdown */
 }
 
 .countdown-line{
@@ -285,9 +277,11 @@ body { overflow-x: hidden; background: #000; }
   align-items: baseline;
   flex-wrap: wrap;
   gap: 10px;
+
   font-size: clamp(18px, 4vw, 32px);
   font-weight: 300;
-  margin-bottom: 18px; /* antes era más grande */
+
+  margin-bottom: 10px; /* menos separación con el texto de abajo */
 }
 
 .countdown-line strong{
@@ -298,47 +292,30 @@ body { overflow-x: hidden; background: #000; }
 .sep{ opacity: .7; }
 
 .countdown-foot{
-  margin-top: 8px;
+  margin-top: 6px; /* más pegado, más armonioso */
   font-size: 14px;
   opacity: .85;
   line-height: 1.6;
 }
 
-/* ===== SECCIÓN 3 – PAPEL LINDO + SIN TARJETAS (SIN MOSAICO) ===== */
+/* ===== SECCIÓN 3 – PAPEL (sin tiras laterales) ===== */
 .details-section{
   padding: 105px 20px;
-  background: #f6f2ea;     /* base cálida */
+  background: #f6f2ea;
   position: relative;
   overflow: hidden;
 }
 
-/* Textura papel: UNA sola, grande, suave, sin tiles */
+/* Overscan para cubrir bordes (chau tiritas) */
 .details-section::before{
   content:"";
   position:absolute;
-  top:-5%;
-  left:-5%;
-  width:110%;
-  height:110%;
+  inset:-6%;
   background-image: url("paper-texture.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.15;           /* menos opacidad */
-  pointer-events:none;
-  z-index: 0;
-}
-
-/* Grano ultra sutil (sin cuadrícula evidente) */
-.details-section::after{
-  content:"";
-  position:absolute;
-  inset:-20%;              /* agrando para evitar bordes raros */
-  background-image:
-    radial-gradient(rgba(0,0,0,0.035) 1px, rgba(0,0,0,0) 1.8px);
-  background-size: 6px 6px;
-  opacity: 0.10;
-  transform: rotate(-2deg);
+  opacity: 0.12;           /* menos opacidad */
   pointer-events:none;
   z-index: 0;
 }
@@ -346,16 +323,18 @@ body { overflow-x: hidden; background: #000; }
 .details-wrap{
   max-width: 1100px;
   margin: 0 auto;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 120px;
+
   text-align: center;
   position: relative;
   z-index: 1;
 }
 
 .detail-icon{
-  width: 140px;             /* MÁS GRANDE */
+  width: 140px;
   height: 140px;
   margin-bottom: 30px;
   opacity: 0.95;
@@ -376,7 +355,7 @@ body { overflow-x: hidden; background: #000; }
   color: #222;
 }
 
-/* BOTÓN marrón dorado */
+/* Botón dorado */
 .detail-link{
   display: inline-block;
   font-size: 12px;
@@ -388,24 +367,19 @@ body { overflow-x: hidden; background: #000; }
 
   text-decoration: none;
 
-  /* estilo “dorado-marrón” */
-  background: #b59a6a;                 /* dorado cálido */
+  background: #b59a6a;
   color: #fff;
 
   border: 1px solid rgba(80,55,20,0.25);
   box-shadow: 0 10px 22px rgba(0,0,0,0.10);
   transition: transform .18s ease, filter .18s ease, background .18s ease;
 }
-
 .detail-link:hover{
   transform: translateY(-1px);
   filter: brightness(0.95);
   background: #aa8f61;
 }
-
-.detail-link:active{
-  transform: translateY(0px);
-}
+.detail-link:active{ transform: translateY(0px); }
 
 /* Responsive */
 @media(max-width:800px){
@@ -413,36 +387,38 @@ body { overflow-x: hidden; background: #000; }
     grid-template-columns: 1fr;
     gap: 70px;
   }
+}
+
+/* ICONOS MÁS GRANDES EN MOBILE */
+@media (max-width: 768px){
   .detail-icon{
-    width: 84px;
-    height: 84px;
+    width: 112px;
+    height: 112px;
+  }
+}
+@media (max-width: 420px){
+  .detail-icon{
+    width: 120px;
+    height: 120px;
   }
 }
 
-/* Mobile fino */
-@media (max-width: 420px){
-  .hero-mark{ width: min(360px, 92vw); }
-  .ring-text{ font-size: 16px; letter-spacing: 8px; }
-  .names-block{ top: 60%; }
+/* Ajuste fino HERO en mobile: subir más todo y mantener horizontal */
+@media (max-width: 520px){
+  .stack{ transform: translateY(-30px); }
+  .hero-mark{ width: min(420px, 94vw); }
+  .names-line{
+    top: 52%;
+    gap: 10px;
+  }
+  .ring-text{
+    letter-spacing: 8px;
+    font-size: clamp(18px, 4.6vw, 24px);
+  }
+  .scroll-indicator{ bottom: 68px; }
 }
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator{ animation: none; }
 }
-
-/* ===== ICONOS MÁS GRANDES EN MOBILE (SECCIÓN 3) ===== */
-@media (max-width: 768px){
-  .detail-icon{
-    width: 88px;
-    height: 88px;
-  }
-}
-
-@media (max-width: 420px){
-  .detail-icon{
-    width: 96px;
-    height: 96px;
-  }
-}
-
