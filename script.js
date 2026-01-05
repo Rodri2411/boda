@@ -22,11 +22,10 @@ function updateCountdown() {
   elM.textContent = String(m).padStart(2, "0");
   elS.textContent = String(s).padStart(2, "0");
 }
-
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ====== Scroll suave a countdown (save + flecha) ======
+// ====== Scroll suave a countdown ======
 function scrollToCountdown(e) {
   const el = document.getElementById("countdown");
   if (!el) return;
@@ -40,9 +39,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const scrollIndicator = document.getElementById("scrollIndicator");
   if (scrollIndicator) scrollIndicator.addEventListener("click", scrollToCountdown);
+
+  // ====== REVEAL: Sección 2 y 3 (aparecen desde abajo) ======
+  // Marcamos elementos a animar
+  const cd = document.getElementById("countdown");
+  const details = document.getElementById("details");
+
+  if (cd) {
+    const intro = cd.querySelector(".countdown-intro");
+    const date = cd.querySelector(".date-pill");
+    const line = cd.querySelector(".countdown-line");
+    const foot = cd.querySelector(".countdown-foot");
+
+    [intro, date, line, foot].forEach((el) => el && el.classList.add("reveal"));
+  }
+
+  if (details) {
+    const items = details.querySelectorAll(".detail-item");
+    items.forEach((item) => item.classList.add("reveal"));
+
+    // íconos con blur -> nítido
+    const icons = details.querySelectorAll(".detail-icon");
+    icons.forEach((ic) => ic.classList.add("reveal-blur"));
+  }
+
+  // Observer
+  const elements = document.querySelectorAll(".reveal, .reveal-blur");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      // stagger suave por orden (más lindo)
+      const el = entry.target;
+      const index = Array.from(elements).indexOf(el);
+      el.style.transitionDelay = `${Math.min(index * 40, 220)}ms`;
+
+      el.classList.add("is-visible");
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18 });
+
+  elements.forEach((el) => io.observe(el));
 });
 
-// ====== HERO SCROLL (texto + foto) — más agresivo ======
+// ====== HERO SCROLL (texto + foto) — agresivo ======
 (function () {
   const heroText = document.getElementById("heroText");
   const heroImage = document.getElementById("heroImage");
@@ -64,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const vh = window.innerHeight || 1;
     const progress = clamp(window.scrollY / vh, 0, 1);
 
-    // MÁS agresivo (sube más)
+    // sube más el texto al scrollear
     const textY = -340 * progress;
     const textOpacity = 1 - 0.40 * progress;
 
@@ -97,22 +137,18 @@ document.addEventListener("DOMContentLoaded", () => {
 (function () {
   const music = document.getElementById("bgMusic");
   const toggle = document.getElementById("musicToggle");
-
   if (!music || !toggle) return;
 
-  // Estado visual del botón
   function setToggleState() {
     toggle.textContent = music.paused ? "▶" : "❚❚";
     toggle.setAttribute("aria-label", music.paused ? "Reproducir música" : "Pausar música");
   }
 
-  // Intento de autoplay al cargar (puede fallar por políticas del navegador)
   function tryAutoplay() {
     music.volume = 0.5;
     const p = music.play();
     if (p && typeof p.catch === "function") {
       p.catch(() => {
-        // Si bloquea autoplay, se habilita al primer click/tap
         document.addEventListener("click", unlockOnce, { once: true });
         document.addEventListener("touchstart", unlockOnce, { once: true });
         setToggleState();
@@ -126,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setToggleState();
   }
 
-  // Toggle manual
   toggle.addEventListener("click", () => {
     if (music.paused) {
       music.volume = 0.5;
@@ -137,11 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setToggleState();
   });
 
-  // Sincroniza estado al inicio
   music.addEventListener("play", setToggleState);
   music.addEventListener("pause", setToggleState);
   setToggleState();
 
-  // Vamos a intentar sonar “apenas carga”
   window.addEventListener("load", tryAutoplay);
 })();
