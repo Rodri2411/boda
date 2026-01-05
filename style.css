@@ -3,12 +3,6 @@ html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background: #000; }
 
-:root{
-  --gold: #8c6b3f;          /* marrón dorado elegante */
-  --gold-light: rgba(140,107,63,0.18);
-  --gold-border: rgba(140,107,63,0.45);
-}
-
 /* HERO fijo a pantalla completa */
 .hero{
   position: fixed;
@@ -72,7 +66,7 @@ body { overflow-x: hidden; background: #000; }
   align-items: center;
 
   font-size: clamp(13px, 3.6vw, 15px);
-  text-decoration: none;
+  /*text-decoration: none;*/
   font-weight: 600;                 /* negrita */
   letter-spacing: 4px;
   text-transform: uppercase;
