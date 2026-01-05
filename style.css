@@ -91,7 +91,7 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .save:active{
-  transform: translateY(-18px) scale(0.99);
+  transform: translateY(-60px) scale(0.99);
 }
 
 .save::before,
@@ -149,30 +149,30 @@ body { overflow-x: hidden; background: #000; }
 .names-block{
   position: absolute;
   left: 50%;
-  top: 58%;
+  top: 52%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
 }
 
 .names{
   font-family: 'Shadows Into Light', cursive;
-  font-size: clamp(38px, 8vw, 74px);
+  font-size: clamp(36px, 7vw, 64px);
   font-weight: 200;
   letter-spacing: 2.5px;
   line-height: 1.05;
 }
 
 .amp{
-  font-size: 28px;
+  font-size: clamp(24px, 4vw, 32px);
   font-weight: 300;
   opacity: .95;
-  margin: 2px 0;
+  margin: 4px 0;
 }
 
 /* ===== Scroll indicator (no desaparece) ===== */
