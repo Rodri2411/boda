@@ -1,46 +1,51 @@
 // ====== COUNTDOWN ======
-
 const targetDate = new Date("2026-10-03T00:00:00").getTime();
+
 function updateCountdown() {
-  const now = new Date().getTime();
+  const now = Date.now();
   const diff = targetDate - now;
   if (diff <= 0) return;
+
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const m = Math.floor((diff / (1000 * 60)) % 60);
   const s = Math.floor((diff / 1000) % 60);
+
   const elD = document.getElementById("d");
   const elH = document.getElementById("h");
   const elM = document.getElementById("m");
   const elS = document.getElementById("s");
   if (!elD || !elH || !elM || !elS) return;
+
   elD.textContent = d;
   elH.textContent = String(h).padStart(2, "0");
   elM.textContent = String(m).padStart(2, "0");
   elS.textContent = String(s).padStart(2, "0");
-
-    // Click en "Guardá la fecha" -> baja al countdown (suave)
-  const saveBtn = document.querySelector(".save");
-  if (saveBtn) {
-    saveBtn.addEventListener("click", (e) => {
-      const el = document.getElementById("countdown");
-      if (!el) return;
-      e.preventDefault();
-      el.scrollIntoView({ behavior: "smooth" });
-    });
-  }
-
 }
 
 updateCountdown();
-
 setInterval(updateCountdown, 1000);
 
-// ====== HERO SCROLL (texto + foto) — suave con rAF ======
+// ====== Scroll suave a countdown (save + flecha) ======
+function scrollToCountdown(e) {
+  const el = document.getElementById("countdown");
+  if (!el) return;
+  if (e) e.preventDefault();
+  el.scrollIntoView({ behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const saveBtn = document.querySelector(".save");
+  if (saveBtn) saveBtn.addEventListener("click", scrollToCountdown);
+
+  const scrollIndicator = document.getElementById("scrollIndicator");
+  if (scrollIndicator) scrollIndicator.addEventListener("click", scrollToCountdown);
+});
+
+// ====== HERO SCROLL (texto + foto) — más agresivo ======
 (function () {
   const heroText = document.getElementById("heroText");
   const heroImage = document.getElementById("heroImage");
-  const scrollIndicator = document.getElementById("scrollIndicator");
 
   const prefersReduced =
     window.matchMedia &&
@@ -59,12 +64,12 @@ setInterval(updateCountdown, 1000);
     const vh = window.innerHeight || 1;
     const progress = clamp(window.scrollY / vh, 0, 1);
 
-    // Ajustes finos (sentimiento "premium")
-    const textY = -260 * progress;
-    const textOpacity = 1 - 0.35 * progress;
+    // MÁS agresivo (sube más)
+    const textY = -340 * progress;
+    const textOpacity = 1 - 0.40 * progress;
 
-    const imageY = -90 * progress;   // un toque más que antes
-    const imageScale = 1 + 0.03 * progress; // micro zoom, muy sutil
+    const imageY = -110 * progress;
+    const imageScale = 1 + 0.035 * progress;
 
     if (heroText) {
       heroText.style.transform = `translate3d(0, ${textY}px, 0)`;
@@ -86,22 +91,57 @@ setInterval(updateCountdown, 1000);
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   update();
+})();
 
-  // Click en el indicador -> baja al countdown
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener("click", () => {
-      const el = document.getElementById("countdown");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    });
+// ====== MÚSICA ======
+(function () {
+  const music = document.getElementById("bgMusic");
+  const toggle = document.getElementById("musicToggle");
+
+  if (!music || !toggle) return;
+
+  // Estado visual del botón
+  function setToggleState() {
+    toggle.textContent = music.paused ? "▶" : "❚❚";
+    toggle.setAttribute("aria-label", music.paused ? "Reproducir música" : "Pausar música");
   }
 
-  const music = document.getElementById("bgMusic");
+  // Intento de autoplay al cargar (puede fallar por políticas del navegador)
+  function tryAutoplay() {
+    music.volume = 0.5;
+    const p = music.play();
+    if (p && typeof p.catch === "function") {
+      p.catch(() => {
+        // Si bloquea autoplay, se habilita al primer click/tap
+        document.addEventListener("click", unlockOnce, { once: true });
+        document.addEventListener("touchstart", unlockOnce, { once: true });
+        setToggleState();
+      });
+    }
+  }
 
-document.addEventListener("click", () => {
-  if (music && music.paused) {
+  function unlockOnce() {
     music.volume = 0.5;
     music.play().catch(() => {});
+    setToggleState();
   }
-}, { once: true });
 
+  // Toggle manual
+  toggle.addEventListener("click", () => {
+    if (music.paused) {
+      music.volume = 0.5;
+      music.play().catch(() => {});
+    } else {
+      music.pause();
+    }
+    setToggleState();
+  });
+
+  // Sincroniza estado al inicio
+  music.addEventListener("play", setToggleState);
+  music.addEventListener("pause", setToggleState);
+  setToggleState();
+
+  // Vamos a intentar sonar “apenas carga”
+  window.addEventListener("load", tryAutoplay);
 })();
