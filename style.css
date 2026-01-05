@@ -141,7 +141,7 @@ body { overflow-x: hidden; background: #000; }
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
   letter-spacing: 10px;
-  font-size: 28px;
+  font-size: 24px;
   text-transform: uppercase;
 }
 
@@ -163,8 +163,8 @@ body { overflow-x: hidden; background: #000; }
 .names{
   font-family: 'Shadows Into Light', cursive;
   font-size: clamp(38px, 8vw, 74px);
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-weight: 200;
+  letter-spacing: 1.5px;
   line-height: 1.05;
 }
 
