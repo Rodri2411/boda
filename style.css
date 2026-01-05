@@ -3,6 +3,12 @@ html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background: #000; }
 
+:root{
+  --gold: #8c6b3f;          /* marrón dorado elegante */
+  --gold-light: rgba(140,107,63,0.18);
+  --gold-border: rgba(140,107,63,0.45);
+}
+
 /* HERO fijo a pantalla completa */
 .hero{
   position: fixed;
@@ -56,61 +62,34 @@ body { overflow-x: hidden; background: #000; }
 }
 
 /* ===== Guardá la fecha (pill) ===== */
+
 .save{
   display: inline-flex;
   align-items: center;
-  gap: clamp(10px, 2.2vw, 14px);
-
-  .save{
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
 
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(18px, 3.8vw, 26px);
-  font-weight: 500;
-  letter-spacing: 3px;
+  font-size: clamp(13px, 3.5vw, 15px);
+  font-weight: 600;                /* NEGRITA */
+  letter-spacing: 4px;
   text-transform: uppercase;
 
-  padding: 12px 26px;
+  color: var(--gold);              /* TEXTO DORADO */
+
+  padding: 12px 22px;
   border-radius: 999px;
 
-  border: 1px solid rgba(255,255,255,.35);
-  background: rgba(0,0,0,.18);
+  background: var(--gold-light);   /* ÓVALO DORADO */
+  border: 1px solid var(--gold-border);
+
   backdrop-filter: blur(6px);
 
-  opacity: .95;
   cursor: pointer;
-  transition: transform .25s ease, background .25s ease;
+  transition: transform .2s ease, background .2s ease;
 }
 
 .save:hover{
-  transform: translateY(-2px);
-  background: rgba(255,255,255,.15);
-}
-
-  font-size: clamp(12px, 3.2vw, 15px);
-  font-weight: 300;
-  letter-spacing: clamp(3px, 1.2vw, 5px);
-  text-transform: uppercase;
-  opacity: .96;
-
-  padding: clamp(8px, 2.6vw, 10px) clamp(14px, 4.2vw, 18px);
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.32);
-  background: rgba(0,0,0,.12);
-  backdrop-filter: blur(6px);
-
-  transform: translateY(-18px);
-  text-decoration: none;
-  color: #fff;
-
-  transition: transform .18s ease, background .18s ease, opacity .18s ease;
-}
-
-.save:hover{
-  background: rgba(255,255,255,.12);
-  transform: translateY(-18px) scale(1.03);
+  background: rgba(140,107,63,0.28);
+  transform: translateY(-1px);
 }
 
 .save:active{
