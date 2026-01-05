@@ -62,33 +62,29 @@ body { overflow-x: hidden; background: #000; }
 }
 
 /* ===== Guardá la fecha (pill) ===== */
-
 .save{
   display: inline-flex;
   align-items: center;
 
-  /*font-family: 'Cormorant Garamond', serif;*/
-  font-size: clamp(13px, 3.5vw, 15px);
-  font-weight: 600;                /* NEGRITA */
+  font-size: clamp(13px, 3.6vw, 15px);
+  font-weight: 600;                 /* negrita */
   letter-spacing: 4px;
   text-transform: uppercase;
 
-  color: var(--gold);              /* TEXTO DORADO */
+  color: #ffffff;                   /* letras blancas */
 
   padding: 12px 22px;
   border-radius: 999px;
 
-  background: var(--gold-light);   /* ÓVALO DORADO */
-  border: 1px solid var(--gold-border);
-
-  backdrop-filter: blur(18px);
+  background: #0f243a;              /* MISMO azul que countdown */
+  border: 1px solid rgba(255,255,255,0.25);
 
   cursor: pointer;
   transition: transform .2s ease, background .2s ease;
 }
 
 .save:hover{
-  background: rgba(140,107,63,0.28);
+  background: #153556;              /* azul un poco más claro */
   transform: translateY(-1px);
 }
 
