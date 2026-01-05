@@ -8,9 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Base -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
-  <!-- Nombres -->
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
@@ -18,14 +16,14 @@
 
 <body>
 
-  <!-- Música (sin controles visibles) -->
+  <!-- Audio (archivo: cancion-boda.mp3 en la raíz) -->
   <audio id="bgMusic" loop preload="auto">
     <source src="cancion-boda.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Botón música -->
-  <button class="music-toggle" id="musicToggle" aria-label="Pausar música" title="Música">
-    ❚❚
+  <button class="music-btn" id="musicBtn" aria-label="Reproducir o pausar música" title="Música">
+    ▶
   </button>
 
   <section class="hero" id="hero">
@@ -39,32 +37,31 @@
         </a>
 
         <div class="hero-mark">
+
           <div class="ring" aria-label="¡Nos casamos!">
-            <!-- viewBox más “alto” para evitar cortes -->
-            <svg viewBox="0 0 300 220" aria-hidden="true">
+            <!-- SVG más ancho para que NO se corte al agrandar texto -->
+            <svg viewBox="0 0 420 240" aria-hidden="true">
               <defs>
-                <!-- Arco más amplio (más “radio”) y con más aire -->
-                <path id="arcTop" d="M -70 150 C 60 40 240 40 370 150" />
+                <!-- Arco superior (más “abierto” y con más aire) -->
+                <path id="arcTop" d="M -40 140 C 80 40 340 40 460 140" />
               </defs>
 
               <text class="ring-text">
-                <textPath
-                  href="#arcTop"
-                  startOffset="50%"
-                  text-anchor="middle"
-                  dy="-6">
+                <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
                   ¡NOS CASAMOS!
                 </textPath>
               </text>
             </svg>
           </div>
 
-          <!-- Nombres en UNA sola línea -->
-          <div class="names-line">
-            <span class="names">Agustina</span>
-            <span class="amp">♡</span>
-            <span class="names">Rodrigo</span>
+          <div class="names-block" aria-label="Agustina y Rodrigo">
+            <div class="names-line">
+              <span class="names">Agustina</span>
+              <span class="names-sep">♡</span>
+              <span class="names">Rodrigo</span>
+            </div>
           </div>
+
         </div>
 
       </div>
@@ -76,12 +73,11 @@
   <main class="content">
 
     <section class="countdown-section" id="countdown">
-      <p class="countdown-intro">Bienvenidos a nuestra boda</p>
+      <p class="countdown-intro reveal">Bienvenidos a nuestra boda</p>
 
-      <!-- Fecha enfatizada (opción B, ajustada al texto) -->
-      <div class="date-pill">03 de octubre de 2026</div>
+      <div class="date-pill reveal">03 de octubre de 2026</div>
 
-      <div class="countdown-line" aria-label="Cuenta regresiva">
+      <div class="countdown-line reveal" aria-label="Cuenta regresiva">
         <span><strong id="d">--</strong> días</span>
         <span class="sep">:</span>
         <span><strong id="h">--</strong> hs</span>
@@ -91,23 +87,22 @@
         <span><strong id="s">--</strong> seg</span>
       </div>
 
-      <p class="countdown-foot">
+      <p class="countdown-foot reveal">
         Más cerca del día publicamos toda la información.
       </p>
     </section>
 
-    <!-- ====== SECCIÓN 3 SIN TARJETAS ====== -->
     <section class="details-section" id="details">
       <div class="details-wrap">
 
-        <div class="detail-item">
+        <div class="detail-item reveal">
           <img src="icono-ceremonia.svg" alt="Ceremonia" class="detail-icon">
           <h3>CEREMONIA</h3>
           <p>Información a compartir más cerca de la fecha.</p>
           <a href="#countdown" class="detail-link">Ir a la cuenta regresiva</a>
         </div>
 
-        <div class="detail-item">
+        <div class="detail-item reveal">
           <img src="icono-fiesta.svg" alt="Fiesta" class="detail-icon">
           <h3>FIESTA</h3>
           <p>Información a compartir más cerca de la fecha.</p>
