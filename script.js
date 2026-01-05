@@ -1,4 +1,6 @@
-// ====== COUNTDOWN ======
+// ======================
+// COUNTDOWN
+// ======================
 const targetDate = new Date("2026-10-03T00:00:00").getTime();
 
 function updateCountdown() {
@@ -22,67 +24,38 @@ function updateCountdown() {
   elM.textContent = String(m).padStart(2, "0");
   elS.textContent = String(s).padStart(2, "0");
 }
+
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ====== Scroll suave a countdown ======
-function scrollToCountdown(e) {
-  const el = document.getElementById("countdown");
-  if (!el) return;
-  if (e) e.preventDefault();
-  el.scrollIntoView({ behavior: "smooth" });
+// ======================
+// CLICK: Guardá la fecha -> countdown (suave)
+// ======================
+const saveBtn = document.querySelector(".save");
+if (saveBtn) {
+  saveBtn.addEventListener("click", (e) => {
+    const el = document.getElementById("countdown");
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth" });
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const saveBtn = document.querySelector(".save");
-  if (saveBtn) saveBtn.addEventListener("click", scrollToCountdown);
+// ======================
+// Click flecha -> countdown
+// ======================
+const scrollIndicator = document.getElementById("scrollIndicator");
+if (scrollIndicator) {
+  scrollIndicator.addEventListener("click", () => {
+    const el = document.getElementById("countdown");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  });
+}
 
-  const scrollIndicator = document.getElementById("scrollIndicator");
-  if (scrollIndicator) scrollIndicator.addEventListener("click", scrollToCountdown);
-
-  // ====== REVEAL: Sección 2 y 3 (aparecen desde abajo) ======
-  // Marcamos elementos a animar
-  const cd = document.getElementById("countdown");
-  const details = document.getElementById("details");
-
-  if (cd) {
-    const intro = cd.querySelector(".countdown-intro");
-    const date = cd.querySelector(".date-pill");
-    const line = cd.querySelector(".countdown-line");
-    const foot = cd.querySelector(".countdown-foot");
-
-    [intro, date, line, foot].forEach((el) => el && el.classList.add("reveal"));
-  }
-
-  if (details) {
-    const items = details.querySelectorAll(".detail-item");
-    items.forEach((item) => item.classList.add("reveal"));
-
-    // íconos con blur -> nítido
-    const icons = details.querySelectorAll(".detail-icon");
-    icons.forEach((ic) => ic.classList.add("reveal-blur"));
-  }
-
-  // Observer
-  const elements = document.querySelectorAll(".reveal, .reveal-blur");
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-
-      // stagger suave por orden (más lindo)
-      const el = entry.target;
-      const index = Array.from(elements).indexOf(el);
-      el.style.transitionDelay = `${Math.min(index * 40, 220)}ms`;
-
-      el.classList.add("is-visible");
-      io.unobserve(el);
-    });
-  }, { threshold: 0.18 });
-
-  elements.forEach((el) => io.observe(el));
-});
-
-// ====== HERO SCROLL (texto + foto) — agresivo ======
+// ======================
+// HERO SCROLL (texto + foto)
+// + base offset para que “arranque más arriba” en mobile
+// ======================
 (function () {
   const heroText = document.getElementById("heroText");
   const heroImage = document.getElementById("heroImage");
@@ -97,6 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.max(min, Math.min(max, n));
   }
 
+  function getBaseOffset() {
+    // MOBILE: lo subimos bastante más (tu pedido)
+    if (window.innerWidth <= 480) return -140;
+    // TABLET
+    if (window.innerWidth <= 900) return -95;
+    // DESKTOP
+    return -70;
+  }
+
   function update() {
     ticking = false;
     if (prefersReduced) return;
@@ -104,10 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const vh = window.innerHeight || 1;
     const progress = clamp(window.scrollY / vh, 0, 1);
 
-    // sube más el texto al scrollear
-    const textY = -340 * progress;
-    const textOpacity = 1 - 0.40 * progress;
+    const base = getBaseOffset();
 
+    // Más “agresivo” el movimiento del texto al scrollear
+    const textY = base + (-340 * progress);
+    const textOpacity = 1 - 0.35 * progress;
+
+    // Foto: parallax + micro zoom
     const imageY = -110 * progress;
     const imageScale = 1 + 0.035 * progress;
 
@@ -133,48 +118,80 @@ document.addEventListener("DOMContentLoaded", () => {
   update();
 })();
 
-// ====== MÚSICA ======
+// ======================
+// REVEAL (Secciones 2 y 3)
+// Se repite cada vez que entra/sale del viewport
+// (sin blur distinto en íconos: ahora todo igual)
+// ======================
 (function () {
-  const music = document.getElementById("bgMusic");
-  const toggle = document.getElementById("musicToggle");
-  if (!music || !toggle) return;
+  const items = document.querySelectorAll(".reveal");
+  if (!items.length) return;
 
-  function setToggleState() {
-    toggle.textContent = music.paused ? "▶" : "❚❚";
-    toggle.setAttribute("aria-label", music.paused ? "Reproducir música" : "Pausar música");
+  const reduce =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduce) {
+    items.forEach(el => el.classList.add("is-visible"));
+    return;
   }
 
-  function tryAutoplay() {
-    music.volume = 0.5;
-    const p = music.play();
-    if (p && typeof p.catch === "function") {
-      p.catch(() => {
-        document.addEventListener("click", unlockOnce, { once: true });
-        document.addEventListener("touchstart", unlockOnce, { once: true });
-        setToggleState();
-      });
-    }
-  }
-
-  function unlockOnce() {
-    music.volume = 0.5;
-    music.play().catch(() => {});
-    setToggleState();
-  }
-
-  toggle.addEventListener("click", () => {
-    if (music.paused) {
-      music.volume = 0.5;
-      music.play().catch(() => {});
-    } else {
-      music.pause();
-    }
-    setToggleState();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      // Repite: al salir se apaga, al entrar se prende
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      else entry.target.classList.remove("is-visible");
+    });
+  }, {
+    threshold: 0.18,
+    rootMargin: "0px 0px -10% 0px"
   });
 
-  music.addEventListener("play", setToggleState);
-  music.addEventListener("pause", setToggleState);
-  setToggleState();
+  items.forEach(el => io.observe(el));
+})();
 
-  window.addEventListener("load", tryAutoplay);
+// ======================
+// MÚSICA: botón play/pausa + intento de autoplay
+// (autoplay real en mobile suele requerir gesto sí o sí)
+// ======================
+(function () {
+  const music = document.getElementById("bgMusic");
+  const btn = document.getElementById("musicBtn");
+  if (!music || !btn) return;
+
+  music.volume = 0.55;
+
+  function setBtnPlaying(isPlaying) {
+    btn.textContent = isPlaying ? "⏸" : "▶";
+  }
+
+  async function tryPlay() {
+    try {
+      await music.play();
+      setBtnPlaying(true);
+    } catch (e) {
+      // Bloqueado por el navegador -> queda en play
+      setBtnPlaying(false);
+    }
+  }
+
+  // Intento al cargar
+  window.addEventListener("load", () => {
+    tryPlay();
+  });
+
+  // Botón manual
+  btn.addEventListener("click", async () => {
+    if (music.paused) {
+      await tryPlay();
+    } else {
+      music.pause();
+      setBtnPlaying(false);
+    }
+  });
+
+  // Primer toque en cualquier lado: asegura que empiece
+  document.addEventListener("click", () => {
+    if (music.paused) tryPlay();
+  }, { once: true });
 })();
