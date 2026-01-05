@@ -72,11 +72,11 @@ if (scrollIndicator) {
 
   function getBaseOffset() {
     // MOBILE: lo subimos bastante más (tu pedido)
-    if (window.innerWidth <= 480) return -180;
+    if (window.innerWidth <= 480) return -200;
     // TABLET
-    if (window.innerWidth <= 900) return -95;
+    if (window.innerWidth <= 900) return -105;
     // DESKTOP
-    return -90;
+    return -100;
   }
 
   function update() {
