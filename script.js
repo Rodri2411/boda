@@ -94,4 +94,14 @@ setInterval(updateCountdown, 1000);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     });
   }
+
+  const music = document.getElementById("bgMusic");
+
+document.addEventListener("click", () => {
+  if (music && music.paused) {
+    music.volume = 0.5;
+    music.play().catch(() => {});
+  }
+}, { once: true });
+
 })();
