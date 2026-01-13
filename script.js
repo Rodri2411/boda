@@ -1,197 +1,111 @@
-// ======================
-// COUNTDOWN
-// ======================
-const targetDate = new Date("2026-10-03T00:00:00").getTime();
-
-function updateCountdown() {
-  const now = Date.now();
-  const diff = targetDate - now;
-  if (diff <= 0) return;
-
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-
-  const elD = document.getElementById("d");
-  const elH = document.getElementById("h");
-  const elM = document.getElementById("m");
-  const elS = document.getElementById("s");
-  if (!elD || !elH || !elM || !elS) return;
-
-  elD.textContent = d;
-  elH.textContent = String(h).padStart(2, "0");
-  elM.textContent = String(m).padStart(2, "0");
-  elS.textContent = String(s).padStart(2, "0");
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-// ======================
-// CLICK: Guardá la fecha -> countdown (suave)
-// ======================
-const saveBtn = document.querySelector(".save");
-if (saveBtn) {
-  saveBtn.addEventListener("click", (e) => {
-    const el = document.getElementById("countdown");
-    if (!el) return;
-    e.preventDefault();
-    el.scrollIntoView({ behavior: "smooth" });
-  });
-}
-
-// ======================
-// Click flecha -> countdown
-// ======================
-const scrollIndicator = document.getElementById("scrollIndicator");
-if (scrollIndicator) {
-  scrollIndicator.addEventListener("click", () => {
-    const el = document.getElementById("countdown");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  });
-}
-
-// ======================
-// HERO SCROLL (texto + foto)
-// + base offset para que “arranque más arriba” en mobile
-// ======================
 (function () {
-  const heroText = document.getElementById("heroText");
-  const heroImage = document.getElementById("heroImage");
+  const params = new URLSearchParams(location.search);
+  const isFiesta = params.has("fiesta");
 
-  const prefersReduced =
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function qs(sel, root = document) { return root.querySelector(sel); }
 
-  let ticking = false;
-
-  function clamp(n, min, max) {
-    return Math.max(min, Math.min(max, n));
+  async function loadPartial(path) {
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) throw new Error(`No pude cargar ${path}`);
+    return res.text();
   }
 
-  function getBaseOffset() {
-    // MOBILE: lo subimos bastante más (tu pedido)
-    if (window.innerWidth <= 480) return -200;
-    // TABLET
-    if (window.innerWidth <= 900) return -105;
-    // DESKTOP
-    return -100;
-  }
+  // ===== Música =====
+  function setupMusic() {
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+    if (!music || !btn) return;
 
-  function update() {
-    ticking = false;
-    if (prefersReduced) return;
+    music.volume = APP_CONFIG.MUSIC_VOLUME ?? 0.5;
 
-    const vh = window.innerHeight || 1;
-    const progress = clamp(window.scrollY / vh, 0, 1);
+    const setBtn = () => {
+      const playing = !music.paused;
+      btn.textContent = playing ? "⏸" : "▶";
+      btn.setAttribute("aria-label", playing ? "Pausar música" : "Reproducir música");
+    };
 
-    const base = getBaseOffset();
-
-    // Más “agresivo” el movimiento del texto al scrollear
-    const textY = base + (-340 * progress);
-    const textOpacity = 1 - 0.35 * progress;
-
-    // Foto: parallax + micro zoom
-    const imageY = -110 * progress;
-    const imageScale = 1 + 0.035 * progress;
-
-    if (heroText) {
-      heroText.style.transform = `translate3d(0, ${textY}px, 0)`;
-      heroText.style.opacity = textOpacity.toFixed(3);
-    }
-
-    if (heroImage) {
-      heroImage.style.transform = `translate3d(0, ${imageY}px, 0) scale(${imageScale.toFixed(4)})`;
-    }
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  update();
-})();
-
-// ======================
-// REVEAL (Secciones 2 y 3)
-// Se repite cada vez que entra/sale del viewport
-// (sin blur distinto en íconos: ahora todo igual)
-// ======================
-(function () {
-  const items = document.querySelectorAll(".reveal");
-  if (!items.length) return;
-
-  const reduce =
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (reduce) {
-    items.forEach(el => el.classList.add("is-visible"));
-    return;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      // Repite: al salir se apaga, al entrar se prende
-      if (entry.isIntersecting) entry.target.classList.add("is-visible");
-      else entry.target.classList.remove("is-visible");
+    btn.addEventListener("click", async () => {
+      try {
+        if (music.paused) await music.play();
+        else music.pause();
+      } catch (_) {}
+      setBtn();
     });
-  }, {
-    threshold: 0.18,
-    rootMargin: "0px 0px -10% 0px"
-  });
 
-  items.forEach(el => io.observe(el));
-})();
+    // Intento autoplay
+    const tryAuto = async () => {
+      if (!APP_CONFIG.MUSIC_AUTOPLAY) { setBtn(); return; }
+      try {
+        await music.play();
+      } catch (_) {
+        // si el browser lo bloquea, queda el botón para el usuario
+      }
+      setBtn();
+    };
 
-// ======================
-// MÚSICA: botón play/pausa + intento de autoplay
-// (autoplay real en mobile suele requerir gesto sí o sí)
-// ======================
-(function () {
-  const music = document.getElementById("bgMusic");
-  const btn = document.getElementById("musicBtn");
-  if (!music || !btn) return;
+    // Algunos browsers requieren un gesto: escuchamos el primero
+    const unlock = async () => {
+      if (!APP_CONFIG.MUSIC_AUTOPLAY) return;
+      try { await music.play(); } catch (_) {}
+      setBtn();
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("touchstart", unlock);
+    };
 
-  music.volume = 0.55;
+    document.addEventListener("click", unlock, { once: true });
+    document.addEventListener("touchstart", unlock, { once: true });
 
-  function setBtnPlaying(isPlaying) {
-    btn.textContent = isPlaying ? "⏸" : "▶";
+    tryAuto();
   }
 
-  async function tryPlay() {
-    try {
-      await music.play();
-      setBtnPlaying(true);
-    } catch (e) {
-      // Bloqueado por el navegador -> queda en play
-      setBtnPlaying(false);
-    }
+  // ===== Reveal repetible (secciones 2 y 3) =====
+  function setupReveal() {
+    const els = document.querySelectorAll("[data-reveal]");
+    if (!els.length) return;
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+        } else {
+          // 👇 repetible: cuando sale de pantalla, lo reseteamos
+          e.target.classList.remove("is-visible");
+        }
+      }
+    }, { threshold: 0.18 });
+
+    els.forEach(el => io.observe(el));
   }
 
-  // Intento al cargar
-  window.addEventListener("load", () => {
-    tryPlay();
-  });
+  // ===== Boot =====
+  (async () => {
+    const app = document.getElementById("app");
+    if (!app) return;
 
-  // Botón manual
-  btn.addEventListener("click", async () => {
-    if (music.paused) {
-      await tryPlay();
-    } else {
-      music.pause();
-      setBtnPlaying(false);
+    // stage
+    const stage = (APP_CONFIG.STAGE || "save").toLowerCase();
+    const stagePath = stage === "full" ? "/partials/full.html" : "/partials/save.html";
+    app.innerHTML = await loadPartial(stagePath);
+
+    // fiesta mode
+    if (isFiesta) {
+      document.documentElement.classList.add("mode-fiesta");
+      const fiestaHtml = await loadPartial("/partials/fiesta.html");
+      app.insertAdjacentHTML("beforeend", fiestaHtml);
     }
-  });
 
-  // Primer toque en cualquier lado: asegura que empiece
-  document.addEventListener("click", () => {
-    if (music.paused) tryPlay();
-  }, { once: true });
+    // init per stage
+    if (stage === "full") window.initFull?.();
+    else window.initSave?.();
+
+    if (isFiesta) window.initFiesta?.();
+
+    // common
+    setupMusic();
+    setupReveal();
+  })().catch(err => {
+    console.error(err);
+    const app = document.getElementById("app");
+    if (app) app.innerHTML = `<div style="padding:24px;color:#fff;font-family:Raleway">Error cargando la página 😅</div>`;
+  });
 })();

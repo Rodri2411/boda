@@ -1,1 +1,10 @@
-
+.full-subtitle{
+  font-size: 14px;
+  opacity: .9;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+.save{
+  transform: translateY(0);
+  transition: transform 0.1s ease-in-out;
+}

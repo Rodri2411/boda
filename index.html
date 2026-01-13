@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💍 Agustina & Rodrigo — Save the date</title>
+  <title>💍 Agustina & Rodrigo — ¡NOS CASAMOS!</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,109 +11,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/save.css">
+  <link rel="stylesheet" href="/css/full.css">
+  <link rel="stylesheet" href="/css/fiesta.css">
 </head>
 
 <body>
-
-  <!-- Audio (archivo: cancion-boda.mp3 en la raíz) -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="cancion-boda.mp3" type="audio/mpeg">
+  <!-- Música -->
+  <audio id="bgMusic" loop>
+    <source src="assets/cancion-boda.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Botón música -->
-  <button class="music-btn" id="musicBtn" aria-label="Reproducir o pausar música" title="Música">
+  <!-- Botón Play/Pause (si el autoplay se bloquea, esto lo salva) -->
+  <button class="music-btn" id="musicBtn" aria-label="Reproducir música">
     ▶
   </button>
 
-  <section class="hero" id="hero">
-    <img src="20250201_131658.jpg" alt="Agustina y Rodrigo" id="heroImage">
+  <div id="app"></div>
 
-    <div class="hero-content">
-      <div class="stack" id="heroText">
-
-        <a class="save" href="#countdown" aria-label="Ir a la cuenta regresiva">
-          Guardá la fecha
-        </a>
-
-        <div class="hero-mark">
-
-          <div class="ring" aria-label="¡Nos casamos!">
-            <!-- SVG más ancho para que NO se corte al agrandar texto -->
-            <svg viewBox="0 0 420 240" aria-hidden="true">
-              <defs>
-                <!-- Arco superior (más “abierto” y con más aire) -->
-                <path id="arcTop" d="M -40 140 C 80 40 340 40 460 140" />
-              </defs>
-
-              <text class="ring-text">
-                <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
-                  ¡NOS CASAMOS!
-                </textPath>
-              </text>
-            </svg>
-          </div>
-
-          <div class="names-block" aria-label="Agustina y Rodrigo">
-            <div class="names-line">
-              <span class="names">Agustina</span>
-              <span class="names-sep">♡</span>
-              <span class="names">Rodrigo</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="scroll-indicator" id="scrollIndicator" aria-label="Bajar a la cuenta regresiva">⌄</div>
-  </section>
-
-  <main class="content">
-
-    <section class="countdown-section" id="countdown">
-      <p class="countdown-intro reveal">Bienvenidos a nuestra boda</p>
-
-      <div class="date-pill reveal">03 de octubre de 2026</div>
-
-      <div class="countdown-line reveal" aria-label="Cuenta regresiva">
-        <span><strong id="d">--</strong> días</span>
-        <span class="sep">:</span>
-        <span><strong id="h">--</strong> hs</span>
-        <span class="sep">:</span>
-        <span><strong id="m">--</strong> min</span>
-        <span class="sep">:</span>
-        <span><strong id="s">--</strong> seg</span>
-      </div>
-
-      <p class="countdown-foot reveal">
-        Más cerca del día publicamos toda la información.
-      </p>
-    </section>
-
-    <section class="details-section" id="details">
-      <div class="details-wrap">
-
-        <div class="detail-item reveal">
-          <img src="icono-ceremonia.svg" alt="Ceremonia" class="detail-icon">
-          <h3>CEREMONIA</h3>
-          <p>Información a compartir más cerca de la fecha.</p>
-          <a href="#countdown" class="detail-link">Ir a la cuenta regresiva</a>
-        </div>
-
-        <div class="detail-item reveal">
-          <img src="icono-fiesta.svg" alt="Fiesta" class="detail-icon">
-          <h3>FIESTA</h3>
-          <p>Información a compartir más cerca de la fecha.</p>
-          <a href="#countdown" class="detail-link">Ir a la cuenta regresiva</a>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <script src="script.js"></script>
+  <script src="/config.js"></script>
+  <script src="/js/save.js"></script>
+  <script src="/js/full.js"></script>
+  <script src="/js/fiesta.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

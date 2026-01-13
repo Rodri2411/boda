@@ -1,1 +1,16 @@
+.mode-fiesta .fiesta-banner{
+  background: #0f243a;
+  color: #fff;
+  padding: 42px 18px;
+  text-align: center;
+}
+
+.fiesta-banner h2{
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.fiesta-banner p{
+  opacity: .9;
+}
 

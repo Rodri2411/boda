@@ -3,9 +3,23 @@ html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background: #000; }
 
-/* =======================
-   HERO fijo a pantalla completa
-======================= */
+.music-btn{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 50;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.55);
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(6px);
+}
+
 .hero{
   position: fixed;
   inset: 0;
@@ -29,7 +43,7 @@ body { overflow-x: hidden; background: #000; }
   transform: translateY(0);
 }
 
-/* Oscurecido más notorio */
+/* Oscurece MÁS para que se note (tu queja era “no se ve”) */
 .hero::after{
   content:"";
   position:absolute;
@@ -38,12 +52,11 @@ body { overflow-x: hidden; background: #000; }
   background:
     linear-gradient(to bottom,
       rgba(0,0,0,0.55) 0%,
-      rgba(0,0,0,0.35) 40%,
-      rgba(0,0,0,0.55) 100%
+      rgba(0,0,0,0.35) 35%,
+      rgba(0,0,0,0.52) 100%
     );
 }
 
-/* Contenedor textos */
 .hero-content{
   position: relative;
   z-index: 2;
@@ -63,7 +76,12 @@ body { overflow-x: hidden; background: #000; }
   will-change: transform, opacity;
 }
 
-/* Guardá la fecha (pill) */
+/* 👇 SUBIMOS todo el conjunto en MOBILE */
+#heroText{
+  transform: translate3d(0, -7vh, 0);
+}
+
+/* Pill Guardá la fecha */
 .save{
   display: inline-flex;
   align-items: center;
@@ -92,22 +110,13 @@ body { overflow-x: hidden; background: #000; }
 }
 
 .save:active{
-  transform: translateY(0px) scale(0.99);
-}
-
-/* Ajuste extra para teléfonos chicos */
-@media (max-width: 380px){
-  .save{
-    font-size: 13px;
-    letter-spacing: 2.5px;
-    padding: 10px 18px;
-  }
+  transform: translateY(0) scale(0.99);
 }
 
 /* Marca (arco + nombres) */
 .hero-mark{
   position: relative;
-  width: min(620px, 94vw);
+  width: min(580px, 94vw);
   margin: 6px auto 0 auto;
 }
 
@@ -117,62 +126,52 @@ body { overflow-x: hidden; background: #000; }
   pointer-events: none;
 }
 
-.ring svg{
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.ring svg{ width: 100%; height: auto; display: block; }
 
-/* Texto en arco */
 .ring-text{
   fill: rgba(255,255,255,0.95);
-  font-family: 'Raleway', sans-serif;
   font-weight: 600;
   letter-spacing: 10px;
   font-size: 24px;
   text-transform: uppercase;
 }
 
-/* Nombres */
 .names-block{
   position: absolute;
   left: 50%;
-  top: 56%;
+  top: 58%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-}
 
-.names-line{
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  flex-wrap: wrap;
-  padding: 0 10px;
 }
 
 .names{
   font-family: 'Shadows Into Light', cursive;
-  font-size: clamp(34px, 7.2vw, 64px);
+  font-size: clamp(36px, 7vw, 64px);
   font-weight: 400;
-  letter-spacing: 1.8px;
+  letter-spacing: 2.5px;
   line-height: 1.05;
 }
 
-.names-sep{
-  font-family: 'Shadows Into Light', cursive;
-  font-size: clamp(22px, 5vw, 34px);
-  font-weight: 400;
-  opacity: 0.95;
-  transform: translateY(2px);
+.names.amp{
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 300;
+  letter-spacing: 0px;
+  opacity: .95;
 }
 
-/* Flecha scroll: más cerca del nombre */
+/* Scroll indicator */
 .scroll-indicator{
   position: absolute;
   left: 50%;
-  bottom: 70px; /* MÁS ARRIBA que antes */
+  bottom: 90px;
   z-index: 3;
 
   width: 48px;
@@ -194,20 +193,9 @@ body { overflow-x: hidden; background: #000; }
   transition: transform .25s ease, background .25s ease;
 }
 
-.scroll-indicator:hover{
-  transform: translate(-50%, 0) scale(1.12);
-  background: rgba(255,255,255,0.12);
-}
-
 @keyframes bob2{
   0%,100% { transform: translate(-50%, 0); opacity: .92; }
   50%     { transform: translate(-50%, 8px); opacity: .68; }
-}
-
-/* Mobile: flecha aún más cerca */
-@media (max-width: 480px){
-  .scroll-indicator{ bottom: 52px; }
-  .ring-text{ font-size: 20px; letter-spacing: 9px; }
 }
 
 /* Contenido por encima del hero */
@@ -217,25 +205,30 @@ body { overflow-x: hidden; background: #000; }
   margin-top: 100vh;
 }
 
-/* =======================
-   SECCIÓN 2: COUNTDOWN
-======================= */
+/* Sección 2 */
 .countdown-section{
   width: 100%;
   background: #0f243a;
   color: #fff;
-  padding: 80px 20px 65px;
+  padding: 80px 20px; /* un poco menos que antes */
   text-align: center;
 }
 
 .countdown-intro{
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 1px;
   opacity: .92;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
-/* Fecha pill */
+.countdown-foot{
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: .85;
+  line-height: 1.6;
+  margin-bottom: -50px;
+}
+
 .date-pill{
   display: inline-flex;
   align-items: center;
@@ -252,11 +245,7 @@ body { overflow-x: hidden; background: #000; }
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(6px);
 
-  margin: 18px 0 30px 0;
-}
-
-@media (max-width: 420px){
-  .date-pill{ letter-spacing: 3px; }
+  margin-bottom: 22px;
 }
 
 .countdown-line{
@@ -267,28 +256,18 @@ body { overflow-x: hidden; background: #000; }
   gap: 10px;
   font-size: clamp(18px, 4vw, 32px);
   font-weight: 300;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .countdown-line strong{
   font-weight: 600;
   font-size: clamp(28px, 6vw, 48px);
 }
-
 .sep{ opacity: .7; }
 
-.countdown-foot{
-  margin-top: 6px;
-  font-size: 14px;
-  opacity: .85;
-  line-height: 1.6;
-}
-
-/* =======================
-   SECCIÓN 3: PAPEL + SIN TARJETAS
-======================= */
+/* Sección 3 (menos espacio con la 2) */
 .details-section{
-  padding: 85px 20px 105px;
+  padding: 80px 20px; /* antes 105 */
   background: #f6f2ea;
   position: relative;
   overflow: hidden;
@@ -297,15 +276,15 @@ body { overflow-x: hidden; background: #000; }
 .details-section::before{
   content:"";
   position:absolute;
-  top:-8%;
-  left:-8%;
-  width:116%;
-  height:116%;
-  background-image: url("paper-texture.png");
+  top:-5%;
+  left:-5%;
+  width:110%;
+  height:110%;
+  background-image: url("assets/paper-texture.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.12;
+  opacity: 0.15;
   pointer-events:none;
   z-index: 0;
 }
@@ -315,23 +294,24 @@ body { overflow-x: hidden; background: #000; }
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 120px;
+  gap: 110px;
   text-align: center;
   position: relative;
   z-index: 1;
 }
 
 .detail-icon{
-  width: 160px;
+  width: 160px;     /* MÁS GRANDE en web */
   height: 160px;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
+  margin-top: -50px;
   opacity: 0.95;
 }
 
 .detail-item h3{
   letter-spacing: 4px;
   font-size: 18px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   color: #111;
 }
 
@@ -339,7 +319,7 @@ body { overflow-x: hidden; background: #000; }
   font-size: 15px;
   line-height: 1.7;
   opacity: 0.82;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
   color: #222;
 }
 
@@ -348,103 +328,39 @@ body { overflow-x: hidden; background: #000; }
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-
   padding: 13px 26px;
   border-radius: 999px;
   text-decoration: none;
-
   background: #b59a6a;
   color: #fff;
-
   border: 1px solid rgba(80,55,20,0.25);
   box-shadow: 0 10px 22px rgba(0,0,0,0.10);
   transition: transform .18s ease, filter .18s ease, background .18s ease;
 }
 
-.detail-link:hover{
-  transform: translateY(-1px);
-  filter: brightness(0.95);
-  background: #aa8f61;
-}
-
-.detail-link:active{
-  transform: translateY(0px);
-}
-
-/* Responsive sección 3 */
-@media(max-width:800px){
-  .details-wrap{
-    grid-template-columns: 1fr;
-    gap: 70px;
-  }
-}
-
-/* Tablet */
-@media (max-width: 768px){
-  .detail-icon{
-    width: 140px;      /* antes 120px */
-    height: 140px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 420px){
-  .detail-icon{
-    width: 150px;      /* antes 132px */
-    height: 150px;
-  }
-}
-
-/* =======================
-   ANIMACIÓN "APARECER DESDE ABAJO"
-   (se aplica con JS; se repite al entrar/salir)
-======================= */
-.reveal{
+/* ===== Reveal “desde abajo” REUTILIZABLE ===== */
+[data-reveal]{
   opacity: 0;
   transform: translate3d(0, 26px, 0);
   transition: opacity .55s ease, transform .55s ease;
-  will-change: opacity, transform;
 }
 
-.reveal.is-visible{
+[data-reveal].is-visible{
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
-/* =======================
-   BOTÓN MÚSICA
-======================= */
-.music-btn{
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  z-index: 9999;
-
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-
-  border: 1px solid rgba(255,255,255,0.75);
-  background: rgba(15,36,58,0.55);
-  color: #fff;
-
-  display: grid;
-  place-items: center;
-
-  cursor: pointer;
-  user-select: none;
-  backdrop-filter: blur(6px);
-
-  transition: transform .18s ease, background .18s ease;
+/* Responsive */
+@media(max-width:800px){
+  .details-wrap{ grid-template-columns: 1fr; gap: 64px; }
+  .detail-icon{ width: 120px; height: 120px; } /* mobile más grande */
 }
 
-.music-btn:hover{
-  transform: scale(1.05);
-  background: rgba(15,36,58,0.70);
-}
-
-/* Accesibilidad */
-@media (prefers-reduced-motion: reduce){
-  .scroll-indicator{ animation: none; }
-  .reveal{ transition: none; }
+/* Mobile fino */
+@media (max-width: 420px){
+  .hero-mark{ width: min(360px, 92vw); }
+  .ring-text{ font-size: 18px; letter-spacing: 9px; }
+  .names-block{ top: 62%; }
+  #heroText{ transform: translate3d(0, -9vh, 0); } /* todavía más arriba en mobile */
+  .detail-icon{ width: 132px; height: 132px; }    /* MÁS grande aún */
 }
