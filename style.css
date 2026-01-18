@@ -14,7 +14,7 @@ body { overflow-x: hidden; background: #000; }
   --hero-pad-top: clamp(42px, 7vh, 80px);  /* aire arriba del hero (unifica alturas) */
   --hero-text-shift: 0vh;                  /* shift del grupo hero (desktop) */
   --hero-text-shift-mobile: -6vh;          /* shift del grupo hero (mobile) */
-  --names-shift-mobile: -20px; /* ajustá: -8px / -12px / -16px */
+  --names-shift-mobile: -24px; /* ajustá: -8px / -12px / -16px */
   --scroll-bottom: 90px;
   --scroll-bottom-mobile: 80px;
 }
