@@ -12,10 +12,12 @@
   }
 
 // =========================================================
-// MUSIC (web autoplay + mobile "armado" hasta primer gesto)
+// MUSIC (iOS-safe)
+// - Autoplay: intenta muted (mobile) y normal (web)
+// - Primer gesto real: desmutea + play
+// - Botón: responde a touchend + click
 // =========================================================
 function setupMusic() {
-  // evita doble init (por si lo llamás dos veces sin querer)
   if (window.__musicSetupDone) return;
   window.__musicSetupDone = true;
 
@@ -23,18 +25,18 @@ function setupMusic() {
   const btn = document.getElementById("musicBtn");
   if (!music || !btn) return;
 
-  const vol =
-    (window.APP_CONFIG && typeof window.APP_CONFIG.MUSIC_VOLUME === "number")
-      ? window.APP_CONFIG.MUSIC_VOLUME
-      : 0.5;
+  const cfg = window.APP_CONFIG || {};
+  const autoplay = !!cfg.MUSIC_AUTOPLAY;
+  const vol = (typeof cfg.MUSIC_VOLUME === "number") ? cfg.MUSIC_VOLUME : 0.5;
 
-  const autoplay = !!(window.APP_CONFIG && window.APP_CONFIG.MUSIC_AUTOPLAY);
-
+  // Atributos "Safari-friendly"
+  music.setAttribute("playsinline", "");
+  music.setAttribute("webkit-playsinline", "");
+  music.preload = "auto";
   music.volume = vol;
 
   let playInFlight = false;
-  let desiredPlaying = autoplay;     // lo que queremos (autoplay o no)
-  let needsUnlockRetry = false;      // si falló por política mobile, reintentamos en gesto
+  let desiredPlaying = autoplay;
   let unlocked = false;
 
   function setBtn(playing) {
@@ -43,20 +45,24 @@ function setupMusic() {
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
   }
 
-  async function tryPlay() {
+  async function safePlay({ allowMuted } = { allowMuted: false }) {
     if (playInFlight) return;
     playInFlight = true;
 
     try {
       if (music.readyState === 0) music.load();
+
+      // Si permitimos muted (para intentar autoplay en iOS)
+      if (allowMuted) music.muted = true;
+
       await music.play();
       setBtn(true);
-      needsUnlockRetry = false;
+
+      // Si fue muted autoplay, lo dejamos muted hasta el unlock real
+      // (cuando el usuario toque, lo desmuteamos)
     } catch (e) {
-      // NO apagamos desiredPlaying (clave para no matar web/flow)
-      // En mobile normalmente da NotAllowedError si no hubo gesto.
       setBtn(false);
-      needsUnlockRetry = true;
+      // NO tocamos desiredPlaying: si estaba en true, seguirá intentando al desbloquear
     } finally {
       playInFlight = false;
     }
@@ -65,46 +71,69 @@ function setupMusic() {
   function pauseNow() {
     try { music.pause(); } catch {}
     setBtn(false);
-    needsUnlockRetry = false;
   }
 
-  function applyState() {
+  async function applyState() {
     if (!desiredPlaying) {
       pauseNow();
       return;
     }
-    // si queremos sonar, intentamos
-    tryPlay();
+
+    // Si todavía no hubo "unlock" real y estamos en mobile,
+    // intentamos arrancar muted (iOS lo permite mucho más)
+    if (!unlocked) {
+      await safePlay({ allowMuted: true });
+      return;
+    }
+
+    // Ya desbloqueado: desmutea y play normal
+    music.muted = false;
+    await safePlay({ allowMuted: false });
   }
 
-  // Botón play/pause (este click ya cuenta como "gesto" en mobile)
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    desiredPlaying = !desiredPlaying;
-    if (!desiredPlaying) pauseNow();
-    else applyState();
-  });
-
-  // Unlock: primer gesto del usuario => reintentar si estaba bloqueado
-  const unlock = () => {
+  // ---------- UNLOCK REAL (primer gesto) ----------
+  async function unlock() {
     if (unlocked) return;
     unlocked = true;
 
-    // si autoplay estaba activo o quedamos esperando por bloqueo, reintentamos
-    if (desiredPlaying || needsUnlockRetry) applyState();
+    // Si queríamos música, ahora sí: desmutea + play
+    if (desiredPlaying) {
+      music.muted = false;
+      await safePlay({ allowMuted: false });
+    }
+  }
+
+  // Safari iOS: touchend en el botón es el gesto más confiable
+  const onToggle = async (e) => {
+    // OJO: en iOS, preventDefault a veces mata el gesto.
+    // Así que NO hacemos preventDefault acá.
+    desiredPlaying = !desiredPlaying;
+
+    if (!unlocked) await unlock();
+
+    if (!desiredPlaying) {
+      pauseNow();
+      return;
+    }
+
+    music.muted = false;
+    await safePlay({ allowMuted: false });
   };
 
-  // Importante: NO passive para maximizar compatibilidad iOS
-  document.addEventListener("touchstart", unlock, { once: true });
-  document.addEventListener("pointerdown", unlock, { once: true });
+  // Botón (lo más importante)
+  btn.addEventListener("touchend", onToggle, { passive: true });
+  btn.addEventListener("click", onToggle);
+
+  // Document unlock (por si el usuario toca en cualquier lado primero)
+  document.addEventListener("touchend", unlock, { once: true, passive: true });
   document.addEventListener("click", unlock, { once: true });
   document.addEventListener("keydown", unlock, { once: true });
-  document.addEventListener("scroll", unlock, { once: true });
 
   // Estado inicial
   setBtn(false);
 
-  // Intento inicial: en web debería arrancar; en mobile fallará y quedará "armado"
+  // Autoplay: web puede arrancar con sonido; iOS normalmente no.
+  // Por eso: intentamos muted primero si no está unlocked.
   if (autoplay) applyState();
 
   music.addEventListener("ended", () => {
