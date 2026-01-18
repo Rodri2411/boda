@@ -14,6 +14,7 @@ body { overflow-x: hidden; background: #000; }
   --hero-pad-top: clamp(42px, 7vh, 80px);  /* aire arriba del hero (unifica alturas) */
   --hero-text-shift: 0vh;                  /* shift del grupo hero (desktop) */
   --hero-text-shift-mobile: -6vh;          /* shift del grupo hero (mobile) */
+  --names-shift-mobile: -20px; /* ajustá: -8px / -12px / -16px */
   --scroll-bottom: 90px;
   --scroll-bottom-mobile: 80px;
 }
@@ -436,7 +437,11 @@ body { overflow-x: hidden; background: #000; }
 
   .hero-content{ padding-top: var(--hero-pad-top); }
   .ring-text{ font-size: 18px; letter-spacing: 7px; }
-  .names-block{ top: 44%; gap: 10px; }
+  /* ✅ Subimos SOLO los nombres en mobile */
+  .names-block{
+    top: calc(44% + var(--names-shift-mobile));
+    gap: 10px;
+  }
   .names{ font-size: clamp(34px, 9vw, 56px); }
 
   .scroll-indicator{ bottom: var(--scroll-bottom-mobile); }
