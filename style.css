@@ -1,11 +1,29 @@
+/* =========================
+   BASE
+========================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { font-family: 'Raleway', sans-serif; }
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; background: #000; }
 
+/* =========================
+   VARIABLES (UNA SOLA FUENTE DE VERDAD)
+   👉 Ajustás acá la “altura” del HERO para SAVE y FULL
+========================= */
+:root{
+  --hero-pad-top: clamp(42px, 7vh, 80px);  /* aire arriba del hero (unifica alturas) */
+  --hero-text-shift: 0vh;                  /* shift del grupo hero (desktop) */
+  --hero-text-shift-mobile: -6vh;          /* shift del grupo hero (mobile) */
+  --scroll-bottom: 90px;
+  --scroll-bottom-mobile: 80px;
+}
+
+/* =========================
+   MUSIC BUTTON
+========================= */
 .music-btn{
   position: fixed;
-  top: 18px;
+  top: 14px;
   right: 18px;
   z-index: 50;
   width: 46px;
@@ -20,6 +38,9 @@ body { overflow-x: hidden; background: #000; }
   backdrop-filter: blur(6px);
 }
 
+/* =========================
+   HERO (COMÚN A SAVE Y FULL)
+========================= */
 .hero{
   position: fixed;
   inset: 0;
@@ -36,14 +57,14 @@ body { overflow-x: hidden; background: #000; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: 70% center; /* podés ajustar 60%..85% */
   display: block;
   transform-origin: center center;
   will-change: transform;
   transform: translateY(0);
 }
 
-/* Oscurece MÁS para que se note (tu queja era “no se ve”) */
+/* Overlay para legibilidad */
 .hero::after{
   content:"";
   position:absolute;
@@ -66,9 +87,14 @@ body { overflow-x: hidden; background: #000; }
   text-align: center;
   color: #fff;
   padding: 0 18px;
+
+  /* 👉 ESTA ES LA “ALTURA” UNIFICADA */
+  align-items: start;
+  padding-top: var(--hero-pad-top);
 }
 
 .stack{
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,9 +102,9 @@ body { overflow-x: hidden; background: #000; }
   will-change: transform, opacity;
 }
 
-/* 👇 SUBIMOS todo el conjunto en MOBILE */
+/* shift general (desktop) */
 #heroText{
-  transform: translate3d(0, -7vh, 0);
+  transform: translate3d(0, var(--hero-text-shift), 0);
 }
 
 /* Pill Guardá la fecha */
@@ -104,14 +130,8 @@ body { overflow-x: hidden; background: #000; }
   transition: transform .2s ease, background .2s ease;
 }
 
-.save:hover{
-  background: #153556;
-  transform: translateY(-1px);
-}
-
-.save:active{
-  transform: translateY(0) scale(0.99);
-}
+.save:hover{ background: #153556; transform: translateY(-1px); }
+.save:active{ transform: translateY(0) scale(0.99); }
 
 /* Marca (arco + nombres) */
 .hero-mark{
@@ -120,12 +140,7 @@ body { overflow-x: hidden; background: #000; }
   margin: 6px auto 0 auto;
 }
 
-.ring{
-  width: 100%;
-  margin: 0 auto;
-  pointer-events: none;
-}
-
+.ring{ width: 100%; margin: 0 auto; pointer-events: none; }
 .ring svg{ width: 100%; height: auto; display: block; }
 
 .ring-text{
@@ -139,7 +154,7 @@ body { overflow-x: hidden; background: #000; }
 .names-block{
   position: absolute;
   left: 50%;
-  top: 58%;
+  top: 46%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
@@ -163,7 +178,6 @@ body { overflow-x: hidden; background: #000; }
   font-family: 'Raleway', sans-serif;
   font-size: clamp(22px, 4vw, 30px);
   font-weight: 300;
-  letter-spacing: 0px;
   opacity: .95;
 }
 
@@ -171,7 +185,7 @@ body { overflow-x: hidden; background: #000; }
 .scroll-indicator{
   position: absolute;
   left: 50%;
-  bottom: 90px;
+  bottom: var(--scroll-bottom);
   z-index: 3;
 
   width: 48px;
@@ -198,35 +212,41 @@ body { overflow-x: hidden; background: #000; }
   50%     { transform: translate(-50%, 8px); opacity: .68; }
 }
 
-/* Contenido por encima del hero */
+/* =========================
+   CONTENT WRAPPER
+========================= */
 .content{
   position: relative;
   z-index: 5;
   margin-top: 100vh;
+  background: #000; /* lo pisan secciones 2+ */
 }
 
-/* Sección 2 */
+/* =========================
+   SECCIÓN 2: COUNTDOWN (común)
+========================= */
 .countdown-section{
   width: 100%;
   background: #0f243a;
   color: #fff;
-  padding: 80px 20px; /* un poco menos que antes */
+  padding: 80px 20px;
   text-align: center;
+  scroll-margin-top: 20px;
 }
 
 .countdown-intro{
   font-size: 16px;
   letter-spacing: 1px;
   opacity: .92;
-  margin-bottom: 22px;
+  margin-bottom: 28px;
+  margin-top: -10px;
 }
 
 .countdown-foot{
-  margin-top: 10px;
+  margin-top: 32px;
   font-size: 14px;
   opacity: .85;
   line-height: 1.6;
-  margin-bottom: -50px;
 }
 
 .date-pill{
@@ -246,6 +266,35 @@ body { overflow-x: hidden; background: #000; }
   backdrop-filter: blur(6px);
 
   margin-bottom: 22px;
+
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.22) inset,
+    0 0 22px rgba(255,255,255,0.18),
+    0 10px 30px rgba(0,0,0,0.18);
+}
+
+.date-pill::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255,255,255,0.22),
+    rgba(255,255,255,0) 60%);
+  filter: blur(10px);
+  opacity: .75;
+  pointer-events:none;
+  animation: glowPill 1.8s ease-in-out infinite;
+}
+
+@keyframes glowPill{
+  0%,100% { opacity: .55; transform: scale(1); }
+  50%     { opacity: .90; transform: scale(1.03); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .date-pill::after{ animation: none; }
 }
 
 .countdown-line{
@@ -265,9 +314,11 @@ body { overflow-x: hidden; background: #000; }
 }
 .sep{ opacity: .7; }
 
-/* Sección 3 (menos espacio con la 2) */
+/* =========================
+   SECCIÓN 3: DETAILS (común)
+========================= */
 .details-section{
-  padding: 80px 20px; /* antes 105 */
+  padding: 80px 20px;
   background: #f6f2ea;
   position: relative;
   overflow: hidden;
@@ -293,19 +344,33 @@ body { overflow-x: hidden; background: #000; }
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 110px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: start;
+  justify-items: center;
+  gap: 28px;
   text-align: center;
   position: relative;
   z-index: 1;
 }
 
+/* Tablet: 2 columnas */
+@media (max-width: 980px){
+  .details-wrap{ grid-template-columns: repeat(2, 1fr); gap: 64px; }
+}
+
+/* Mobile: 1 columna */
+@media (max-width: 800px){
+  .details-wrap{ grid-template-columns: 1fr; gap: 56px; }
+}
+
 .detail-icon{
-  width: 160px;     /* MÁS GRANDE en web */
+  width: 160px;
   height: 160px;
   margin-bottom: 22px;
   margin-top: -50px;
   opacity: 0.95;
+  /*fill: black;*/
+  color: #000000; /* Este color se aplicará */
 }
 
 .detail-item h3{
@@ -323,6 +388,14 @@ body { overflow-x: hidden; background: #000; }
   color: #222;
 }
 
+.detail-foot {
+  margin-top: 32px;
+  font-size: 24px;
+  opacity: .85;
+  line-height: 1.6;
+  justify-items: center;
+}
+
 .detail-link{
   display: inline-block;
   font-size: 12px;
@@ -338,29 +411,74 @@ body { overflow-x: hidden; background: #000; }
   transition: transform .18s ease, filter .18s ease, background .18s ease;
 }
 
-/* ===== Reveal “desde abajo” REUTILIZABLE ===== */
-[data-reveal]{
-  opacity: 0;
-  transform: translate3d(0, 26px, 0);
-  transition: opacity .55s ease, transform .55s ease;
-}
+.detail-link:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
-[data-reveal].is-visible{
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+/* =========================
+   REVEAL (UNA SOLA VEZ, SIN DUPLICADOS)
+========================= */
+.reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible{ opacity:1; transform: translateY(0); }
 
-/* Responsive */
+
+/* =========================
+   RESPONSIVE
+========================= */
 @media(max-width:800px){
   .details-wrap{ grid-template-columns: 1fr; gap: 64px; }
-  .detail-icon{ width: 120px; height: 120px; } /* mobile más grande */
+  .detail-icon{ width: 120px; height: 120px; }
 }
 
-/* Mobile fino */
-@media (max-width: 420px){
-  .hero-mark{ width: min(360px, 92vw); }
-  .ring-text{ font-size: 18px; letter-spacing: 9px; }
-  .names-block{ top: 62%; }
-  #heroText{ transform: translate3d(0, -9vh, 0); } /* todavía más arriba en mobile */
-  .detail-icon{ width: 132px; height: 132px; }    /* MÁS grande aún */
+@media (max-width: 480px){
+  /* ✅ clave: en mobile bajamos el shift para que ENTRE la pill */
+  #heroText{
+    transform: translate3d(0, var(--hero-text-shift-mobile), 0);
+  }
+
+  .hero-content{ padding-top: var(--hero-pad-top); }
+  .ring-text{ font-size: 18px; letter-spacing: 7px; }
+  .names-block{ top: 44%; gap: 10px; }
+  .names{ font-size: clamp(34px, 9vw, 56px); }
+
+  .scroll-indicator{ bottom: var(--scroll-bottom-mobile); }
+}
+
+/* =====================================
+   MICRO-SOMBRA GLOBAL ENTRE SECCIONES
+   (sutil, elegante, mobile-proof)
+===================================== */
+
+/* Todas las secciones pueden proyectar sombra */
+section{
+  position: relative;
+}
+
+/* Micro-sombra SOLO si hay otra sección debajo */
+section + section::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  pointer-events: none;
+
+  /* sombra suave, no degradé visible */
+  box-shadow: 0 -10px 18px rgba(0,0,0,0.18);
+  opacity: 0.18;
+
+  /* evita líneas duras */
+  transform: translateY(-1px);
+}
+
+/* Fuerza la desaparición del botón de música */
+.hidden-music {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Mejora el área de clic de la X en mobile para que no falle */
+.rsvp-modal__close {
+    z-index: 9999 !important;
+    cursor: pointer !important;
 }

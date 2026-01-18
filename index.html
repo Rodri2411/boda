@@ -11,29 +11,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/css/save.css">
-  <link rel="stylesheet" href="/css/full.css">
-  <link rel="stylesheet" href="/css/fiesta.css">
+  <!-- Evita 404 favicon en local -->
+  <link rel="icon" href="data:,">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/save.css">
+  <link rel="stylesheet" href="css/full.css">
+  <link rel="stylesheet" href="css/fiesta.css">
 </head>
 
 <body>
   <!-- Música -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop playsinline>
     <source src="assets/cancion-boda.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Botón Play/Pause (si el autoplay se bloquea, esto lo salva) -->
-  <button class="music-btn" id="musicBtn" aria-label="Reproducir música">
-    ▶
-  </button>
+  <!-- Botón Play/Pause -->
+  <button class="music-btn" id="musicBtn" aria-label="Reproducir música">▶</button>
 
   <div id="app"></div>
 
-  <script src="/config.js"></script>
-  <script src="/js/save.js"></script>
-  <script src="/js/full.js"></script>
-  <script src="/js/fiesta.js"></script>
-  <script src="/script.js"></script>
+  <!-- común -->
+<script src="js/common.js"></script>
+  <!-- JS -->
+  <script src="config.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/full.js"></script>
+  <script src="js/fiesta.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

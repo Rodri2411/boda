@@ -1,4 +1,76 @@
-<section class="fiesta-banner" data-reveal>
-  <h2>Invitación al baile</h2>
-  <p>Este enlace es especial para la fiesta 🎉</p>
+<!-- =========================
+  1) HERO (foto fija + marca + pill + flecha)
+========================= -->
+<section class="hero" id="hero">
+  <img src="assets/20251005_184407.jpg" alt="Agustina y Rodrigo" id="heroImage">
+
+  <div class="hero-content">
+    <div class="stack" id="heroText">
+
+      <!-- CTA principal (pill) -->
+      <a class="save pulse" href="#rsvp" aria-label="Ir a confirmar asistencia">Fiesta • Luna India</a>
+
+      <!-- Marca circular + nombres -->
+      <div class="hero-mark">
+        <div class="ring">
+          <svg viewBox="0 0 300 300">
+            <defs>
+              <path id="arcTop" d="M -60 115 C 60 30 240 30 360 115" />
+            </defs>
+            <text class="ring-text">
+              <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                ¡NOS CASAMOS!
+              </textPath>
+            </text>
+          </svg>
+        </div>
+
+        <div class="names-block">
+          <div class="names">Agustina</div>
+          <div class="names amp">♡</div>
+          <div class="names">Rodrigo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Flecha -->
+  <div class="scroll-indicator" id="scrollIndicator" data-target="#countdown">⌄</div>
+</section>
+
+<section class="details-section" id="details">
+  <div class="details-wrap">
+
+    <!-- ===== FIESTA (EDITABLE) ===== -->
+    <div class="detail-item reveal" id="fiestaCard">
+      <img src="assets/icono-fiesta.svg" alt="Fiesta" class="detail-icon">
+      <h3>FIESTA</h3>
+
+      <!-- EDITÁ ACÁ: fecha / hora / lugar / dirección -->
+      <p>
+        <span id="fiestaFecha">Sábado 3 de Octubre de 2026</span><br>
+        <span id="fiestaHora">18:30 hs</span><br>
+        <strong id="fiestaLugar">Luna India</strong><br>
+        <i id="fiestaDir">Castro Barros S/N, M5513, Maipú, Mendoza</i>
+      </p>
+
+      <!-- EDITÁ ACÁ: link maps -->
+      <a
+        id="fiestaMaps"
+        href="https://maps.app.goo.gl/TzdwhKubkQDngHw57"
+        class="detail-link"
+      >
+        LLEGAR A LA FIESTA
+      </a>
+    </div>
+
+    <!-- ===== DRESS CODE ===== -->
+    <div class="detail-item reveal" id="dresscode">
+      <img src="assets/icono-dresscode.svg" alt="Dress code" class="detail-icon">
+      <h3>CÓDIGO DE VESTIMENTA</h3>
+      <p><strong>Formal Elegante</strong>.</p>
+    </div>
+
+  </div>
 </section>

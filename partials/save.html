@@ -1,16 +1,22 @@
+<!-- =========================
+  HERO (foto + arco + pill)
+========================= -->
 <section class="hero" id="hero">
   <img src="assets/20250201_131658.jpg" alt="Agustina y Rodrigo" id="heroImage">
 
   <div class="hero-content">
     <div class="stack" id="heroText">
 
-      <a class="save" href="#countdown" aria-label="Ir a la cuenta regresiva">Guardá la fecha</a>
+      <!-- PILL: Guardá la fecha -->
+      <a class="save pulse" href="#countdown" aria-label="Ir a la cuenta regresiva">
+        Guardá la fecha
+      </a>
 
+      <!-- Marca central: arco + nombres -->
       <div class="hero-mark">
         <div class="ring">
           <svg viewBox="0 0 300 300" aria-hidden="true">
             <defs>
-              <!-- Arco un poco “más alto” para que no corte si agrandás letra -->
               <path id="arcTop" d="M -60 115 C 60 30 240 30 360 115" />
             </defs>
             <text class="ring-text">
@@ -27,20 +33,26 @@
           <div class="names">Rodrigo</div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <div class="scroll-indicator" id="scrollIndicator">⌄</div>
+  <!-- Flecha -->
+  <div class="scroll-indicator" id="scrollIndicator" data-target="#countdown">⌄</div>
 </section>
 
+<!-- =========================
+  CONTENIDO
+========================= -->
 <main class="content">
 
-  <section class="countdown-section" id="countdown" data-reveal>
-    <p class="countdown-intro">Bienvenidos a nuestra boda</p>
+  <!-- ===== SECCIÓN 2: COUNTDOWN ===== -->
+  <section class="countdown-section" id="countdown">
+    <p class="countdown-intro reveal">Bienvenidos a nuestra boda</p>
 
-    <div class="date-pill">03 de octubre de 2026</div>
+    <div class="date-pill reveal glow">03 de octubre de 2026</div>
 
-    <div class="countdown-line" aria-label="Cuenta regresiva">
+    <div class="countdown-line reveal" aria-label="Cuenta regresiva">
       <span><strong id="d">--</strong> días</span>
       <span class="sep">:</span>
       <span><strong id="h">--</strong> hs</span>
@@ -50,24 +62,23 @@
       <span><strong id="s">--</strong> seg</span>
     </div>
 
-    <p class="countdown-foot"><br>
-        Más cerca del día publicamos toda la información.
+    <p class="countdown-foot reveal">
+      Más cerca del día publicamos toda la información.
     </p>
-
   </section>
 
-
+  <!-- ===== SECCIÓN 3: CEREMONIA / FIESTA ===== -->
   <section class="details-section" id="details">
     <div class="details-wrap">
 
-      <div class="detail-item" data-reveal>
+      <div class="detail-item reveal">
         <img src="assets/icono-ceremonia.svg" alt="Ceremonia" class="detail-icon">
         <h3>CEREMONIA</h3>
         <p>Información a compartir más cerca de la fecha.</p>
         <a href="#countdown" class="detail-link">Ir a la cuenta regresiva</a>
       </div>
 
-      <div class="detail-item" data-reveal>
+      <div class="detail-item reveal">
         <img src="assets/icono-fiesta.svg" alt="Fiesta" class="detail-icon">
         <h3>FIESTA</h3>
         <p>Información a compartir más cerca de la fecha.</p>
@@ -76,3 +87,10 @@
 
     </div>
   </section>
+
+<footer class="site-footer">
+  <p>Diseñado y Creado con ❤️ por Agus & Rodri</p>
+</footer>
+
+</main>
+

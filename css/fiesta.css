@@ -1,16 +1,33 @@
-.mode-fiesta .fiesta-banner{
-  background: #0f243a;
-  color: #fff;
-  padding: 42px 18px;
-  text-align: center;
+/* Aplica SOLO en modo fiesta (?fiesta) */
+.mode-fiesta .hero-pill{
+  /* pill transparente (no “lata”), elegante */
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.32);
+  color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+
+  /* que se sienta clickable */
+  cursor: pointer;
 }
 
-.fiesta-banner h2{
-  letter-spacing: 2px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-.fiesta-banner p{
-  opacity: .9;
+/* Hover sutil (desktop) */
+@media (hover:hover){
+  .mode-fiesta .hero-pill:hover{
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-1px);
+  }
 }
 
+/* Active sutil */
+.mode-fiesta .hero-pill:active{
+  transform: translateY(0) scale(0.99);
+}
+
+/* Desktop: 2 cards (Fiesta + Dresscode) centradas y prolijas */
+@media (min-width: 981px){
+  .mode-fiesta .details-wrap{
+    grid-template-columns: repeat(2, minmax(260px, 420px));
+    justify-content: center;
+    gap: 64px;
+  }
+}

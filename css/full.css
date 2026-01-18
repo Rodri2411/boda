@@ -1,10 +1,523 @@
-.full-subtitle{
-  font-size: 14px;
-  opacity: .9;
+/* =========================
+   FULL.CSS
+   Secciones 4-6 + footer + Modales
+========================= */
+
+/* FULL: solo animación, no layout del hero */
+.save.pulse{
+  animation: pulseSave 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes pulseSave{
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50%     { transform: translate3d(0,-2px,0) scale(1.05); }
+}
+@media (prefers-reduced-motion: reduce){
+  .save.pulse{ animation: none; }
+}
+
+/* =========================
+   COMPONENTES reutilizables
+========================= */
+
+.pill-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition: transform .18s ease, background .18s ease, filter .18s ease;
+}
+.pill-btn:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  background: rgba(255,255,255,0.14);
+}
+
+.pill-btn.dark{
+  background: #b59a6a;
+  color: #fff;
+  border: 1px solid rgba(80,55,20,0.25);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+}
+.pill-btn.dark:hover{ background: #aa8f61; }
+
+.section-title{
+  font-size: clamp(18px, 2.6vw, 26px);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.section-sub{
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: .92;
+  max-width: 720px;
+  text-align: center;
+}
+
+.section-title.dark,
+.section-sub.dark{ color: #111; }
+.section-sub.dark{ opacity: .78; }
+
+/* =========================
+   SECCIÓN 4 — REGALOS
+========================= */
+.gift-section{
+  position: relative;
+  overflow: hidden;
+  padding: 110px 20px;
+  color: rgba(255,255,255,0.96);
+}
+.gift-olive{ background: #4E5B4A; }
+.gift-terracotta{ background: #C06B4E; }
+
+.gift-inner{
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  gap: 16px;
+  place-items: center;
+}
+
+/* =========================
+   SECCIÓN 5 — RSVP (papel)
+========================= */
+.rsvp-section{
+  padding: 110px 20px;
+  background: #f6f2ea;
+  position: relative;
+  overflow: hidden;
+  scroll-margin-top: 20px;
+}
+.rsvp-section::before{
+  content:"";
+  position:absolute;
+  top:-5%;
+  left:-5%;
+  width:110%;
+  height:110%;
+  background-image: url("../assets/paper-texture.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  pointer-events:none;
+  z-index: 0;
+}
+.rsvp-inner{
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  display: grid;
+  gap: 16px;
+  place-items: center;
+}
+
+/* =========================
+   SECCIÓN 6 — GRACIAS (azul)
+========================= */
+.thanks-section{
+  padding: 70px 20px;
+  background: #0f243a;
+  color: #fff;
+  position: relative;
+}
+.thanks-inner{
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+.thanks-text{
+  font-size: clamp(14px, 2vw, 18px);
+  opacity: .92;
   letter-spacing: 1px;
+}
+
+/* Footer */
+.site-footer{
+  background:#0b1a2a;
+  color: rgba(255,255,255,0.75);
+  text-align:center;
+  padding: 22px 14px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Mobile */
+@media (max-width: 480px){
+  .gift-section{ padding: 96px 18px; }
+  .rsvp-section{ padding: 96px 18px; }
+  .thanks-section{ padding: 72px 18px; }
+
+  .pill-btn{
+    width: min(320px, 86vw);
+    padding: 14px 20px;
+  }
+}
+
+/* =========================
+   MODAL — Datos bancarios
+========================= */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+}
+.modal.is-open{ display: block; }
+
+.modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+}
+
+.modal-card{
+  position: relative;
+  z-index: 1;
+  width: min(520px, 92vw);
+  margin: 10vh auto 0 auto;
+  padding: 22px 18px;
+  border-radius: 18px;
+  background: #f6f2ea;
+  color: #111;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.modal-title{
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.modal-sub{
+  text-align: center;
+  opacity: .75;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.modal-close{
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.bank-box{ display: grid; gap: 12px; }
+
+.bank-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.bank-label{
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+.bank-value{
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.copy-btn{
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(80,55,20,0.25);
+  background: #b59a6a;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+}
+.copy-btn:hover{ filter: brightness(1.02); }
+.copy-btn:active{ transform: scale(0.99); }
+
+.copy-hint{
+  text-align: center;
+  font-size: 13px;
+  min-height: 18px;
+  opacity: .8;
+}
+
+@media (max-width: 480px){
+  .modal-card{ margin-top: 12vh; }
+}
+
+/* =========================
+   RSVP MODAL — UI integrada
+========================= */
+.rsvp-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+}
+.rsvp-modal.is-open{ display: block; }
+
+.rsvp-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.rsvp-modal__panel{
+  position: relative;
+  width: min(720px, 92vw);
+  max-height: 86vh;
+  margin: 6vh auto 0 auto;
+  border-radius: 18px;
+  background: #f6f2ea;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.rsvp-modal__close{
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(20,20,20,0.18);
+  background: rgba(255,255,255,0.75);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  z-index: 999 !important;
+  pointer-events: auto !important;
+  position: absolute !important;
+}
+
+.rsvp-modal__header{
+  padding: 22px 22px 12px 22px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.rsvp-modal__title{
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111;
+}
+.rsvp-modal__sub{
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: .75;
+  color: #111;
+}
+
+.rsvp-modal__body{
+  position: relative;
+  padding: 0 18px 18px 18px;
+  overflow: auto;
+  max-height: calc(86vh - 86px);
+  z-index: 1;
+}
+
+/* fondo papel dentro del panel */
+.rsvp-paper{
+  position: relative;
+}
+.rsvp-paper::before{
+  content:"";
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/paper-texture.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* UI form */
+#rsvpFormContainer{
+  position: relative;
+  z-index: 1;
+}
+
+.rsvp-ui{
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+
+.rsvp-field{
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+
+.rsvp-field label{
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .75;
+  color: #111;
+}
+
+.rsvp-field input,
+.rsvp-field select,
+.rsvp-field textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.7);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.rsvp-field input:focus,
+.rsvp-field select:focus,
+.rsvp-field textarea:focus{
+  border-color: rgba(181,154,106,0.65);
+  box-shadow: 0 0 0 3px rgba(181,154,106,0.18);
+}
+
+.rsvp-field--half{
+  width: min(240px, 100%);
+}
+
+.rsvp-actions{
+  display: flex;
+  justify-content: center;
+  width: 100%;
   margin-top: 6px;
 }
-.save{
-  transform: translateY(0);
-  transition: transform 0.1s ease-in-out;
+
+.rsvp-ui__status{
+  min-height: 18px;
+  text-align: center;
+  font-size: 13px;
+  opacity: .8;
+}
+
+/* Gracias full screen - CORREGIDO PARA QUE NO COLAPSE */
+.rsvp-thanks-full {
+  position: relative; /* Cambiado de absolute para que ocupe espacio real */
+  display: none;      /* Se activa por JS */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent; /* Para que se vea el fondo de papel del panel */
+  z-index: 5;
+  padding: 80px 20px;   /* Más aire arriba y abajo */
+  min-height: 450px;    /* ALTURA FIJA para que no se colapse */
+  animation: rsvpFadeIn .45s ease;
+}
+
+@keyframes rsvpFadeIn{
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rsvp-thanks-full__content{
+  position: relative;
+  z-index: 2;
+}
+
+.rsvp-thanks__icon{ font-size: 52px; margin-bottom: 12px; }
+.rsvp-thanks__title{
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #111;
+}
+.rsvp-thanks__text{
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  opacity: .9;
+}
+
+/* Confeti canvas */
+.rsvp-confetti{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .95;
+}
+
+/* Mobile: full-screen prolijo */
+@media (max-width: 480px){
+  .rsvp-modal__panel{
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .rsvp-modal__body{
+    max-height: calc(100vh - 86px);
+    padding: 0 14px 14px 14px;
+  }
+  .rsvp-actions .pill-btn{
+    width: min(320px, 86vw);
+  }
+}
+
+/* Fuerza la desaparición del botón de música */
+.hidden-music {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Mejora el área de clic de la X en mobile para que no falle */
+.rsvp-modal__close {
+    z-index: 9999 !important;
+    cursor: pointer !important;
 }

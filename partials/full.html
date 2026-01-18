@@ -1,4 +1,255 @@
-<section class="fiesta-banner" data-reveal>
-  <h2>Invitación Completa</h2>
-  <p>Este enlace es especial para el casamiento</p>
+<!-- =========================
+  1) HERO (foto fija + marca + pill + flecha)
+========================= -->
+<section class="hero" id="hero">
+  <img src="assets/20250503_180500.jpg" alt="Agustina y Rodrigo" id="heroImage">
+
+  <div class="hero-content">
+    <div class="stack" id="heroText">
+
+      <!-- CTA principal (pill) -->
+      <a class="save pulse" href="#rsvp" aria-label="Ir a confirmar asistencia">Confirmá tu asistencia</a>
+
+      <!-- Marca circular + nombres -->
+      <div class="hero-mark">
+        <div class="ring">
+          <svg viewBox="0 0 300 300">
+            <defs>
+              <path id="arcTop" d="M -60 115 C 60 30 240 30 360 115" />
+            </defs>
+            <text class="ring-text">
+              <textPath href="#arcTop" startOffset="50%" text-anchor="middle">
+                ¡NOS CASAMOS!
+              </textPath>
+            </text>
+          </svg>
+        </div>
+
+        <div class="names-block">
+          <div class="names">Agustina</div>
+          <div class="names amp">♡</div>
+          <div class="names">Rodrigo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Flecha -->
+  <div class="scroll-indicator" id="scrollIndicator" data-target="#countdown">⌄</div>
 </section>
+
+<!-- =========================
+  2) CONTENIDO (secciones 2..6)
+========================= -->
+<main class="content">
+
+  <!-- =========================
+    SECCIÓN 2: COUNTDOWN
+  ========================= -->
+  <section class="countdown-section" id="countdown">
+    <p class="countdown-intro reveal">Bienvenidos a nuestra boda</p>
+
+    <div class="date-pill reveal">03 de octubre de 2026</div>
+
+    <div class="countdown-line reveal">
+      <span><strong id="d">--</strong> días</span>
+      <span class="sep">:</span>
+      <span><strong id="h">--</strong> hs</span>
+      <span class="sep">:</span>
+      <span><strong id="m">--</strong> min</span>
+      <span class="sep">:</span>
+      <span><strong id="s">--</strong> seg</span>
+    </div>
+
+    <p class="countdown-foot reveal">
+      Revisá toda la información para la celebración.
+    </p>
+  </section>
+
+  <!-- =========================
+    SECCIÓN 3: CEREMONIA / FIESTA
+  ========================= -->
+  <section class="details-section" id="details">
+    <div class="details-wrap">
+      <div class="detail-item reveal">
+        <img src="assets/icono-ceremonia.svg" alt="Ceremonia" class="detail-icon">
+        <h3>CEREMONIA</h3>
+        <p>Sábado 3 de Octubre de 2026<br>
+          15:45 hs<br>
+          <strong>Parroquia Asunción de la Virgen</strong> <br>
+          <i>Dorrego 1592, M5519, Guaymallén Mendoza</i>
+        </p>
+        <a href="https://maps.app.goo.gl/j4SaHrbDaGGMTwD78" class="detail-link">LLEGAR A LA CEREMONIA</a>
+      </div>
+
+      <div class="detail-item reveal">
+        <img src="assets/icono-fiesta.svg" alt="Fiesta" class="detail-icon">
+        <h3>FIESTA</h3>
+        <p>Sábado 3 de Octubre de 2026<br>
+          18:00 hs<br>
+          <strong>Luna India</strong><br>
+          <i>Castro Barros S/N, M5513, Maipú, Mendoza</i>
+        </p>
+        <a href="https://maps.app.goo.gl/TzdwhKubkQDngHw57" class="detail-link">LLEGAR A LA FIESTA</a>
+      </div>
+
+      <!-- ===== DRESS CODE ===== -->
+      <div class="detail-item reveal" id="dresscode">
+        <img src="assets/icono-dresscode.svg" alt="Dress code" class="detail-icon">
+        <h3>CÓDIGO DE VESTIMENTA</h3>
+        <p><strong>Formal Elegante</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+    SECCIÓN 4: REGALOS (color sólido)
+  ========================= -->
+  <section class="gift-section gift-olive" id="regalo">
+    <div class="gift-inner reveal">
+      <img src="assets/icono-regalo.svg" alt="Regalo" class="detail-icon">
+      <h2 class="section-title reveal">REGALOS</h2>
+      <p class="section-sub reveal">
+        ¡El mejor regalo es tu presencia! Si deseás colaborar con nuestra Luna de Miel...
+      </p>
+      <button class="pill-btn" id="openGiftModal" type="button">Ver datos bancarios</button>
+    </div>
+  </section>
+
+  <!-- =========================
+    SECCIÓN 5: RSVP (papel)
+  ========================= -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="rsvp-inner">
+      <h2 class="section-title dark reveal">CONFIRMACIÓN DE ASISTENCIA</h2>
+      <p class="section-sub dark reveal">
+        Esperamos que seas parte de esta gran celebración. ¡Confirmá tu asistencia!
+      </p>
+
+      <!-- Botón único (abre modal) -->
+      <a class="pill-btn dark reveal" href="#" id="openRsvpModal">Confirmar asistencia</a>
+    </div>
+  </section>
+
+  <!-- =========================
+    SECCIÓN 6: GRACIAS
+  ========================= -->
+  <section class="thanks-section section-visible-force" id="gracias">
+    <div class="thanks-inner reveal">
+      <p class="thanks-text reveal">¡Gracias por acompañarnos en este momento tan importante!</p>
+    </div>
+  </section>
+
+  <!-- =========================
+    FOOTER
+  ========================= -->
+  <footer class="site-footer reveal">
+    <p>Diseñado y Creado con ❤️ por Agus &amp; Rodri</p>
+  </footer>
+
+  <!-- =========================
+    MODAL: DATOS BANCARIOS
+  ========================= -->
+  <div class="modal" id="giftModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="giftTitle">
+      <button class="modal-close" type="button" aria-label="Cerrar" data-close-modal>×</button>
+
+      <h3 class="modal-title" id="giftTitle">Datos para regalo</h3>
+      <p class="modal-sub">
+        Si querés colaborar con nuestra Luna de Miel 💛<br>
+        Podés hacerlo mediante una transferencia bancaria a la siguiente cuenta<br>
+        <i>Nombre del Titular:</i> <strong>Agustina Paola Roldán &amp; Rodrigo Andrés Saxe</strong><br>
+        <i>DNI:</i> <strong>123456789</strong><br>
+        <i>Banco:</i> <strong>De la plaza</strong><br>
+        <i>CBU:</i> <strong>000000000000000001</strong><br>
+      </p>
+
+      <div class="bank-box">
+        <div class="bank-row">
+          <span class="bank-label">Alias</span>
+          <span class="bank-value" id="aliasValue">AGUSYRODRI.BODA</span>
+        </div>
+
+        <button class="copy-btn" type="button" id="copyAliasBtn" data-copy="#aliasValue">Copiar alias</button>
+
+        <p class="copy-hint" id="copyHint" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+    MODAL RSVP — UI integrada (FULL)
+  ========================= -->
+  <div class="rsvp-modal" id="rsvpModal" aria-hidden="true">
+    <div class="rsvp-modal__backdrop" data-rsvp-close></div>
+
+    <div class="rsvp-modal__panel rsvp-paper" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
+      <button class="rsvp-modal__close" type="button" aria-label="Cerrar" data-rsvp-close>✕</button>
+
+      <div class="rsvp-modal__header">
+        <h3 class="rsvp-modal__title" id="rsvpTitle">Confirmación de asistencia</h3>
+        <p class="rsvp-modal__sub">Completá estos datos y enviamos tu confirmación.</p>
+      </div>
+
+      <div class="rsvp-modal__body">
+        <div id="rsvpFormContainer">
+          <form class="rsvp-ui" id="rsvpUiForm">
+            <div class="rsvp-field">
+              <label for="rsvpNombre">Nombre y apellido</label>
+              <input id="rsvpNombre" name="nombre" type="text" required placeholder="Ej: Juan Pérez" autocomplete="name">
+            </div>
+
+            <div class="rsvp-field">
+              <label for="rsvpAsiste">¿Asistís?</label>
+              <select id="rsvpAsiste" name="asiste" required>
+                <option value="" disabled selected>Elegí una opción</option>
+                <option value="SI">Sí</option>
+                <option value="NO">No</option>
+              </select>
+            </div>
+
+            <div class="rsvp-field rsvp-field--half">
+              <label for="rsvpCantidad">Cantidad</label>
+              <input id="rsvpCantidad" name="cantidad" type="number" min="1" value="1">
+            </div>
+
+            <div class="rsvp-field">
+              <label for="rsvpRestricciones">Restricciones alimentarias (opcional)</label>
+              <input id="rsvpRestricciones" name="restricciones" type="text" placeholder="Ej: celíaco/a, vegetariano/a...">
+            </div>
+
+            <div class="rsvp-field">
+              <label for="rsvpCancion">Canción que no puede faltar (opcional)</label>
+              <input id="rsvpCancion" name="cancion" type="text" placeholder="Esa que levanta muertos 😄">
+            </div>
+
+            <div class="rsvp-field">
+              <label for="rsvpMensaje">Mensaje (opcional)</label>
+              <textarea id="rsvpMensaje" name="mensaje" rows="3" placeholder="Algo que quieras decirnos 💛"></textarea>
+            </div>
+
+            <div class="rsvp-actions">
+              <button class="pill-btn dark" type="submit" id="rsvpSendBtn">Enviar confirmación</button>
+            </div>
+
+            <p class="rsvp-ui__status" id="rsvpUiStatus" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- GRACIAS full screen + confeti -->
+        <div class="rsvp-thanks-full" id="rsvpThanks" hidden>
+          <div class="rsvp-thanks-full__content">
+            <div class="rsvp-thanks__icon">💛</div>
+            <div class="rsvp-thanks__title">¡Gracias!</div>
+            <div class="rsvp-thanks__text">Recibimos tu confirmación. Te esperamos 🥂</div>
+          </div>
+          <canvas id="rsvpConfetti" class="rsvp-confetti" aria-hidden="true"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

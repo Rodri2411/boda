@@ -1,1 +1,16 @@
+/* Pulse sutil premium */
+.save{
+  animation: pulseSave 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes pulseSave{
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50%     { transform: translate3d(0,-2px,0) scale(1.05); }
+}
+
+/* Si el usuario prefiere menos animación */
+@media (prefers-reduced-motion: reduce){
+  .save{ animation: none; }
+}
 
