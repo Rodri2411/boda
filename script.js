@@ -18,6 +18,7 @@
 // - Botón: responde a touchend + click
 // =========================================================
 function setupMusic() {
+  // evita doble init
   if (window.__musicSetupDone) return;
   window.__musicSetupDone = true;
 
@@ -25,121 +26,44 @@ function setupMusic() {
   const btn = document.getElementById("musicBtn");
   if (!music || !btn) return;
 
-  const cfg = window.APP_CONFIG || {};
-  const autoplay = !!cfg.MUSIC_AUTOPLAY;
-  const vol = (typeof cfg.MUSIC_VOLUME === "number") ? cfg.MUSIC_VOLUME : 0.5;
+  music.volume = (window.APP_CONFIG && window.APP_CONFIG.MUSIC_VOLUME != null)
+    ? window.APP_CONFIG.MUSIC_VOLUME
+    : 0.5;
 
-  // Atributos "Safari-friendly"
-  music.setAttribute("playsinline", "");
-  music.setAttribute("webkit-playsinline", "");
-  music.preload = "auto";
-  music.volume = vol;
-
-  let playInFlight = false;
-  let desiredPlaying = autoplay;
-  let unlocked = false;
-
-  function setBtn(playing) {
-    btn.textContent = playing ? "❚❚" : "▶";
+  const setBtn = () => {
+    const playing = !music.paused;
+    btn.textContent = playing ? "⏸" : "▶";
     btn.setAttribute("aria-label", playing ? "Pausar música" : "Reproducir música");
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
-  }
-
-  async function safePlay({ allowMuted } = { allowMuted: false }) {
-    if (playInFlight) return;
-    playInFlight = true;
-
-    try {
-      if (music.readyState === 0) music.load();
-
-      // Si permitimos muted (para intentar autoplay en iOS)
-      if (allowMuted) music.muted = true;
-
-      await music.play();
-      setBtn(true);
-
-      // Si fue muted autoplay, lo dejamos muted hasta el unlock real
-      // (cuando el usuario toque, lo desmuteamos)
-    } catch (e) {
-      setBtn(false);
-      // NO tocamos desiredPlaying: si estaba en true, seguirá intentando al desbloquear
-    } finally {
-      playInFlight = false;
-    }
-  }
-
-  function pauseNow() {
-    try { music.pause(); } catch {}
-    setBtn(false);
-  }
-
-  async function applyState() {
-    if (!desiredPlaying) {
-      pauseNow();
-      return;
-    }
-
-    // Si todavía no hubo "unlock" real y estamos en mobile,
-    // intentamos arrancar muted (iOS lo permite mucho más)
-    if (!unlocked) {
-      await safePlay({ allowMuted: true });
-      return;
-    }
-
-    // Ya desbloqueado: desmutea y play normal
-    music.muted = false;
-    await safePlay({ allowMuted: false });
-  }
-
-  // ---------- UNLOCK REAL (primer gesto) ----------
-  async function unlock() {
-    if (unlocked) return;
-    unlocked = true;
-
-    // Si queríamos música, ahora sí: desmutea + play
-    if (desiredPlaying) {
-      music.muted = false;
-      await safePlay({ allowMuted: false });
-    }
-  }
-
-  // Safari iOS: touchend en el botón es el gesto más confiable
-  const onToggle = async (e) => {
-    // OJO: en iOS, preventDefault a veces mata el gesto.
-    // Así que NO hacemos preventDefault acá.
-    desiredPlaying = !desiredPlaying;
-
-    if (!unlocked) await unlock();
-
-    if (!desiredPlaying) {
-      pauseNow();
-      return;
-    }
-
-    music.muted = false;
-    await safePlay({ allowMuted: false });
   };
 
-  // Botón (lo más importante)
-  btn.addEventListener("touchend", onToggle, { passive: true });
-  btn.addEventListener("click", onToggle);
-
-  // Document unlock (por si el usuario toca en cualquier lado primero)
-  document.addEventListener("touchend", unlock, { once: true, passive: true });
-  document.addEventListener("click", unlock, { once: true });
-  document.addEventListener("keydown", unlock, { once: true });
-
-  // Estado inicial
-  setBtn(false);
-
-  // Autoplay: web puede arrancar con sonido; iOS normalmente no.
-  // Por eso: intentamos muted primero si no está unlocked.
-  if (autoplay) applyState();
-
-  music.addEventListener("ended", () => {
-    desiredPlaying = false;
-    setBtn(false);
+  btn.addEventListener("click", async () => {
+    try {
+      if (music.paused) await music.play();
+      else music.pause();
+    } catch (_) {
+      // iOS puede bloquear si no fue gesto válido
+    }
+    setBtn();
   });
+
+  const tryAuto = async () => {
+    if (!(window.APP_CONFIG && window.APP_CONFIG.MUSIC_AUTOPLAY)) { setBtn(); return; }
+    try { await music.play(); } catch (_) {}
+    setBtn();
+  };
+
+  const unlock = async () => {
+    if (!(window.APP_CONFIG && window.APP_CONFIG.MUSIC_AUTOPLAY)) return;
+    try { await music.play(); } catch (_) {}
+    setBtn();
+  };
+
+  // El primer gesto real
+  document.addEventListener("click", unlock, { once: true });
+  document.addEventListener("touchstart", unlock, { once: true });
+
+  tryAuto();
 }
 
   // =========================================================
@@ -214,50 +138,47 @@ function setupMusic() {
       });
     });
   }
-
-    setupMusic();
-    
+   
   // =========================
   // BOOT
   // =========================
-  (async () => {
-    const app = document.getElementById("app");
-    if (!app) return;
+(async () => {
+  const app = document.getElementById("app");
+  if (!app) return;
 
-    const stage = ((window.APP_CONFIG && window.APP_CONFIG.STAGE) ? window.APP_CONFIG.STAGE : "save").toLowerCase();
-    const stagePath = stage === "full" ? "partials/full.html" : "partials/save.html";
+  const stage = ((window.APP_CONFIG && window.APP_CONFIG.STAGE) ? window.APP_CONFIG.STAGE : "save").toLowerCase();
+  const stagePath = stage === "full" ? "partials/full.html" : "partials/save.html";
 
-    // 1) Cargar SOLO un partial base (save/full)
-    const html = await loadPartial(stagePath);
-    app.innerHTML = html;
+  const html = await loadPartial(stagePath);
+  app.innerHTML = html;
 
-    // 2) Modo fiesta: NO inyectamos otra página. Solo activamos modo y tweak
-    if (isFiesta) {
-      document.documentElement.classList.add("mode-fiesta");
-    }
+  if (isFiesta) {
+    document.documentElement.classList.add("mode-fiesta");
+    // si fiesta inyecta otro partial, hacelo ACÁ (antes de init)
+    // const fiestaHtml = await loadPartial("partials/fiesta.html");
+    // app.insertAdjacentHTML("beforeend", fiestaHtml);
+  }
 
-    // 3) Esperar paint
-    await new Promise(r => requestAnimationFrame(r));
+  await new Promise(r => requestAnimationFrame(r));
 
-    // 4) Init por stage
-    if (stage === "full") window.initFull?.();
-    else window.initSave?.();
+  // init por stage
+  if (stage === "full") window.initFull?.();
+  else window.initSave?.();
+  if (isFiesta) window.initFiesta?.();
 
-    // 5) Fiesta tweaks (si aplica)
-    if (isFiesta) window.initFiesta?.();
+  // ✅ COMUNES (AHORA SÍ EXISTE #musicBtn)
+  setupMusic();
+  setupReveal();
 
-    // 6) Comunes
-    setupReveal();
-
-  })().catch(err => {
-    console.error(err);
-    const app = document.getElementById("app");
-    if (app) {
-      app.innerHTML = `
-        <div style="padding:24px;color:#fff;font-family:Raleway">
-          Error cargando la página 😅<br><br>
-          <small>${String(err.message || err)}</small>
-        </div>`;
-    }
-  });
+})().catch(err => {
+  console.error(err);
+  const app = document.getElementById("app");
+  if (app) {
+    app.innerHTML = `
+      <div style="padding:24px;color:#fff;font-family:Raleway">
+        Error cargando la página 😅<br><br>
+        <small>${String(err.message || err)}</small>
+      </div>`;
+  }
+});
 })();
